@@ -362,6 +362,8 @@ def write_assets(slots: List[dict], evidence: dict, stats: dict, xml_from: str, 
     detail = {
         "meta": {
             "note": "存档 BOSS 段 104 个槽位 ↔ 游戏 BOSS 的对照表。槽位下标 = entities2.xml 的 bossID。",
+            "source": f"游戏本体 resources/packed/{xml_from} → entities2.xml（bossID 属性）+ 官方简体语言包",
+            "license": "随本插件按 MIT 发布（生成物不含第三方数据）",
             "slot_count": SLOT_COUNT,
             "index_rule": "槽位下标 = 实体的 bossID 属性（不是实体 type，也不是 (type, variant) 升序）",
             "entities2_from": xml_from,

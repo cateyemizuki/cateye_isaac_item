@@ -37,7 +37,7 @@ from isaac_save import (  # noqa: E402
 )
 
 DEFAULT_NAMES = Path(__file__).resolve().parent.parent / "assets" / "isaac_save_names.json"
-DEFAULT_ACHIEVEMENTS = Path(__file__).resolve().parent.parent / "assets" / "isaac_achievements_zh.json"
+DEFAULT_ACHIEVEMENTS = Path(__file__).resolve().parent.parent / "assets" / "isaac_achievements.json"
 
 TRACK_LABELS = {
     "achievements": "成就",
@@ -137,3 +137,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

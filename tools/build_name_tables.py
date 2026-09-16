@@ -1,29 +1,30 @@
 #!/usr/bin/env python
-"""生成成就 / 挑战的中文名称表。
+"""生成 / 合并存档用的中文名称表（成就、挑战、小 BOSS）。
 
-与 ``extract_game_strings.py`` 不同：成就与挑战的名称**不在游戏的语言包里**
-（游戏把它们放在 resources 的 achievements.xml / challenges.xml，未做本地化），
-所以这两张表只能取自第三方整理，来源与许可见每个文件内的 ``meta`` 字段。
+许可说明（重要）
+----------------
+* **成就**：来自 ``assets/isaac_achievements.json`` —— 由 ``tools/build_achievement_table.py``
+  从**玩家自装游戏**的 ``achievements.xml`` 与官方简体语言包生成，**不含任何第三方数据**。
+  早期版本这里读的是第三方 GPL-3.0 中文整理（aprisyourlie/IsaacAchievementGuide），
+  会与插件的 MIT 许可冲突，已彻底移除。
+* **挑战**：``_CHALLENGES`` 取自灰机 wiki「挑战」页面（通常 CC BY-NC-SA 系），
+  与插件的道具图鉴数据同属一类，**代码仍是 MIT，数据许可见文件内 ``meta``**。
+  游戏本体只有英文挑战名（``challenges.xml``），没有中文，故这里沿用 wiki 译名。
+* **小 BOSS**：取游戏语言包的 Minibosses 分类（七宗罪，第 0 位即懒惰）。
 
 用法::
 
-    python tools/build_name_tables.py --src <第三方数据目录> --out assets
-
-``--src`` 目录需包含:
-    achievements-reference-zh.js   1–637 号成就（中文）
-    achievements-zh.js             638–641 号成就补录
-
-挑战表直接内置在 ``_CHALLENGES``，取自灰机 wiki 的「挑战」页面。
+    python tools/build_achievement_table.py --game <游戏目录>     # 先生成成就表
+    python tools/build_name_tables.py --out assets               # 再合并名称表
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 # 灰机 wiki「挑战」页面（https://isaac.huijiwiki.com/wiki/挑战）的 45 个挑战名称。
 # 第 45 号在游戏里本就没有名称，wiki 亦如此标注。
@@ -39,194 +40,47 @@ _CHALLENGES: Dict[str, str] = {
     "41": "异食游戏", "42": "烫手山芋", "43": "大量过牌！", "44": "赤键救赎", "45": "",
 }
 
-_ACHIEVEMENT_SOURCE = "https://github.com/aprisyourlie/IsaacAchievementGuide"
-_ACHIEVEMENT_LICENSE = "GPL-3.0（该仓库为与 Zamiell/isaac-save-viewer 保持一致而采用 GPL-3.0）"
 _CHALLENGE_SOURCE = "https://isaac.huijiwiki.com/wiki/%E6%8C%91%E6%88%98"
 _CHALLENGE_LICENSE = "灰机 wiki 内容通常为 CC BY-NC-SA 系许可，商用前需自行确认"
 
-
-def _extract_object(text: str, marker: str) -> Dict[str, Any]:
-    """从 JS 文本里取出 marker 之后的那个对象字面量并解析为 dict。"""
-    idx = text.find(marker)
-    if idx < 0:
-        raise ValueError(f"未找到标记 {marker!r}")
-    start = text.find("{", idx)
-    if start < 0:
-        raise ValueError(f"{marker!r} 后没有对象字面量")
-
-    depth = 0
-    quote: str = ""          # 当前所处的字符串定界符（'' 表示不在字符串里）
-    escaped = False
-    for i in range(start, len(text)):
-        ch = text[i]
-        if quote:
-            if escaped:
-                escaped = False
-            elif ch == "\\":
-                escaped = True
-            elif ch == quote:
-                quote = ""
-            continue
-        if ch in ("'", '"'):
-            quote = ch
-        elif ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                raw = text[start:i + 1]
-                break
-    else:
-        raise ValueError("对象字面量未闭合")
-
-    return json.loads(_js_object_to_json(raw))
+PLUGIN_DIR = Path(__file__).resolve().parent.parent
 
 
-def _js_object_to_json(text: str) -> str:
-    """把 JS 对象字面量转成合法 JSON。
+def _load_achievements(out: Path) -> Dict[str, Any]:
+    """读入由游戏本体生成的成就表（``tools/build_achievement_table.py`` 的产物）。"""
 
-    第三方文件混用多种写法，不能直接做字符替换：
-      * ``achievements-reference-zh.js`` 用双引号，但把撇号写成 ``\\'``（JS 合法、JSON 非法）；
-      * ``achievements-zh.js`` 用单引号，键名不加引号（``638:``、``title:``）。
-
-    做法：先把所有字符串抽出来换成占位符，在剩下的「结构部分」补键名引号，
-    最后再把字符串填回去——这样字符串内容不会被误改。
-    """
-    strings: List[str] = []
-
-    def _keep(s: str) -> str:
-        strings.append(s)
-        return f"\x00{len(strings) - 1}\x00"
-
-    out: List[str] = []
-    i = 0
-    n = len(text)
-    while i < n:
-        ch = text[i]
-
-        if ch in ("'", '"'):              # 字符串：解析出内容后存起来
-            delim = ch
-            i += 1
-            buf: List[str] = []
-            while i < n:
-                c = text[i]
-                if c == "\\" and i + 1 < n:
-                    nxt = text[i + 1]
-                    if nxt == delim:
-                        buf.append(delim)
-                    elif nxt == "\\":
-                        buf.append("\\")
-                    elif nxt == "n":
-                        buf.append("\n")
-                    elif nxt == '"':
-                        buf.append('"')
-                    else:
-                        buf.append(nxt)
-                    i += 2
-                    continue
-                if c == delim:
-                    i += 1
-                    break
-                buf.append(c)
-                i += 1
-            out.append(_keep(json.dumps("".join(buf), ensure_ascii=False)))
-            continue
-
-        out.append(ch)
-        i += 1
-
-    structural = "".join(out)
-    # 去掉尾随逗号（JS 允许、JSON 不允许）；此时字符串已变成占位符，不会误伤
-    structural = re.sub(r",(\s*[}\]])", r"\1", structural)
-    # 给裸键名补引号：数字键、标识符键（此时字符串已全部变成占位符）
-    structural = re.sub(
-        r'([{,]\s*)(\d+|[A-Za-z_$][A-Za-z0-9_$]*)(\s*:)', r'\1"\2"\3', structural
-    )
-    # 占位符还原（占位符形如 \x00N\x00，补引号时可能被当成键名，这里一并还原）
-    return re.sub(
-        r'"\x00(\d+)\x00"|"\x00(\d+)\x00|\x00(\d+)\x00',
-        lambda m: strings[int(next(g for g in m.groups() if g is not None))],
-        structural,
-    )
-
-
-def _load_achievements(src: Path) -> Dict[str, Any]:
-    ref = src / "achievements-reference-zh.js"
-    extra_file = src / "achievements-zh.js"
-    if not ref.exists():
-        raise FileNotFoundError(f"缺少 {ref}")
-
-    main = _extract_object(ref.read_text(encoding="utf-8"), "ISAAC_REFERENCE_ZH")
-    extra: Dict[str, Any] = {}
-    if extra_file.exists():
-        extra = _extract_object(extra_file.read_text(encoding="utf-8"), "const extra")
-
+    source = out / "isaac_achievements.json"
+    if not source.is_file():
+        raise FileNotFoundError(
+            f"缺少 {source}：请先运行 "
+            f"`python tools/build_achievement_table.py --game <游戏目录>` 生成（只读游戏本体，无需联网）"
+        )
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    entries = payload.get("entries") or {}
     merged: Dict[str, Any] = {}
-    for aid, row in {**main, **extra}.items():
-        title = (row.get("title") or "").strip()
-        if not title:
+    for key, row in entries.items():
+        if not isinstance(row, dict):
             continue
-        merged[str(aid)] = {
-            "name": title,
-            "en": (row.get("en") or "").strip(),
-            "cond": (row.get("cond") or "").strip(),
-            "reward": (row.get("reward") or "").strip(),
-            "type": (row.get("type") or "").strip(),
+        name = str(row.get("name") or "").strip()
+        if not name:
+            continue
+        merged[str(key)] = {
+            "name": name,
+            "en": str(row.get("en") or "").strip(),
+            "cond": str(row.get("cond") or "").strip(),
+            "reward": str(row.get("reward") or "").strip(),
+            "type": "",
         }
     return merged
-
-
-def _write(path: Path, meta: Dict[str, Any], entries: Dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"meta": {**meta, "count": len(entries)}, "entries": entries}
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
-    print(f"已写入 {path}（{len(entries)} 条）")
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser(description="生成成就 / 挑战中文名称表")
-    parser.add_argument("--src", required=True, help="含第三方 js 数据文件的目录")
-    parser.add_argument("--out", default="assets", help="输出目录")
-    args = parser.parse_args()
-
-    out = Path(args.out)
-
-    achievements = _load_achievements(Path(args.src))
-    _write(
-        out / "isaac_achievements_zh.json",
-        {
-            "source": _ACHIEVEMENT_SOURCE,
-            "license": _ACHIEVEMENT_LICENSE,
-            "note": "成就名与解锁条件为第三方中文整理，非游戏本体自带；游戏语言包内不含成就文本。",
-            "ids": "1–637 为忏悔成就，638–641 为忏悔+新增",
-        },
-        achievements,
-    )
-
-    _write(
-        out / "isaac_challenges_zh.json",
-        {
-            "source": _CHALLENGE_SOURCE,
-            "license": _CHALLENGE_LICENSE,
-            "note": "第 45 号挑战在游戏内即无名称（Steam 成就名为 DELETE THIS），此处留空。",
-        },
-        {k: {"name": v} for k, v in _CHALLENGES.items()},
-    )
-
-    _fill_save_names(out, achievements)
-    return 0
 
 
 def _fill_save_names(out: Path, achievements: Dict[str, Any]) -> None:
     """把已确认的名称合并进 ``isaac_save_names.json``（插件读取的编号→名称表）。
 
     该文件同时可能被手工编辑，所以**保留原有 meta 与未知分组**，只覆盖有数据的部分。
-    ``bosses`` 留空：存档里 104 个 BOSS 槽位用的是游戏内部的 BOSS id 顺序，
-    该顺序没有可靠的公开对照表，故不猜测；``minibosses`` 段固定 7 项 = 七宗罪，
-    名称取自游戏语言包的 Minibosses 分类（顺序即该分类顺序，第 0 位为懒惰）。
+    ``bosses`` 段由 ``tools/build_boss_table.py`` 生成，这里只保留、不重建。
     """
+
     target = out / "isaac_save_names.json"
     existing: Dict[str, Any] = {}
     if target.exists():
@@ -237,7 +91,7 @@ def _fill_save_names(out: Path, achievements: Dict[str, Any]) -> None:
 
     payload: Dict[str, Any] = {
         "meta": existing.get("meta") or {
-            "note": "成就 / BOSS / 小 BOSS / 挑战的「编号 → 中文名」对照表。",
+            "note": "成就 / 道具 / BOSS / 小 BOSS / 挑战的「编号 → 中文名」对照表。",
         },
         "achievements": {k: v["name"] for k, v in achievements.items()},
         "bosses": existing.get("bosses") or {},
@@ -246,10 +100,10 @@ def _fill_save_names(out: Path, achievements: Dict[str, Any]) -> None:
     }
     meta = payload["meta"]
     meta["source"] = (
-        "成就 / 挑战取自第三方中文整理（见 isaac_achievements_zh.json、isaac_challenges_zh.json 的 meta）；"
-        "小 BOSS 与 BOSS 名称取自游戏本体语言包（repentance_zh.a → isaac_minibosses_zh.json、"
-        "isaac_entities_zh.json），非第三方整理；BOSS 段 104 个槽位的下标取自游戏本体 entities2.xml 的 "
-        "bossID 属性，由 tools/build_boss_table.py 生成（本脚本只保留其 bosses 段，不重建）"
+        "成就名称取自游戏本体 achievements.xml + 官方简体语言包（tools/build_achievement_table.py 生成，无第三方数据）；"
+        "BOSS 与小 BOSS 名称取自游戏本体语言包（isaac_entities_zh.json、isaac_minibosses_zh.json），"
+        "BOSS 段 104 个槽位的下标取自游戏本体 entities2.xml 的 bossID 属性（tools/build_boss_table.py）；"
+        "挑战名为灰机 wiki「挑战」页面整理（通常 CC BY-NC-SA 系，与本插件道具图鉴数据同类，代码仍为 MIT）"
     )
     meta.setdefault("reviewed", False)
 
@@ -287,6 +141,41 @@ def _load_minibosses(out: Path) -> Dict[str, str]:
         if len(sins) == 7:
             break
     return sins
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="生成 / 合并存档用的中文名称表")
+    parser.add_argument("--out", default=str(PLUGIN_DIR / "assets"), help="assets 目录")
+    args = parser.parse_args(argv)
+
+    out = Path(args.out)
+    achievements = _load_achievements(out)
+    print(f"读入游戏本体成就表 {len(achievements)} 条")
+
+    (out / "isaac_challenges_zh.json").write_text(
+        json.dumps(
+            {
+                "meta": {
+                    "source": _CHALLENGE_SOURCE,
+                    "license": _CHALLENGE_LICENSE,
+                    "note": (
+                        "第 45 号挑战在游戏内即无名称（Steam 成就名为 DELETE THIS），此处留空。"
+                        "游戏本体 challenges.xml 只有英文名，中文名为 wiki 整理。"
+                    ),
+                    "count": len(_CHALLENGES),
+                },
+                "entries": {k: {"name": v} for k, v in _CHALLENGES.items()},
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(f"已写入 {out / 'isaac_challenges_zh.json'}")
+
+    _fill_save_names(out, achievements)
+    return 0
 
 
 if __name__ == "__main__":

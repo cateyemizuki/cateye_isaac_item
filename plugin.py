@@ -23,7 +23,7 @@ import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, ClassVar, Dict, List, Optional, Tuple
+from typing import Any, ClassVar, Dict, List, Optional, Sequence, Tuple
 
 from maibot_sdk import Command, Field, MaiBotPlugin, PluginConfigBase, Tool
 from maibot_sdk.types import CONFIG_RELOAD_SCOPE_SELF, ToolParameterInfo, ToolParamType
@@ -97,12 +97,12 @@ except ImportError:  # pragma: no cover
         def using_bundled_font() -> bool:  # type: ignore[misc]
             return False
 
-SUPPORTED_CONFIG_VERSION = "0.2.3"
+SUPPORTED_CONFIG_VERSION = "0.2.4"
 
 _PLUGIN_DIR = Path(__file__).resolve().parent
 _DEFAULT_DATA_FILE = _PLUGIN_DIR / "assets" / "isaac_items.json"
 _DEFAULT_SAVE_NAMES_FILE = _PLUGIN_DIR / "assets" / "isaac_save_names.json"
-_DEFAULT_ACHIEVEMENT_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements_zh.json"
+_DEFAULT_ACHIEVEMENT_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements.json"
 _FORWARD_NICKNAME = "以撒图鉴"
 _SAVE_FORWARD_NICKNAME = "以撒存档解析"
 
@@ -213,8 +213,15 @@ class DisplaySectionConfig(PluginConfigBase):
         description="效果疑似被表格截断（且本地没有补录）时，是否附上灰机 wiki 页面链接",
     )
     forward_threshold: int = Field(
-        default=1000,
-        description="整条回复超过该字数时改用合并转发发送，避免刷屏；0 表示始终用普通文本",
+        default=400,
+        description="整条回复超过该字数时改用合并转发发送，避免刷屏；0 表示不按字数判断",
+    )
+    forward_max_lines: int = Field(
+        default=12,
+        description=(
+            "整条回复超过这么多行时也改用合并转发发送（帮助、长效果这类内容字数不多但行数很多）；"
+            "0 表示不按行数判断。字数为 0 且行数为 0 时始终用普通文本"
+        ),
     )
 
 
@@ -280,7 +287,11 @@ class SaveSectionConfig(PluginConfigBase):
     )
     achievement_table_file: str = Field(
         default="",
-        description="成就详情表路径（含解锁条件；留空使用内置 assets/isaac_achievements_zh.json）",
+        description=(
+            "成就详情表路径（含解锁条件；留空使用内置 assets/isaac_achievements.json，"
+            "内容由游戏本体的 achievements.xml + 官方语言包生成）。"
+            "如果你想换成自备的中文成就表，把路径指过去即可（该文件的许可由你自行确认）"
+        ),
     )
 
 
@@ -1000,11 +1011,25 @@ class IsaacItemPlugin(MaiBotPlugin):
     # 发送
     # ------------------------------------------------------------------
 
+    def _needs_forward(self, text: str) -> bool:
+        """判断一条回复该不该改用合并转发（字数超限或行数超限，两者都可配置为 0 关闭）。"""
+
+        if not text:
+            return False
+        threshold = max(int(self.config.display.forward_threshold), 0)
+        if threshold and len(text) > threshold:
+            return True
+        max_lines = max(int(self.config.display.forward_max_lines), 0)
+        if max_lines and (text.count("\n") + 1) > max_lines:
+            return True
+        return False
+
     async def _send_reply(self, stream_id: str, text: str, forward_text: str = "") -> None:
         """发送回复。
 
-        正文按长度选择普通文本或合并转发；``forward_text`` 非空时（协同条数超过内联上限）
-        随后用合并转发补发完整协同，合并转发不可用时回退为普通文本。
+        正文按「字数 / 行数」决定普通文本还是合并转发；``forward_text`` 非空时（协同条数超过内联上限）
+        需要额外发一条完整协同——若正文本身也要转发，两者合成**同一条**合并转发（少一条消息、
+        也少一次刷屏）。合并转发不可用时逐段回退为普通文本。
         """
 
         if not stream_id:
@@ -1012,29 +1037,47 @@ class IsaacItemPlugin(MaiBotPlugin):
                 self.ctx.logger.warning("缺少 stream_id，无法发送回复")
             return
 
+        if text and self._needs_forward(text):
+            parts = [text] + ([forward_text] if forward_text else [])
+            if await self._send_forward_many(stream_id, parts):
+                return
+            for part in parts:
+                await self._send_text_chunked(stream_id, part)
+            return
+
         if text:
-            threshold = max(int(self.config.display.forward_threshold), 0)
-            sent = False
-            if threshold and len(text) > threshold:
-                sent = await self._send_forward(stream_id, text)
-            if not sent:
-                await self.ctx.send.text(text, stream_id)
+            await self.ctx.send.text(text, stream_id)
 
         if forward_text:
             if not await self._send_forward(stream_id, forward_text):
-                await self.ctx.send.text(forward_text, stream_id)
+                await self._send_text_chunked(stream_id, forward_text)
 
     async def _send_forward(self, stream_id: str, text: str, *, nickname: str = _FORWARD_NICKNAME) -> bool:
         """长内容用单条合并转发发送，失败返回 False 交由调用方回退。"""
 
+        return await self._send_forward_many(stream_id, [text], nickname=nickname)
+
+    async def _send_forward_many(
+        self,
+        stream_id: str,
+        texts: Sequence[str],
+        *,
+        nickname: str = _FORWARD_NICKNAME,
+    ) -> bool:
+        """把若干段文本合并成一条合并转发（每段一个节点），失败返回 False。"""
+
+        payload = [str(item) for item in texts if str(item).strip()]
+        if not payload:
+            return True
         try:
             await self.ctx.send.forward(
                 [
                     {
                         "user_id": "0",
                         "nickname": nickname,
-                        "segments": [{"type": "text", "content": text}],
+                        "segments": [{"type": "text", "content": item}],
                     }
+                    for item in payload
                 ],
                 stream_id,
             )

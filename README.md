@@ -27,7 +27,12 @@
   Pillow 不可用时才退化为文字摘要。
   版式是瘦高型：宽度由 `save.image_width` 控制（默认 700 CSS 像素，统计卡按宽度自动 4/3/2 列，
   末行不满时居中），倍率由 `save.image_scale` 控制（默认 1.4，默认输出约 980×1645）。
-- **不刷屏**：详细内容一律用合并转发发送；解析图单独一条消息。
+- **不刷屏**：一条回复**字数超过 `forward_threshold`（默认 400）或行数超过 `forward_max_lines`
+  （默认 12）**时改用合并转发发送——帮助、候选列表、长效果条目都会自动变成一条聊天记录，
+  聊天窗里只占一条；需要同时发完整协同的详情（如 `/以撒 硫磺火`）会把正文与协同**合并成同一条转发**，
+  而不是「一条正文 + 一条转发」。短回复（如 `/以撒 血袋`）仍是普通文本。
+  合并转发不可用时逐段回退为普通文本（超长时按 1200 字切块），不会因为发不出去就丢内容；
+  解析图单独一条消息。
 - **离线可用**：图鉴数据与渲染字体都随插件打包，无网络依赖；除渲染用的 Pillow 外不需要第三方包。
 
 
@@ -117,7 +122,9 @@ WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节：
   `max_synergies_in_tool`（LLM 工具返回时最多列出的协同条数，默认 20；工具发不了转发，只能截断并注明条数）、
   `max_effect_chars`（效果正文截断字数，0 = 不截断）、
   `show_wiki_link`（效果疑似被表格截断且本地未补录时，是否附上灰机 wiki 页面链接，默认开启）、
-  `forward_threshold`（超过多少字改用合并转发，默认 1000，0 = 始终普通文本）。
+  `forward_threshold`（回复超过多少**字**改用合并转发，默认 400，0 = 不按字数判断）、
+  `forward_max_lines`（回复超过多少**行**也改用合并转发，默认 12，0 = 不按行数判断；
+  两者都为 0 时始终用普通文本。行数阈值专治「字数不多但行数很多」的帮助 / 长效果内容）。
 - `[data]`：`data_file`（自定义数据文件路径，留空用内置数据）、`show_source_in_help`。
 - `[save]`：存档解析相关——
   `enabled`（是否启用 `/以撒存档` 系列）、`auto_analyze_after_bind`（绑定后是否立刻返回解析结果，默认开启）、
@@ -134,7 +141,8 @@ WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节：
   `allow_private_url`（是否允许从内网 / 回环地址下载，默认关闭）、
   `lookup_group_files`（消息里没有直链时是否去群文件列表里找，默认开启）、
   `name_table_file`（成就 / BOSS / 挑战中文名称表路径，留空用内置 `assets/isaac_save_names.json`）、
-  `achievement_table_file`（成就详情表路径，含解锁条件，留空用内置 `assets/isaac_achievements_zh.json`）。
+  `achievement_table_file`（成就详情表路径，含解锁条件，留空用内置 `assets/isaac_achievements.json`；
+  该文件由**游戏本体**的 `achievements.xml` + 官方语言包生成，不含第三方数据——想换成自备的中文成就表时把路径指过去即可）。
 
 > 解析图**不需要**宿主开启浏览器渲染（`[plugin_runtime.render]`）：插件自己用 Pillow 画，
 > 字体也从 `assets/fonts/` 里取，因此在没有中文字体、也没有浏览器的环境（例如精简的 Linux 容器）里照样出图。
@@ -171,15 +179,18 @@ python tools/build_name_tables.py --src <第三方数据目录>
 其中 `repentance_zh.a` 是官方简体中文语言包，内含 14 个分类的官方译名
 （怪物、小 BOSS、道具、角色、关卡、诅咒……），解密后直接取用。
 
-第 2 步需要先自行准备两份第三方数据文件（见下方「许可说明」）：
-`achievements-reference-zh.js`（1–637 号成就）与 `achievements-zh.js`（638–641 号补录），
-来自 [aprisyourlie/IsaacAchievementGuide](https://github.com/aprisyourlie/IsaacAchievementGuide)。
-挑战名内置在脚本里（取自灰机 wiki 的「挑战」页面）。
+第 2 步同样**只用游戏本体**：成就来自 `afterbirthp.a` 里的 `achievements.xml`
+（641 条，含编号、游戏内弹窗文案、解锁条件注释），用
+`tools/build_achievement_table.py` 生成 `assets/isaac_achievements.json`；
+挑战名（45 条）与第 3 步的道具图鉴一样取自灰机 wiki，内置于 `tools/build_name_tables.py`。
 
-> **BOSS 名表尚未填充**：存档里 103 个 BOSS 槽位用的是游戏内部的 BossID 顺序，
-> 该顺序既不在游戏自带的 `resources/scripts/enums.lua` 里（那里只有 `EntityType`，
-> 且 boss 标注只有 13 条），也没有可靠的公开来源，所以**不猜测、留空**。
-> 需要时按下方「已知限制」的办法实测确认后再手工填入。
+> **成就与挑战没有中文的官方版本**：游戏本体只提供英文（`achievements.xml` 的弹窗文案与条件注释、
+> `challenges.xml` 的英文挑战名）。因此成就中文名只在语言包里能查到相同译名时才给出
+> （641 条里 539 条，84%），其余**退回游戏英文标题**；解锁条件是**游戏内的英文原文**，
+> 插件会注明这一点。想要中文解锁条件的话，用 `save.achievement_table_file` 指向自备的成就表即可
+> （该文件的来源与许可由你自行确认）。
+> **BOSS 名表已填充**：存档里 104 个 BOSS 槽位用的下标就是游戏 `entities2.xml` 的 `bossID` 属性，
+> 由 `tools/build_boss_table.py` 生成（见「已知限制」8 与可行性评估附录 B）。
 
 ## 已知限制
 
@@ -218,7 +229,7 @@ python tools/build_name_tables.py --src <第三方数据目录>
 
    | 分组 | 状态 | 编号范围 | 说明 |
    |---|---|---|---|
-   | `achievements` | ✅ 641 条 | 1–641 | 含中文名、解锁条件与奖励（另存 `isaac_achievements_zh.json`） |
+   | `achievements` | ✅ 641 条 | 1–641 | 由游戏本体的 `achievements.xml` + 官方语言包生成（另存 `isaac_achievements.json`，84% 有官方中文名，其余退回游戏英文标题，解锁条件是游戏内英文原文） |
    | `challenges` | ✅ 44 条 | 1–44 | 第 45 号在游戏内本就无名称，留空 |
    | `minibosses` | ✅ 7 条 | **0–6** | 该段固定 7 项 = 七宗罪，**第 0 位就是懒惰**（官方格式说明 + 实测），名称取自游戏语言包 |
    | `bosses` | ✅ 100 条具名 + 4 条说明 | **0–103** | 下标 = 游戏 `entities2.xml` 的 `bossID` 属性；名称取自游戏本体语言包。用 `python tools/build_boss_table.py` 重新生成（会自行核对本机全部历史存档，验证不过就拒绝写入） |
@@ -279,9 +290,11 @@ python tools/build_name_tables.py --src <第三方数据目录>
 |---|---|
 | `tools/build_data.py` | 从上游重建 `assets/isaac_items.json` |
 | `tools/extract_game_strings.py` | 从游戏语言包提取官方中文译名 |
-| `tools/build_name_tables.py` | 生成成就 / 挑战 / 小 BOSS 名称表 |
-| `tools/archive_reader.py` | **读取游戏 `.a` 资源归档**（只读）：解出 `entities2.xml` 等原始资源 |
+| `tools/build_name_tables.py` | 生成成就 / 挑战 / 小 BOSS 名称表（成就来自上一条的产物） |
+| `tools/build_achievement_table.py` | 从游戏本体 `achievements.xml` + 语言包生成成就表（无第三方数据） |
+| `tools/archive_reader.py` | **读取游戏 `.a` 资源归档**（只读）：解出 `entities2.xml`、`achievements.xml` 等原始资源 |
 | `tools/build_boss_table.py` | 由 `entities2.xml` 的 `bossID` 生成 BOSS 段 104 槽位的名表（自带验证，不过不写） |
+| `tools/check_licenses.py` | **许可合规审计**：扫描 GPL 等传染性许可标记、核对自称 MIT 的一致性、登记每个数据文件来源 |
 | `tools/diff_saves.py` | **对比两份存档**（只读）：确认计数器口径、反推 BOSS 编号 |
 | `tools/build_fonts.py` | 生成内置渲染字体（Noto Sans SC 子集，SIL OFL 1.1） |
 
@@ -333,22 +346,23 @@ python -c "from isaac_save import *; raw=open('rep+persistentgamedata1.dat','rb'
   （Google / Noto 项目，**SIL Open Font License 1.1**）：插件内置的是按实际字符集裁剪的子集
   （GB2312 一级常用字 + 插件数据用到的全部汉字 + ASCII 与常用标点），
   由 [tools/build_fonts.py](tools/build_fonts.py) 生成，许可全文见 `assets/fonts/OFL.txt`。
-- **成就中文名（1–641）** —— [aprisyourlie/IsaacAchievementGuide](https://github.com/aprisyourlie/IsaacAchievementGuide)。
+- **成就名与解锁条件（1–641）** —— **游戏本体**：`afterbirthp.a` 里的 `achievements.xml`
+  （编号、弹窗文案、条件注释）由 [tools/build_achievement_table.py](tools/build_achievement_table.py)
+  生成，中文名取自游戏官方简体语言包（能查到同名译名才用）。
 - **挑战中文名（1–45）** —— 以撒的结合中文 Wiki（灰机 wiki）的「挑战」页面。
 
 ### 许可说明
 
-- 本插件的**代码**以 [MIT](LICENSE) 许可发布。
-- 内置的**道具图鉴数据**来自灰机 wiki（社区 wiki 内容通常采用 **CC BY-NC-SA** 系许可），
-  上游仓库**未声明 LICENSE**；字段可信度差异见上文「已知限制」，插件会如实标注
-  「数据源未提供」，不编造内容。
-- **存档相关的中文名称表许可情况不同，需分开看**：
-  - `isaac_entities_zh.json`、`isaac_minibosses_zh.json`、`isaac_items_zh_names.json`、
-    `isaac_players_zh.json`、`isaac_stages_zh.json`、`isaac_curses_zh.json`
-    —— 来自**游戏本体**的官方语言包，提取的是玩家自己已购买游戏内的数据。
-  - `isaac_achievements_zh.json`（成就名）来源项目采用 **GPL-3.0**；
-    `isaac_challenges_zh.json`（挑战名）来自灰机 wiki（CC BY-NC-SA 系）。
-    **这两份是第三方整理内容，与插件代码的 MIT 许可不兼容**：若要商业使用或再分发这两份数据，
-    请先自行取得授权，或按上文步骤改用自己整理的数据替换。
+- 本插件的**代码与全部数据文件都以 [MIT](LICENSE) 发布**，产物中**不含任何 GPL 内容**。
+  早期版本曾内置一份 GPL-3.0 的第三方中文成就表（aprisyourlie/IsaacAchievementGuide），
+  **已彻底移除**并改为从游戏本体生成；`tools/check_licenses.py` 会在产物里扫描
+  传染性许可标记，自检里也有对应的防回归断言。
+- 数据来源分三类，逐文件清单见 `tools/check_licenses.py` 的 `SOURCE_LICENSE_MAP`：
+  - **玩家自装游戏数据**（`isaac_*_zh.json`、`isaac_achievements.json`、`isaac_boss_slots.json`）：
+    官方简体语言包、`achievements.xml`、`entities2.xml` —— 提取的是玩家自己已购买游戏内的数据。
+  - **灰机 wiki 内容**（`isaac_items.json`、`isaac_extra.json`、`isaac_challenges_zh.json`）：
+    社区 wiki 通常采用 **CC BY-NC-SA** 系许可，上游仓库未声明 LICENSE。这类内容是**数据**，
+    与代码的 MIT 许可分开：**非商业使用并署名**，商业使用需自行确认授权。
+  - **字体**：Noto Sans SC 子集（**SIL OFL 1.1**），许可全文见 `assets/fonts/OFL.txt`。
 - 因此本插件**仅随 MaiBot 插件市场发布、用于非商业用途**。如需商业使用或再分发
-  内置数据，请先自行向灰机 wiki 与上游项目确认授权。
+  内置的 wiki 数据，请先自行向灰机 wiki 确认授权（游戏本体数据与字体不受此限）。

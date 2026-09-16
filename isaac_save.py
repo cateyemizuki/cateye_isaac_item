@@ -323,7 +323,7 @@ class NamedEntry:
 
 @dataclass(frozen=True)
 class AchievementDetail:
-    """成就表里的一条更完整的记录（``assets/isaac_achievements_zh.json``）。
+    """成就表里的一条更完整的记录（``assets/isaac_achievements.json``）。
 
     成就的「名称」其实就是解锁出来的内容（角色 / 道具 / 挑战……），``condition``
     是解锁条件，因此「还差哪些成就 + 怎么解锁」可以直接告诉用户。
@@ -391,7 +391,7 @@ class NameTables:
     也接受 ``[{"id": 1, "name": "…"}, …]`` 形式的列表。条目写成 ``{"name": …, "note": …}``
     时，``note`` 会作为该条目的补充说明一起显示（例如存档 BOSS 段里游戏本身不会写入、
     或该版本没有分配的空槽位）。成就的解锁条件另有一张可选的详情表
-    （``assets/isaac_achievements_zh.json``，``entries`` 下每条含
+    （``assets/isaac_achievements.json``，``entries`` 下每条含
     ``name`` / ``en`` / ``cond`` / ``reward`` / ``type``）。
     """
 
@@ -1011,6 +1011,11 @@ def format_report_text(
         lines.append("")
         title = track_headers.get(key) or f"未解锁的{track_labels.get(key, key)}"
         lines.append(f"{_section_label(section)}{title}（{track.remaining} 个）")
+        if key == "achievements":
+            details = [entry.detail for entry in entries[:limit] if entry.detail]
+            ascii_only = sum(1 for detail in details if detail and all(ord(ch) < 128 for ch in detail))
+            if details and ascii_only * 2 >= len(details):
+                lines.append("（条件取自游戏本体 achievements.xml 的英文原文——游戏内没有中文版本。）")
         if not entries:
             # 没有中文名表：只给编号，绝不猜名字
             ids = analysis.missing(key)

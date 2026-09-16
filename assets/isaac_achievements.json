@@ -1,0 +1,5148 @@
+{
+  "meta": {
+    "note": "成就编号 → 「中文名 / 英文标题 / 游戏内解锁条件」对照表，全部由玩家自装游戏的 achievements.xml 与官方简体语言包生成（无第三方数据）。游戏本体只提供英文条件，中文名仅在语言包里能查到对应译名时给出，查不到时退回英文标题、绝不编造。",
+    "source": "游戏本体 resources/packed/afterbirthp.a → achievements.xml（玩家自装游戏，非第三方整理）",
+    "license": "随本插件按 MIT 发布（生成物不含第三方数据）",
+    "names_from": "游戏本体 resources/packed/repentance_zh.a 官方简体语言包（能查到译名才用）",
+    "count": 641,
+    "with_cond": 284,
+    "with_zh": 539,
+    "generated": "2026-09-17",
+    "generator": "tools/build_achievement_table.py",
+    "caveats": [
+      "游戏本体没有成就名的本地化：中文名只在语言包里能查到同名译名时给出，其余退回英文标题（不编造）。",
+      "解锁条件是游戏 achievements.xml 里紧贴条目的英文注释原文（只有 284/641 条带注释）。",
+      "成就 637~641 为忏悔+ 新增条目，其中部分在游戏内没有独立标题，会退回图标名或空。"
+    ]
+  },
+  "entries": {
+    "1": {
+      "name": "抹大拉",
+      "en": "Magdalene",
+      "cond": "have 7 or more max red hearts at one time",
+      "reward": "Magdalene",
+      "gfx": "Achievement_Magdalene.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "2": {
+      "name": "该隐",
+      "en": "Cain",
+      "cond": "hold 55 pennies at one time",
+      "reward": "Cain",
+      "gfx": "Achievement_Cain.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "3": {
+      "name": "犹大",
+      "en": "Judas",
+      "cond": "kill Satan for the 1st time",
+      "reward": "Judas",
+      "gfx": "Achievement_Judas.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "4": {
+      "name": "子宫",
+      "en": "The Womb",
+      "cond": "beat Mom for the 1st time",
+      "reward": "The Womb",
+      "gfx": "Achievement_TheWomb.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "5": {
+      "name": "The Harbingers",
+      "en": "The Harbingers",
+      "cond": "beat Mom for the 1st time",
+      "reward": "The Harbingers",
+      "gfx": "Achievement_Harbingers.png",
+      "zh_source": ""
+    },
+    "6": {
+      "name": "肉块",
+      "en": "A Cube of Meat",
+      "cond": "beat Mom for the 1st time",
+      "reward": "A Cube of Meat",
+      "gfx": "Achievement_CubeOfMeat.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "7": {
+      "name": "启示录",
+      "en": "The Book of Revelations",
+      "cond": "beat a horseman for the 1st time",
+      "reward": "The Book of Revelations",
+      "gfx": "Achievement_BookOfRevelations.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "8": {
+      "name": "超凡升天",
+      "en": "A Noose",
+      "cond": "beat Mom's Heart 3 times (A Noose = Transcendence)",
+      "reward": "A Noose",
+      "gfx": "Achievement_Transcendence.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "9": {
+      "name": "钉子",
+      "en": "The Nail",
+      "cond": "beat Boss Rush with Demon Isaac",
+      "reward": "The Nail",
+      "gfx": "Achievement_TheNail.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "10": {
+      "name": "25美分",
+      "en": "A Quarter",
+      "cond": "beat Mom's Heart 8 times",
+      "reward": "A Quarter",
+      "gfx": "Achievement_AQuarter.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "11": {
+      "name": "罐子",
+      "en": "A Fetus in a Jar",
+      "cond": "beat Mom's Heart 9 times (A Fetus in a Jar = Dr. Fetus)",
+      "reward": "A Fetus in a Jar",
+      "gfx": "Achievement_AFetusInAJar.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "12": {
+      "name": "小石头",
+      "en": "A Small Rock",
+      "cond": "Destroy 100 tinted rocks",
+      "reward": "A Small Rock",
+      "gfx": "Achievement_ASmallRock.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "13": {
+      "name": "萌死戳的牙",
+      "en": "Monstro's Tooth",
+      "cond": "beat Basement II for the 1st time",
+      "reward": "Monstro's Tooth",
+      "gfx": "Achievement_MonstrosTooth.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "14": {
+      "name": "Lil Chubby",
+      "en": "Lil Chubby",
+      "cond": "beat Caves II for the 1st time",
+      "reward": "Lil Chubby",
+      "gfx": "Achievement_LilChubby.png",
+      "zh_source": ""
+    },
+    "15": {
+      "name": "洛基的角",
+      "en": "Loki's Horns",
+      "cond": "beat Lokii for the 1st time",
+      "reward": "Loki's Horns",
+      "gfx": "Achievement_LokisHorns.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "16": {
+      "name": "史蒂文",
+      "en": "Something From The Future!",
+      "cond": "beat the basement 40 times (Steven)",
+      "reward": "Something From The Future!",
+      "gfx": "Achievement_Steven.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "17": {
+      "name": "Something Cute",
+      "en": "Something Cute",
+      "cond": "beat the caves 30 times (C.H.A.D.)",
+      "reward": "Something Cute",
+      "gfx": "Achievement_CHAD.png",
+      "zh_source": ""
+    },
+    "18": {
+      "name": "Something Sticky",
+      "en": "Something Sticky",
+      "cond": "beat the depths 20 times (Gish)",
+      "reward": "Something Sticky",
+      "gfx": "Achievement_Gishy.png",
+      "zh_source": ""
+    },
+    "19": {
+      "name": "A Bandage",
+      "en": "A Bandage",
+      "cond": "make a super bandage girl (A Bandage = Super Bandage)",
+      "reward": "A Bandage",
+      "gfx": "Achievement_SuperBandageGirl.png",
+      "zh_source": ""
+    },
+    "20": {
+      "name": "圣遗物",
+      "en": "A Cross",
+      "cond": "kill Isaac with Maggy (A Cross = Relic)",
+      "reward": "A Cross",
+      "gfx": "Achievement_TheRelic.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "21": {
+      "name": "A Bag of Pennies",
+      "en": "A Bag of Pennies",
+      "cond": "kill Isaac with Cain",
+      "reward": "A Bag of Pennies",
+      "gfx": "Achievement_CoinBag.png",
+      "zh_source": ""
+    },
+    "22": {
+      "name": "七原罪之书",
+      "en": "The Book of Sin",
+      "cond": "kill all 7 sins",
+      "reward": "The Book of Sin",
+      "gfx": "Achievement_BookOfSin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "23": {
+      "name": "吉什宝宝",
+      "en": "Little Gish",
+      "cond": "kill Gish",
+      "reward": "Little Gish",
+      "gfx": "Achievement_LittleGish.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "24": {
+      "name": "史蒂文宝宝",
+      "en": "Little Steven",
+      "cond": "kill Steven",
+      "reward": "Little Steven",
+      "gfx": "Achievement_LittleSteven.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "25": {
+      "name": "查德宝宝",
+      "en": "Little C.H.A.D.",
+      "cond": "kill C.H.A.D.",
+      "reward": "Little C.H.A.D.",
+      "gfx": "Achievement_LittleChad.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "26": {
+      "name": "游戏掌机",
+      "en": "A Gamekid",
+      "cond": "visit 10 arcades",
+      "reward": "A Gamekid",
+      "gfx": "Achievement_GameKid.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "27": {
+      "name": "光环",
+      "en": "A Halo",
+      "cond": "kill Mom using the bible",
+      "reward": "A Halo",
+      "gfx": "Achievement_TheHalo.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "28": {
+      "name": "大爆弹先生",
+      "en": "Mr. Mega!",
+      "cond": "destroy 10 tinted rocks",
+      "reward": "Mr. Mega!",
+      "gfx": "Achievement_MrMega.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "29": {
+      "name": "六面骰",
+      "en": "The D6",
+      "cond": "Kill Isaac with ???",
+      "reward": "The D6",
+      "gfx": "Achievement_D6.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "30": {
+      "name": "剪刀",
+      "en": "The Scissors",
+      "cond": "die 100 times",
+      "reward": "The Scissors",
+      "gfx": "Achievement_Scissors.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "31": {
+      "name": "寄生虫",
+      "en": "The Parasite",
+      "cond": "collect 2 of Bob's Rotten Head, Dead Cat, Max's Head, Tammy's Head",
+      "reward": "The Parasite",
+      "gfx": "Achievement_TheParasite.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "32": {
+      "name": "???",
+      "en": "???",
+      "cond": "beat Mom's Heart 10 times",
+      "reward": "???",
+      "gfx": "Achievement_Bluebaby.png",
+      "zh_source": ""
+    },
+    "33": {
+      "name": "Everything is Terrible!!!",
+      "en": "Everything is Terrible!!!",
+      "cond": "beat Mom's Heart 5 times",
+      "reward": "",
+      "gfx": "Achievement_EverythingIsTerrible.png",
+      "zh_source": ""
+    },
+    "34": {
+      "name": "它还活着",
+      "en": "It Lives!",
+      "cond": "beat Mom's Heart 11 times",
+      "reward": "It Lives!",
+      "gfx": "Achievement_ItLives.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "35": {
+      "name": "Mom's Contact",
+      "en": "Mom's Contact",
+      "cond": "become mom (collect 3 mom items in one playthrough)",
+      "reward": "Mom's Contact",
+      "gfx": "Achievement_MomsContact.png",
+      "zh_source": ""
+    },
+    "36": {
+      "name": "死灵之书",
+      "en": "The Necronomicon",
+      "cond": "use the Death Card 4 times",
+      "reward": "The Necronomicon",
+      "gfx": "Achievement_Necronomicon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "37": {
+      "name": "Basement Boy",
+      "en": "Basement Boy",
+      "cond": "beat the Basement/Cellar without taking damage",
+      "reward": "Basement Boy",
+      "gfx": "Achievement_BasementBoy.png",
+      "zh_source": ""
+    },
+    "38": {
+      "name": "Spelunker Boy",
+      "en": "Spelunker Boy",
+      "cond": "beat the Caves/Catacombs without taking damage",
+      "reward": "Spelunker Boy",
+      "gfx": "Achievement_SpelunkerBoy.png",
+      "zh_source": ""
+    },
+    "39": {
+      "name": "Dark Boy",
+      "en": "Dark Boy",
+      "cond": "beat the Depths/Necropolis without taking damage",
+      "reward": "Dark Boy",
+      "gfx": "Achievement_DarkBoy.png",
+      "zh_source": ""
+    },
+    "40": {
+      "name": "Mamas Boy",
+      "en": "Mamas Boy",
+      "cond": "beat the Womb/Utero without taking damage",
+      "reward": "Mamas Boy",
+      "gfx": "Achievement_MamasBoy.png",
+      "zh_source": ""
+    },
+    "41": {
+      "name": "Golden God!",
+      "en": "Golden God!",
+      "cond": "beat ??? and Lamb",
+      "reward": "Golden God!",
+      "gfx": "Achievement_GoldenGod.png",
+      "zh_source": ""
+    },
+    "42": {
+      "name": "夏娃",
+      "en": "Eve",
+      "cond": "don't pick up any hearts for 2 levels in a row",
+      "reward": "Eve",
+      "gfx": "Achievement_Eve.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "43": {
+      "name": "妈妈的菜刀",
+      "en": "Mom's Knife",
+      "cond": "kill Satan with Isaac",
+      "reward": "Mom's Knife",
+      "gfx": "Achievement_MomsKnife.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "44": {
+      "name": "The Razor",
+      "en": "The Razor",
+      "cond": "kill Satan with Eve",
+      "reward": "The Razor",
+      "gfx": "Achievement_TheRazor.png",
+      "zh_source": ""
+    },
+    "45": {
+      "name": "守护天使",
+      "en": "Guardian Angel",
+      "cond": "kill Satan with Maggy",
+      "reward": "Guardian Angel",
+      "gfx": "Achievement_GuardianAngel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "46": {
+      "name": "炸弹袋",
+      "en": "A Bag of Bombs",
+      "cond": "kill Satan with Cain",
+      "reward": "A Bag of Bombs",
+      "gfx": "Achievement_BombBag.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "47": {
+      "name": "恶魔宝宝",
+      "en": "A Demon Baby!",
+      "cond": "beat Dark Room with Demon Isaac",
+      "reward": "A Demon Baby!",
+      "gfx": "Achievement_DemonBaby.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "48": {
+      "name": "遗忘药",
+      "en": "A Forget Me Now",
+      "cond": "kill Satan with ???",
+      "reward": "A Forget Me Now",
+      "gfx": "Achievement_ForgetMeNow.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "49": {
+      "name": "二十面骰",
+      "en": "The D20",
+      "cond": "beat The Chest with Isaac",
+      "reward": "The D20",
+      "gfx": "Achievement_D20.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "50": {
+      "name": "凯尔特十字",
+      "en": "The Crucifix",
+      "cond": "beat The Chest with Maggy (Crucifix = Celtic Cross)",
+      "reward": "The Crucifix",
+      "gfx": "Achievement_CelticCross.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "51": {
+      "name": "亚伯",
+      "en": "Abel",
+      "cond": "beat Dark Room with Cain",
+      "reward": "Abel",
+      "gfx": "Achievement_Abel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "52": {
+      "name": "弯羊角",
+      "en": "Curved Horn",
+      "cond": "beat Dark Room with Judas",
+      "reward": "Curved Horn",
+      "gfx": "Achievement_CurvedHorn.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "53": {
+      "name": "献祭匕首",
+      "en": "Sacrificial Dagger",
+      "cond": "beat Chest with Eve",
+      "reward": "Sacrificial Dagger",
+      "gfx": "Achievement_SacrificialKnife.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "54": {
+      "name": "色欲",
+      "en": "Blood Lust",
+      "cond": "kill Isaac with Samson",
+      "reward": "Blood Lust",
+      "gfx": "Achievement_BloodyLust.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "55": {
+      "name": "染血硬币",
+      "en": "Blood Penny",
+      "cond": "beat Chest with Samson",
+      "reward": "Blood Penny",
+      "gfx": "Achievement_BloodyPenny.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "56": {
+      "name": "血之权利",
+      "en": "Blood Rights",
+      "cond": "kill Satan with Samson",
+      "reward": "Blood Rights",
+      "gfx": "Achievement_BloodRights.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "57": {
+      "name": "全家福",
+      "en": "The Polaroid",
+      "cond": "beat the cathedral 5 times",
+      "reward": "The Polaroid",
+      "gfx": "Achievement_ThePolaroid.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "58": {
+      "name": "爸爸的钥匙",
+      "en": "Dad's Key",
+      "cond": "collect a golden key",
+      "reward": "Dad's Key",
+      "gfx": "Achievement_DadsKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "59": {
+      "name": "蓝蜡烛",
+      "en": "The Blue Candle",
+      "cond": "donate 900 pennies to the store (blue candle)",
+      "reward": "The Blue Candle",
+      "gfx": "Achievement_BlueCandle.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "60": {
+      "name": "焦灼硬币",
+      "en": "Burnt Penny",
+      "cond": "beat Challenge #13",
+      "reward": "Burnt Penny",
+      "gfx": "Achievement_BurntPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "61": {
+      "name": "幸运脚趾",
+      "en": "Lucky Toe!",
+      "cond": "Blow up 20 shop keepers",
+      "reward": "Lucky Toe!",
+      "gfx": "Achievement_LuckyToe.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "62": {
+      "name": "史诗胎儿博士",
+      "en": "Epic Fetus",
+      "cond": "Beat Challenge #19",
+      "reward": "Epic Fetus",
+      "gfx": "Achievement_EpicFetus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "63": {
+      "name": "超级食肉男孩死忠粉",
+      "en": "SMB Super Fan",
+      "cond": "Beat Challenge #14",
+      "reward": "SMB Super Fan",
+      "gfx": "Achievement_SuperFan.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "64": {
+      "name": "假币",
+      "en": "Counterfeit Coin",
+      "cond": "Play the shell game 100 times",
+      "reward": "Counterfeit Coin",
+      "gfx": "Achievement_CounterfeitPenny.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "65": {
+      "name": "嗝屁猫的毛球",
+      "en": "Guppy's Hairball",
+      "cond": "Become Guppy",
+      "reward": "Guppy's Hairball",
+      "gfx": "Achievement_GuppysHairball.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "66": {
+      "name": "征服骑士",
+      "en": "A Forgotten Horsemen",
+      "cond": "take 10 items from Angel rooms",
+      "reward": "A Forgotten Horsemen",
+      "gfx": "Achievement_Conquest.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "67": {
+      "name": "参孙",
+      "en": "Samson",
+      "cond": "beat 2 levels in a row without taking damage",
+      "reward": "Samson",
+      "gfx": "Achievement_Samson.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "68": {
+      "name": "三腿蜘蛛",
+      "en": "Something Icky!",
+      "cond": "beat Cathedral 10 times",
+      "reward": "Something Icky!",
+      "gfx": "Achievement_Triachnid.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "69": {
+      "name": "!Platinum God!",
+      "en": "!Platinum God!",
+      "cond": "collect all items in the game and unlock all secrets and endings minus \"the soul\" and its 5 unlockable items",
+      "reward": "",
+      "gfx": "Achievement_PlatinumGod.png",
+      "zh_source": ""
+    },
+    "70": {
+      "name": "以撒的头",
+      "en": "Isaac's Head",
+      "cond": "beat Boss Rush with Isaac",
+      "reward": "Isaac's Head",
+      "gfx": "Achievement_IsaacsHead.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "71": {
+      "name": "抹大拉的信仰",
+      "en": "Maggy's Faith",
+      "cond": "beat Dark Room with Maggy",
+      "reward": "Maggy's Faith",
+      "gfx": "Achievement_MaggysFaith.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "72": {
+      "name": "犹大的舌头",
+      "en": "Judas' Tongue",
+      "cond": "kill Satan with Judas",
+      "reward": "Judas' Tongue",
+      "gfx": "Achievement_JudasTongue.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "73": {
+      "name": "???的灵魂",
+      "en": "???'s Soul",
+      "cond": "beat Dark Room with ???",
+      "reward": "???'s Soul",
+      "gfx": "Achievement_BlueBabysSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "74": {
+      "name": "参孙的发髻",
+      "en": "Samson's Lock",
+      "cond": "beat Dark Room with Samson",
+      "reward": "Samson's Lock",
+      "gfx": "Achievement_SamsonsLock.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "75": {
+      "name": "该隐的眼睛",
+      "en": "Cain's Eye",
+      "cond": "beat Chest with Cain",
+      "reward": "Cain's Eye",
+      "gfx": "Achievement_CainsEye.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "76": {
+      "name": "夏娃的鸟爪",
+      "en": "Eve's Bird Foot",
+      "cond": "kill Isaac with Eve",
+      "reward": "Eve's Bird Foot",
+      "gfx": "Achievement_EvesBirdFoot.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "77": {
+      "name": "左断手",
+      "en": "The Left Hand",
+      "cond": "beat Chest with Judas",
+      "reward": "The Left Hand",
+      "gfx": "Achievement_TheLeftHand.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "78": {
+      "name": "底片",
+      "en": "The Negative",
+      "cond": "beat Sheol 5 times",
+      "reward": "The Negative",
+      "gfx": "Achievement_TheNegative.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "79": {
+      "name": "以撒",
+      "en": "Demon Isaac",
+      "cond": "make 3 deals with the devil in one run",
+      "reward": "Demon Isaac",
+      "gfx": "Achievement_Azazel.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "80": {
+      "name": "拉撒路",
+      "en": "Lazarus",
+      "cond": "have 4 or more soul hearts at one time",
+      "reward": "Lazarus",
+      "gfx": "Achievement_Lazarus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "81": {
+      "name": "伊甸",
+      "en": "Eden",
+      "cond": "beat the womb for the 1st time",
+      "reward": "Eden",
+      "gfx": "Achievement_Eden.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "82": {
+      "name": "灵魂",
+      "en": "The Soul",
+      "cond": "finish the game's final secret",
+      "reward": "The Soul",
+      "gfx": "Achievement_thelost.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "83": {
+      "name": "Dead Boy",
+      "en": "Dead Boy",
+      "cond": "beat the Chest or Dark Room without taking damage",
+      "reward": "Dead Boy",
+      "gfx": "Achievement_DeadBoy.png",
+      "zh_source": ""
+    },
+    "84": {
+      "name": "The Real Platinum God",
+      "en": "The Real Platinum God",
+      "cond": "100% of the game (unlock every item)",
+      "reward": "",
+      "gfx": "Achievement_RealPlatinumGod.png",
+      "zh_source": ""
+    },
+    "85": {
+      "name": "幸运石",
+      "en": "Lucky Rock",
+      "cond": "destroy 100 rocks",
+      "reward": "Lucky Rock",
+      "gfx": "Achievement_LuckyRock.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "86": {
+      "name": "地窖",
+      "en": "The Cellar",
+      "cond": "Beat all possible bosses in the basement",
+      "reward": "",
+      "gfx": "Achievement_TheCellar.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "87": {
+      "name": "墓穴",
+      "en": "The Catacombs",
+      "cond": "Beat all possible bosses in the caves",
+      "reward": "",
+      "gfx": "Achievement_TheCatacombs.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "88": {
+      "name": "坟场",
+      "en": "The Necropolis",
+      "cond": "Beat all possible bosses in the depths",
+      "reward": "",
+      "gfx": "Achievement_Necropolis.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "89": {
+      "name": "冰雹符文",
+      "en": "Rune of Hagalaz",
+      "cond": "Beat Challenge #1",
+      "reward": "Rune of Hagalaz",
+      "gfx": "Achievement_RuneOfHagalaz.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "90": {
+      "name": "收获符文",
+      "en": "Rune of Jera",
+      "cond": "Beat Challenge #2",
+      "reward": "Rune of Jera",
+      "gfx": "Achievement_RuneOfJera.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "91": {
+      "name": "马骑符文",
+      "en": "Rune of Ehwaz",
+      "cond": "Beat Challenge #3",
+      "reward": "Rune of Ehwaz",
+      "gfx": "Achievement_RuneOfEhwaz.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "92": {
+      "name": "朝夕符文",
+      "en": "Rune of Dagaz",
+      "cond": "Beat Challenge #4",
+      "reward": "Rune of Dagaz",
+      "gfx": "Achievement_RuneOfDagaz.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "93": {
+      "name": "诸神符文",
+      "en": "Rune of Ansuz",
+      "cond": "Beat Challenge #5",
+      "reward": "Rune of Ansuz",
+      "gfx": "Achievement_RuneOfAnsuz.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "94": {
+      "name": "签筒符文",
+      "en": "Rune of Perthro",
+      "cond": "Beat Challenge #6",
+      "reward": "Rune of Perthro",
+      "gfx": "Achievement_RuneOfPerthro.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "95": {
+      "name": "桦木符文",
+      "en": "Rune of Berkano",
+      "cond": "Beat Challenge #7",
+      "reward": "Rune of Berkano",
+      "gfx": "Achievement_RuneOfBerkano.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "96": {
+      "name": "保护符文",
+      "en": "Rune of Algiz",
+      "cond": "Beat Challenge #8",
+      "reward": "Rune of Algiz",
+      "gfx": "Achievement_RuneOfAlgiz.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "97": {
+      "name": "混沌卡",
+      "en": "Chaos Card",
+      "cond": "Beat Challenge #9",
+      "reward": "Chaos Card",
+      "gfx": "Achievement_TheChaosCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "98": {
+      "name": "信用卡",
+      "en": "Credit Card",
+      "cond": "Beat Challenge #10",
+      "reward": "Credit Card",
+      "gfx": "Achievement_CreditCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "99": {
+      "name": "规则卡",
+      "en": "Rules Card",
+      "cond": "Beat Challenge #11",
+      "reward": "Rules Card",
+      "gfx": "Achievement_RulesCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "100": {
+      "name": "反人类卡",
+      "en": "Card Against Humanity",
+      "cond": "Beat Challenge #12",
+      "reward": "Card Against Humanity",
+      "gfx": "Achievement_CardAgainstHumanity.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "101": {
+      "name": "被吞下的硬币",
+      "en": "Swallowed Penny",
+      "cond": "Beat Challenge #15",
+      "reward": "Swallowed Penny",
+      "gfx": "Achievement_SwallowedPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "102": {
+      "name": "机器宝宝2.0",
+      "en": "Robo Baby 2.0",
+      "cond": "Beat Challenge #16",
+      "reward": "Robo Baby 2.0",
+      "gfx": "Achievement_Robobaby20.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "103": {
+      "name": "死神之触",
+      "en": "Death's Touch",
+      "cond": "Beat Challenge #17",
+      "reward": "Death's Touch",
+      "gfx": "Achievement_DeathsTouch.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "104": {
+      "name": "Technology .5",
+      "en": "Technology .5",
+      "cond": "Beat Challenge #18",
+      "reward": "Technology .5",
+      "gfx": "Achievement_Tech5.png",
+      "zh_source": ""
+    },
+    "105": {
+      "name": "编号丢失",
+      "en": "Missing No.",
+      "cond": "Beat Challenge #20",
+      "reward": "Missing No.",
+      "gfx": "Achievement_MissingNo.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "106": {
+      "name": "以撒的泪盆",
+      "en": "Isaac's Tears",
+      "cond": "Kill Isaac with Isaac",
+      "reward": "Isaac's Tears",
+      "gfx": "Achievement_IsaacsTears.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "107": {
+      "name": "断头台",
+      "en": "Guillotine",
+      "cond": "Kill Isaac with Judas",
+      "reward": "Guillotine",
+      "gfx": "Achievement_Guillotine.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "108": {
+      "name": "犹大的影子",
+      "en": "Judas' Shadow",
+      "cond": "beat Boss Rush with Judas",
+      "reward": "Judas' Shadow",
+      "gfx": "Achievement_JudasShadow.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "109": {
+      "name": "抹大拉的蝴蝶结",
+      "en": "Maggy's Bow",
+      "cond": "beat Boss Rush with Maggy",
+      "reward": "Maggy's Bow",
+      "gfx": "Achievement_MaggysBow.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "110": {
+      "name": "该隐的另一只眼",
+      "en": "Cain's Other Eye",
+      "cond": "beat Boss Rush with Cain",
+      "reward": "Cain's Other Eye",
+      "gfx": "Achievement_CainsOtherEye.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "111": {
+      "name": "黑色口红",
+      "en": "Black Lipstick",
+      "cond": "beat Dark Room with Eve",
+      "reward": "Black Lipstick",
+      "gfx": "Achievement_BlackLipstick.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "112": {
+      "name": "夏娃的睫毛膏",
+      "en": "Eve's Mascara",
+      "cond": "beat Boss Rush with Eve",
+      "reward": "Eve's Mascara",
+      "gfx": "Achievement_EvesMascara.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "113": {
+      "name": "宿命",
+      "en": "Fate",
+      "cond": "beat Chest with ???",
+      "reward": "Fate",
+      "gfx": "Achievement_Fate.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "114": {
+      "name": "???唯一的朋友",
+      "en": "???'s Only Friend",
+      "cond": "beat Boss Rush with ???",
+      "reward": "???'s Only Friend",
+      "gfx": "Achievement_BlueBabysOnlyFriend.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "115": {
+      "name": "参孙的脚镣",
+      "en": "Samson's Chains",
+      "cond": "beat Boss Rush with Samson",
+      "reward": "Samson's Chains",
+      "gfx": "Achievement_SamsonsChains.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "116": {
+      "name": "拉撒路的绷带",
+      "en": "Lazarus' Rags",
+      "cond": "kill Isaac with Lazarus",
+      "reward": "Lazarus' Rags",
+      "gfx": "Achievement_LazarusRags.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "117": {
+      "name": "碎安卡十字",
+      "en": "Broken Ankh",
+      "cond": "kill Satan with Lazarus",
+      "reward": "Broken Ankh",
+      "gfx": "Achievement_BrokenAnkh.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "118": {
+      "name": "商店积分",
+      "en": "Store Credit",
+      "cond": "beat Chest with Lazarus",
+      "reward": "Store Credit",
+      "gfx": "Achievement_StoreCredit.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "119": {
+      "name": "潘多拉魔盒",
+      "en": "Pandora's Box",
+      "cond": "beat Dark Room with Lazarus",
+      "reward": "Pandora's Box",
+      "gfx": "Achievement_PandorasBox.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "120": {
+      "name": "自杀之王",
+      "en": "Suicide King",
+      "cond": "beat Boss Rush with Lazarus",
+      "reward": "Suicide King",
+      "gfx": "Achievement_SuicideKing.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "121": {
+      "name": "空白卡牌",
+      "en": "Blank Card",
+      "cond": "kill Isaac with Eden",
+      "reward": "Blank Card",
+      "gfx": "Achievement_BlankCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "122": {
+      "name": "秘密之书",
+      "en": "Book of Secrets",
+      "cond": "kill Satan with Eden",
+      "reward": "Book of Secrets",
+      "gfx": "Achievement_BookOfSecrets.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "123": {
+      "name": "神秘纸片",
+      "en": "Mysterious Paper",
+      "cond": "beat Chest with Eden",
+      "reward": "Mysterious Paper",
+      "gfx": "Achievement_MysteriousPaper.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "124": {
+      "name": "神秘的袋子",
+      "en": "Mystery Sack",
+      "cond": "beat Dark Room with Eden",
+      "reward": "Mystery Sack",
+      "gfx": "Achievement_MysterySack.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "125": {
+      "name": "未定义",
+      "en": "Undefined",
+      "cond": "beat Boss Rush with Eden",
+      "reward": "Undefined",
+      "gfx": "Achievement_Undefined.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "126": {
+      "name": "撒但圣经",
+      "en": "Satanic Bible",
+      "cond": "kill Isaac with Demon Isaac",
+      "reward": "Satanic Bible",
+      "gfx": "Achievement_SatanicBible.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "127": {
+      "name": "恶魔的尾巴",
+      "en": "Daemon's Tail",
+      "cond": "kill Satan with Demon Isaac",
+      "reward": "Daemon's Tail",
+      "gfx": "Achievement_DemonTail.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "128": {
+      "name": "亚巴顿",
+      "en": "Abaddon",
+      "cond": "beat Chest with Demon Isaac",
+      "reward": "Abaddon",
+      "gfx": "Achievement_Abaddon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "129": {
+      "name": "以撒的心脏",
+      "en": "Isaac's Heart",
+      "cond": "kill Isaac with The Lost",
+      "reward": "Isaac's Heart",
+      "gfx": "Achievement_IsaacsHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "130": {
+      "name": "思想",
+      "en": "The Mind",
+      "cond": "kill Satan with The Lost",
+      "reward": "The Mind",
+      "gfx": "Achievement_TheMind.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "131": {
+      "name": "肉体",
+      "en": "The Body",
+      "cond": "beat Chest with The Lost",
+      "reward": "The Body",
+      "gfx": "Achievement_TheBody.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "132": {
+      "name": "灵魂",
+      "en": "The Soul",
+      "cond": "beat Dark Room with The Lost",
+      "reward": "The Soul",
+      "gfx": "Achievement_TheSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "133": {
+      "name": "一百面骰",
+      "en": "A D100",
+      "cond": "beat Boss Rush with The Lost",
+      "reward": "A D100",
+      "gfx": "Achievement_D100.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "134": {
+      "name": "蓝地图",
+      "en": "Blue Map",
+      "cond": "donate 10 pennies to the shop",
+      "reward": "Blue Map",
+      "gfx": "Achievement_BlueMap.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "135": {
+      "name": "额外选择",
+      "en": "There's Options",
+      "cond": "donate 50 pennies to the shop",
+      "reward": "There's Options",
+      "gfx": "Achievement_TheresOptions.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "136": {
+      "name": "黑蜡烛",
+      "en": "Black Candle",
+      "cond": "donate 150 pennies to the shop",
+      "reward": "Black Candle",
+      "gfx": "Achievement_BlackCandle.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "137": {
+      "name": "红蜡烛",
+      "en": "Red Candle",
+      "cond": "donate 400 pennies to the shop",
+      "reward": "Red Candle",
+      "gfx": "Achievement_RedCandle.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "138": {
+      "name": "怀表",
+      "en": "Stop Watch",
+      "cond": "donate 999 pennies to the shop",
+      "reward": "Stop Watch",
+      "gfx": "Achievement_Stopwatch.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "139": {
+      "name": "铁丝衣架",
+      "en": "Wire Coat Hanger",
+      "cond": "beat Mom's Heart 4 times",
+      "reward": "Wire Coat Hanger",
+      "gfx": "Achievement_WireCoatHanger.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "140": {
+      "name": "吐根酊",
+      "en": "Ipecac",
+      "cond": "beat Mom's Heart 6 times",
+      "reward": "Ipecac",
+      "gfx": "Achievement_Ipecac.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "141": {
+      "name": "实验性疗法",
+      "en": "Experimental Treatment",
+      "cond": "beat Mom's Heart 7 times",
+      "reward": "Experimental Treatment",
+      "gfx": "Achievement_ExperimentalTreatment.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "142": {
+      "name": "坎卜斯",
+      "en": "Krampus unlocked",
+      "cond": "take 20 items from devil rooms",
+      "reward": "",
+      "gfx": "Achievement_Krampus.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "143": {
+      "name": "坎卜斯的头",
+      "en": "Head of Krampus",
+      "cond": "kill Krampus",
+      "reward": "Head of Krampus",
+      "gfx": "Achievement_HeadOfKrampus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "144": {
+      "name": "Super Meat Boy",
+      "en": "Super Meat Boy",
+      "cond": "make a super meat boy",
+      "reward": "",
+      "gfx": "Achievement_SuperMeatBoy.png",
+      "zh_source": ""
+    },
+    "145": {
+      "name": "棉豆",
+      "en": "Butter Bean",
+      "cond": "destroy 100 poops",
+      "reward": "Butter Bean",
+      "gfx": "Achievement_ButterBean.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "146": {
+      "name": "小药袋",
+      "en": "Little Baggy",
+      "cond": "collect 2 of either Roid Rage, The Virus, Growth Hormones, Experimental Treatment or Speed Ball",
+      "reward": "Little Baggy",
+      "gfx": "Achievement_LittleBaggy.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "147": {
+      "name": "血袋",
+      "en": "Blood Bag",
+      "cond": "use the blood donation machine 30 times",
+      "reward": "Blood Bag",
+      "gfx": "Achievement_BloodBag.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "148": {
+      "name": "四面骰",
+      "en": "A D4",
+      "cond": "blow up 30 arcade machines",
+      "reward": "A D4",
+      "gfx": "Achievement_D4.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "149": {
+      "name": "The Lost Poster",
+      "en": "The Lost Poster",
+      "cond": "beat Dark Room with Isaac",
+      "reward": "The Lost Poster",
+      "gfx": "Achievement_LostPoster.png",
+      "zh_source": ""
+    },
+    "150": {
+      "name": "橡胶胶水",
+      "en": "Rubber Cement",
+      "cond": "beat Mom's Heart 2 times",
+      "reward": "Rubber Cement",
+      "gfx": "Achievement_RubberCement.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "151": {
+      "name": "-1",
+      "en": "Store Upgrade lv.1",
+      "cond": "donate 20 pennies to the shop",
+      "reward": "",
+      "gfx": "Achievement_StoreUpgrade1.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "152": {
+      "name": "Store Upgrade lv.2",
+      "en": "Store Upgrade lv.2",
+      "cond": "donate 100 pennies to the shop",
+      "reward": "",
+      "gfx": "Achievement_StoreUpgrade2.png",
+      "zh_source": ""
+    },
+    "153": {
+      "name": "&lt;3",
+      "en": "Store Upgrade lv.3",
+      "cond": "donate 200 pennies to the shop",
+      "reward": "",
+      "gfx": "Achievement_StoreUpgrade3.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "154": {
+      "name": "Store Upgrade lv.4",
+      "en": "Store Upgrade lv.4",
+      "cond": "donate 600 pennies to the shop",
+      "reward": "",
+      "gfx": "Achievement_StoreUpgrade4.png",
+      "zh_source": ""
+    },
+    "155": {
+      "name": "Angels",
+      "en": "Angels",
+      "cond": "beat Chest or Dark Room",
+      "reward": "",
+      "gfx": "Achievement_Angels.png",
+      "zh_source": ""
+    },
+    "156": {
+      "name": "神性",
+      "en": "Godhead",
+      "cond": "beat Satan, Isaac, Mom's Heart, ???, Lamb, and Boss Rush on hard mode with The Lost",
+      "reward": "Godhead",
+      "gfx": "Achievement_Godhead.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "157": {
+      "name": "Challenge04",
+      "en": "Challenge04",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge04.png",
+      "zh_source": ""
+    },
+    "158": {
+      "name": "Challenge05",
+      "en": "Challenge05",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge05.png",
+      "zh_source": ""
+    },
+    "159": {
+      "name": "Challenge06",
+      "en": "Challenge06",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge06.png",
+      "zh_source": ""
+    },
+    "160": {
+      "name": "Challenge07",
+      "en": "Challenge07",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge07.png",
+      "zh_source": ""
+    },
+    "161": {
+      "name": "Challenge08",
+      "en": "Challenge08",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge08.png",
+      "zh_source": ""
+    },
+    "162": {
+      "name": "Challenge09",
+      "en": "Challenge09",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge09.png",
+      "zh_source": ""
+    },
+    "163": {
+      "name": "Challenge10",
+      "en": "Challenge10",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge10.png",
+      "zh_source": ""
+    },
+    "164": {
+      "name": "Challenge11",
+      "en": "Challenge11",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge11.png",
+      "zh_source": ""
+    },
+    "165": {
+      "name": "Challenge19",
+      "en": "Challenge19",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge19.png",
+      "zh_source": ""
+    },
+    "166": {
+      "name": "Challenge20",
+      "en": "Challenge20",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge20.png",
+      "zh_source": ""
+    },
+    "167": {
+      "name": "宝宝",
+      "en": "Lost Baby",
+      "cond": "beat Mom's Heart on hard mode with Isaac",
+      "reward": "Lost Baby",
+      "gfx": "Achievement_LostBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "168": {
+      "name": "宝宝",
+      "en": "Cute Baby",
+      "cond": "beat Mom's Heart on hard mode with Maggy",
+      "reward": "Cute Baby",
+      "gfx": "Achievement_CuteBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "169": {
+      "name": "宝宝",
+      "en": "Crow Baby",
+      "cond": "beat Mom's Heart on hard mode with Eve",
+      "reward": "Crow Baby",
+      "gfx": "Achievement_CrowBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "170": {
+      "name": "宝宝",
+      "en": "Shadow Baby",
+      "cond": "beat Mom's Heart on hard mode with Judas",
+      "reward": "Shadow Baby",
+      "gfx": "Achievement_ShadowBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "171": {
+      "name": "宝宝",
+      "en": "Glass Baby",
+      "cond": "beat Mom's Heart on hard mode with Cain",
+      "reward": "Glass Baby",
+      "gfx": "Achievement_GlassBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "172": {
+      "name": "宝宝",
+      "en": "Wrapped Baby",
+      "cond": "beat Mom's Heart on hard mode with Lazarus",
+      "reward": "Wrapped Baby",
+      "gfx": "Achievement_WrappedBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "173": {
+      "name": "宝宝",
+      "en": "Begotten Baby",
+      "cond": "beat Mom's Heart on hard mode with Azazel",
+      "reward": "Begotten Baby",
+      "gfx": "Achievement_BegottenBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "174": {
+      "name": "宝宝",
+      "en": "Dead Baby",
+      "cond": "beat Mom's Heart on hard mode with ???",
+      "reward": "Dead Baby",
+      "gfx": "Achievement_DeadBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "175": {
+      "name": "宝宝",
+      "en": "-0- Baby",
+      "cond": "beat Mom's Heart on hard mode with The Lost",
+      "reward": "-0- Baby",
+      "gfx": "Achievement_0Baby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "176": {
+      "name": "宝宝",
+      "en": "Glitch Baby",
+      "cond": "beat Mom's Heart on hard mode with Eden",
+      "reward": "Glitch Baby",
+      "gfx": "Achievement_GlitchBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "177": {
+      "name": "宝宝",
+      "en": "Fighting Baby",
+      "cond": "beat Mom's Heart on hard mode with Samson",
+      "reward": "Fighting Baby",
+      "gfx": "Achievement_FightingBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "178": {
+      "name": "Lord Of The Flies",
+      "en": "Lord Of The Flies",
+      "cond": "become Lord of the Flies",
+      "reward": "",
+      "gfx": "Achievement_LordOfTheFlies.png",
+      "zh_source": ""
+    },
+    "179": {
+      "name": "宝宝",
+      "en": "Fart Baby",
+      "cond": "beat Blue Womb with Isaac",
+      "reward": "Fart Baby",
+      "gfx": "Achievement_179_FartBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "180": {
+      "name": "纯洁",
+      "en": "Purity",
+      "cond": "beat Blue Womb with Maggy",
+      "reward": "Purity",
+      "gfx": "Achievement_180_Purity.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "181": {
+      "name": "十二面骰",
+      "en": "D12",
+      "cond": "beat Blue Womb with Cain",
+      "reward": "D12",
+      "gfx": "Achievement_181_D12.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "182": {
+      "name": "背叛",
+      "en": "Betrayal",
+      "cond": "beat Blue Womb with Judas",
+      "reward": "Betrayal",
+      "gfx": "Achievement_182_Betrayal.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "183": {
+      "name": "宿命的报答",
+      "en": "Fate's Reward",
+      "cond": "beat Blue Womb with ???",
+      "reward": "Fate's Reward",
+      "gfx": "Achievement_183_FatesReward.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "184": {
+      "name": "祭祀之刃",
+      "en": "Athame",
+      "cond": "beat Blue Womb with Eve",
+      "reward": "Athame",
+      "gfx": "Achievement_184_Athame.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "185": {
+      "name": "盲目的怒火",
+      "en": "Blind Rage",
+      "cond": "beat Blue Womb with Samson",
+      "reward": "Blind Rage",
+      "gfx": "Achievement_185_BlindRage.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "186": {
+      "name": "虚空之喉",
+      "en": "Maw of the Void",
+      "cond": "beat Blue Womb with Azazel",
+      "reward": "Maw of the Void",
+      "gfx": "Achievement_186_MawOfTheVoid.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "187": {
+      "name": "空容器",
+      "en": "Empty Vessel",
+      "cond": "beat Blue Womb with Lazarus",
+      "reward": "Empty Vessel",
+      "gfx": "Achievement_187_EmptyVessel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "188": {
+      "name": "伊甸的祝福",
+      "en": "Eden's Blessing",
+      "cond": "beat Blue Womb with Eden",
+      "reward": "Eden's Blessing",
+      "gfx": "Achievement_188_EdensBlessing.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "189": {
+      "name": "宣誓守护者",
+      "en": "Sworn Protector",
+      "cond": "beat Blue Womb with The Lost",
+      "reward": "Sworn Protector",
+      "gfx": "Achievement_189_SwornProtector.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "190": {
+      "name": "淫魔",
+      "en": "Incubus",
+      "cond": "beat Blue Womb with Lilith",
+      "reward": "Incubus",
+      "gfx": "Achievement_190_Incubus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "191": {
+      "name": "A Penny!",
+      "en": "A Penny!",
+      "cond": "beat Blue Womb with Keeper",
+      "reward": "A Penny!",
+      "gfx": "Achievement_191_APenny.png",
+      "zh_source": ""
+    },
+    "192": {
+      "name": "小箱子",
+      "en": "Lil' Chest",
+      "cond": "beat Greed Mode with Isaac",
+      "reward": "Lil' Chest",
+      "gfx": "Achievement_192_LilChest.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "193": {
+      "name": "香炉",
+      "en": "Censer",
+      "cond": "beat Greed Mode with Maggy",
+      "reward": "Censer",
+      "gfx": "Achievement_193_Censer.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "194": {
+      "name": "邪恶之眼",
+      "en": "Evil Eye",
+      "cond": "beat Greed Mode with Cain",
+      "reward": "Evil Eye",
+      "gfx": "Achievement_194_EvilEye.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "195": {
+      "name": "我的影子",
+      "en": "My Shadow",
+      "cond": "beat Greed Mode with Judas",
+      "reward": "My Shadow",
+      "gfx": "Achievement_195_MyShadow.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "196": {
+      "name": "碎裂六面骰",
+      "en": "Cracked Dice",
+      "cond": "beat Greed Mode with ???",
+      "reward": "Cracked Dice",
+      "gfx": "Achievement_196_CrackedDice.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "197": {
+      "name": "黑色羽毛",
+      "en": "Black Feather",
+      "cond": "beat Greed Mode with Eve",
+      "reward": "Black Feather",
+      "gfx": "Achievement_197_BlackFeather.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "198": {
+      "name": "血嗜",
+      "en": "Lusty Blood",
+      "cond": "beat Greed Mode with Samson",
+      "reward": "Lusty Blood",
+      "gfx": "Achievement_198_LustyBlood.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "199": {
+      "name": "莉莉丝",
+      "en": "Lilith",
+      "cond": "beat Greed Mode with Azazel",
+      "reward": "Lilith",
+      "gfx": "Achievement_199_Lilith.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "200": {
+      "name": "钥匙乞丐",
+      "en": "Key Bum",
+      "cond": "beat Greed Mode with Lazarus",
+      "reward": "Key Bum",
+      "gfx": "Achievement_200_KeyBum.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "201": {
+      "name": "恶性漏洞",
+      "en": "GB Bug",
+      "cond": "beat Greed Mode with Eden",
+      "reward": "GB Bug",
+      "gfx": "Achievement_201_GBBug.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "202": {
+      "name": "黄道十二宫",
+      "en": "Zodiac",
+      "cond": "beat Greed Mode with The Lost",
+      "reward": "Zodiac",
+      "gfx": "Achievement_202_Zodiac.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "203": {
+      "name": "朋友盒",
+      "en": "Box of Friends",
+      "cond": "beat Greed Mode with Lilith",
+      "reward": "Box of Friends",
+      "gfx": "Achievement_203_BoxOfFriends.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "204": {
+      "name": "贪婪的肋骨",
+      "en": "Rib of Greed",
+      "cond": "beat Greed Mode with Keeper",
+      "reward": "Rib of Greed",
+      "gfx": "Achievement_204_RibOfGreed.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "205": {
+      "name": "宝宝",
+      "en": "Cry Baby",
+      "cond": "beat Mega Satan with Isaac",
+      "reward": "Cry Baby",
+      "gfx": "Achievement_205_CryBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "206": {
+      "name": "宝宝",
+      "en": "Red Baby",
+      "cond": "beat Mega Satan with Maggy",
+      "reward": "Red Baby",
+      "gfx": "Achievement_206_RedBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "207": {
+      "name": "宝宝",
+      "en": "Green Baby",
+      "cond": "beat Mega Satan with Cain",
+      "reward": "Green Baby",
+      "gfx": "Achievement_207_GreenBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "208": {
+      "name": "宝宝",
+      "en": "Brown Baby",
+      "cond": "beat Mega Satan with Judas",
+      "reward": "Brown Baby",
+      "gfx": "Achievement_208_BrownBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "209": {
+      "name": "宝宝",
+      "en": "Blue Baby",
+      "cond": "beat Mega Satan with ???",
+      "reward": "Blue Baby",
+      "gfx": "Achievement_209_BlueBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "210": {
+      "name": "宝宝",
+      "en": "Lil' Baby",
+      "cond": "beat Mega Satan with Eve",
+      "reward": "Lil' Baby",
+      "gfx": "Achievement_210_LilBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "211": {
+      "name": "宝宝",
+      "en": "Rage Baby",
+      "cond": "beat Mega Satan with Samson",
+      "reward": "Rage Baby",
+      "gfx": "Achievement_211_RageBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "212": {
+      "name": "宝宝",
+      "en": "Black Baby",
+      "cond": "beat Mega Satan with Azazel",
+      "reward": "Black Baby",
+      "gfx": "Achievement_212_BlackBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "213": {
+      "name": "宝宝",
+      "en": "Long Baby",
+      "cond": "beat Mega Satan with Lazarus",
+      "reward": "Long Baby",
+      "gfx": "Achievement_213_LongBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "214": {
+      "name": "宝宝",
+      "en": "Yellow Baby",
+      "cond": "beat Mega Satan with Eden",
+      "reward": "Yellow Baby",
+      "gfx": "Achievement_214_YellowBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "215": {
+      "name": "宝宝",
+      "en": "White Baby",
+      "cond": "beat Mega Satan with The Lost",
+      "reward": "White Baby",
+      "gfx": "Achievement_215_WhiteBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "216": {
+      "name": "宝宝",
+      "en": "Big Baby",
+      "cond": "beat Mega Satan with Lilith",
+      "reward": "Big Baby",
+      "gfx": "Achievement_216_BigBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "217": {
+      "name": "宝宝",
+      "en": "Noose Baby",
+      "cond": "beat Mega Satan with Keeper",
+      "reward": "Noose Baby",
+      "gfx": "Achievement_217_NooseBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "218": {
+      "name": "符文袋",
+      "en": "Rune Bag",
+      "cond": "beat Isaac with Lilith",
+      "reward": "Rune Bag",
+      "gfx": "Achievement_218_RuneBag.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "219": {
+      "name": "恶魔受胎",
+      "en": "Cambion Conception",
+      "cond": "beat ??? with Lilith",
+      "reward": "Cambion Conception",
+      "gfx": "Achievement_219_CambionConception.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "220": {
+      "name": "蛇蝎之吻",
+      "en": "Serpent's Kiss",
+      "cond": "beat Satan with Lilith",
+      "reward": "Serpent's Kiss",
+      "gfx": "Achievement_220_SerpentsKiss.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "221": {
+      "name": "魅魔",
+      "en": "Succubus",
+      "cond": "beat The Lamb with Lilith",
+      "reward": "Succubus",
+      "gfx": "Achievement_221_Succubus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "222": {
+      "name": "圣灵受胎",
+      "en": "Immaculate Conception",
+      "cond": "beat Boss Rush with lilith",
+      "reward": "Immaculate Conception",
+      "gfx": "Achievement_222_ImmaculateConception.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "223": {
+      "name": "宝宝",
+      "en": "Goat Head Baby",
+      "cond": "beat Mom's Heart with Lilith on hard mode",
+      "reward": "Goat Head Baby",
+      "gfx": "Achievement_223_GoatHeadBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "224": {
+      "name": "心脏",
+      "en": "Gold Heart",
+      "cond": "beat Challenge 21 (XXXXXXXXL)",
+      "reward": "Gold Heart",
+      "gfx": "Achievement_224_GoldHeart.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "225": {
+      "name": "免费保释卡",
+      "en": "Get Out Of Jail Free Card",
+      "cond": "beat Challenge 22 (Speed)",
+      "reward": "",
+      "gfx": "Achievement_225_GetOutOfJailFreeCard.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "226": {
+      "name": "炸弹：",
+      "en": "Gold Bomb",
+      "cond": "beat Challenge 23 (Blue Bomber)",
+      "reward": "Gold Bomb",
+      "gfx": "Achievement_226_GoldBomb.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "227": {
+      "name": "2 New Pills",
+      "en": "2 New Pills",
+      "cond": "beat Challenge 24 (Pay to Play) unlocks Percs/Overdose",
+      "reward": "",
+      "gfx": "Achievement_227_2NewPills1.png",
+      "zh_source": ""
+    },
+    "228": {
+      "name": "2 New Pills",
+      "en": "2 New Pills",
+      "cond": "beat Challenge 25 (Have a Heart) unlocks Re-Lax/???",
+      "reward": "",
+      "gfx": "Achievement_228_2NewPills2.png",
+      "zh_source": ""
+    },
+    "229": {
+      "name": "筹码",
+      "en": "Poker Chip",
+      "cond": "beat Challenge 26 (I Rule)",
+      "reward": "Poker Chip",
+      "gfx": "Achievement_229_PokerChip.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "230": {
+      "name": "饰钉定位器",
+      "en": "Stud Finder",
+      "cond": "beat Challenge 27 (Brains)",
+      "reward": "Stud Finder",
+      "gfx": "Achievement_230_StudFinder.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "231": {
+      "name": "八面骰",
+      "en": "D8",
+      "cond": "beat Challenge 28 (Pride Day)",
+      "reward": "D8",
+      "gfx": "Achievement_231_D8.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "232": {
+      "name": "肾结石",
+      "en": "Kidney Stone",
+      "cond": "beat Challenge 29 (Onan's Streak)",
+      "reward": "Kidney Stone",
+      "gfx": "Achievement_233_KidneyStone.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "233": {
+      "name": "空白符文",
+      "en": "Blank Rune",
+      "cond": "beat Challenge 30 (Guardian Angel)",
+      "reward": "Blank Rune",
+      "gfx": "Achievement_232_BlankRune.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "234": {
+      "name": "子宫",
+      "en": "Blue Womb",
+      "cond": "beat Mom's Heart 10 times",
+      "reward": "",
+      "gfx": "Achievement_234_BlueWomb.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "235": {
+      "name": "1001% (Nerd x 1000000)",
+      "en": "1001% (Nerd x 1000000)",
+      "cond": "unlock everything",
+      "reward": "",
+      "gfx": "Achievement_235_1000Percent.png",
+      "zh_source": ""
+    },
+    "236": {
+      "name": "木制镍币",
+      "en": "Wooden Nickel",
+      "cond": "beat Isaac with Keeper",
+      "reward": "Wooden Nickel",
+      "gfx": "Achievement_236_KeeperWoodenNickel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "237": {
+      "name": "商店钥匙",
+      "en": "Store Key",
+      "cond": "beat Satan with Keeper",
+      "reward": "Store Key",
+      "gfx": "Achievement_237_KeeperStoreKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "238": {
+      "name": "深口袋",
+      "en": "Deep Pockets",
+      "cond": "beat ??? with Keeper",
+      "reward": "Deep Pockets",
+      "gfx": "Achievement_238_DeepPockets.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "239": {
+      "name": "业报",
+      "en": "Karma",
+      "cond": "beat The Lamb with Keeper",
+      "reward": "Karma",
+      "gfx": "Achievement_239_Karma.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "240": {
+      "name": "Sticky Nickels",
+      "en": "Sticky Nickels",
+      "cond": "beat Boss Rush with Keeper",
+      "reward": "",
+      "gfx": "Achievement_240_StickyNickels.png",
+      "zh_source": ""
+    },
+    "241": {
+      "name": "宝宝",
+      "en": "Super Greed Baby",
+      "cond": "beat Mom's Heart with Keeper on hard mode",
+      "reward": "Super Greed Baby",
+      "gfx": "Achievement_241_SuperGreedBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "242": {
+      "name": "幸运硬币",
+      "en": "Lucky Penny",
+      "cond": "2 coins in Greed Donation Machine",
+      "reward": "",
+      "gfx": "Achievement_242_LuckyPenny.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "243": {
+      "name": "Special Hanging Shopkeepers",
+      "en": "Special Hanging Shopkeepers",
+      "cond": "14 coins in Greed Donation Machine",
+      "reward": "",
+      "gfx": "Achievement_243_SpecialHangingShopkeepers.png",
+      "zh_source": ""
+    },
+    "244": {
+      "name": "木制镍币",
+      "en": "Wooden Nickel",
+      "cond": "33 coins in Greed Donation Machine",
+      "reward": "Wooden Nickel",
+      "gfx": "Achievement_244_WoodenNickel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "245": {
+      "name": "Paperclip",
+      "en": "Paperclip",
+      "cond": "68 coins in Greed Donation Machine",
+      "reward": "Paperclip",
+      "gfx": "Achievement_245_CainPaperClip.png",
+      "zh_source": ""
+    },
+    "246": {
+      "name": "Everything is terrible 2!!!",
+      "en": "Everything is terrible 2!!!",
+      "cond": "111 coins in Greed Donation Machine",
+      "reward": "",
+      "gfx": "Achievement_246_EverythingIsTerrible2.png",
+      "zh_source": ""
+    },
+    "247": {
+      "name": "You unlocked Special Shopkeepers!",
+      "en": "You unlocked Special Shopkeepers!",
+      "cond": "234 coins in Greed Donation Machine",
+      "reward": "",
+      "gfx": "Achievement_247_SpecialShopkeepers.png",
+      "zh_source": ""
+    },
+    "248": {
+      "name": "剃刀片",
+      "en": "Razor Blade",
+      "cond": "439 coins in Greed Donation Machine",
+      "reward": "Razor Blade",
+      "gfx": "Achievement_248_EveRazorBlade.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "249": {
+      "name": "商店钥匙",
+      "en": "Store Key",
+      "cond": "666 coins in Greed Donation Machine",
+      "reward": "Store Key",
+      "gfx": "Achievement_249_StoreKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "250": {
+      "name": "神圣屏障",
+      "en": "Holy Mantle",
+      "cond": "879 coins in Greed Donation Machine",
+      "reward": "Holy Mantle",
+      "gfx": "Achievement_250_LostHolyMantle.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "251": {
+      "name": "店主",
+      "en": "Keeper",
+      "cond": "1000 coins in Greed Donation Machine",
+      "reward": "Keeper",
+      "gfx": "Achievement_251_Keeper.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "252": {
+      "name": "宝宝",
+      "en": "Hive Baby",
+      "cond": "reach all endings with ???",
+      "reward": "Hive Baby",
+      "gfx": "Achievement_252_HiveBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "253": {
+      "name": "宝宝",
+      "en": "Buddy Baby",
+      "cond": "reach all endings with Isaac",
+      "reward": "Buddy Baby",
+      "gfx": "Achievement_253_BuddyBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "254": {
+      "name": "宝宝",
+      "en": "Colorful Baby",
+      "cond": "reach all endings with Maggy",
+      "reward": "Colorful Baby",
+      "gfx": "Achievement_254_ColorfulBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "255": {
+      "name": "宝宝",
+      "en": "Whore Baby",
+      "cond": "reach all endings with Eve",
+      "reward": "Whore Baby",
+      "gfx": "Achievement_255_WhoreBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "256": {
+      "name": "宝宝",
+      "en": "Cracked Baby",
+      "cond": "reach all endings with Eden",
+      "reward": "Cracked Baby",
+      "gfx": "Achievement_256_CrackedBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "257": {
+      "name": "宝宝",
+      "en": "Dripping Baby",
+      "cond": "reach all endings with Lazarus",
+      "reward": "Dripping Baby",
+      "gfx": "Achievement_257_DrippingBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "258": {
+      "name": "宝宝",
+      "en": "Blinding Baby",
+      "cond": "reach all endings with The Lost",
+      "reward": "Blinding Baby",
+      "gfx": "Achievement_258_BlindingBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "259": {
+      "name": "宝宝",
+      "en": "Sucky Baby",
+      "cond": "reach all endings with Azazel",
+      "reward": "Sucky Baby",
+      "gfx": "Achievement_259_SuckyBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "260": {
+      "name": "宝宝",
+      "en": "Dark Baby",
+      "cond": "reach all endings with Lilith",
+      "reward": "Dark Baby",
+      "gfx": "Achievement_260_DarkBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "261": {
+      "name": "宝宝",
+      "en": "Picky Baby",
+      "cond": "reach all endings with Cain",
+      "reward": "Picky Baby",
+      "gfx": "Achievement_261_PickyBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "262": {
+      "name": "宝宝",
+      "en": "Revenge Baby",
+      "cond": "reach all endings with Samson",
+      "reward": "Revenge Baby",
+      "gfx": "Achievement_262_RevengeBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "263": {
+      "name": "宝宝",
+      "en": "Belial Baby",
+      "cond": "reach all endings with Judas",
+      "reward": "Belial Baby",
+      "gfx": "Achievement_263_BelialBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "264": {
+      "name": "宝宝",
+      "en": "Sale Baby",
+      "cond": "reach all endings with Keeper",
+      "reward": "Sale Baby",
+      "gfx": "Achievement_264_SaleBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "265": {
+      "name": "Challenge21",
+      "en": "Challenge21",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge21.png",
+      "zh_source": ""
+    },
+    "266": {
+      "name": "Challenge22",
+      "en": "Challenge22",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge22.png",
+      "zh_source": ""
+    },
+    "267": {
+      "name": "Challenge23",
+      "en": "Challenge23",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge23.png",
+      "zh_source": ""
+    },
+    "268": {
+      "name": "Challenge24",
+      "en": "Challenge24",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge24.png",
+      "zh_source": ""
+    },
+    "269": {
+      "name": "Challenge25",
+      "en": "Challenge25",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge25.png",
+      "zh_source": ""
+    },
+    "270": {
+      "name": "Challenge26",
+      "en": "Challenge26",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge26.png",
+      "zh_source": ""
+    },
+    "271": {
+      "name": "Challenge27",
+      "en": "Challenge27",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge27.png",
+      "zh_source": ""
+    },
+    "272": {
+      "name": "Challenge28",
+      "en": "Challenge28",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge28.png",
+      "zh_source": ""
+    },
+    "273": {
+      "name": "Challenge29",
+      "en": "Challenge29",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge29.png",
+      "zh_source": ""
+    },
+    "274": {
+      "name": "Challenge30",
+      "en": "Challenge30",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge30.png",
+      "zh_source": ""
+    },
+    "275": {
+      "name": "Generosity",
+      "en": "Generosity",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Generosity.png",
+      "zh_source": ""
+    },
+    "276": {
+      "name": "超级喷射",
+      "en": "Mega Blast",
+      "cond": "",
+      "reward": "Mega Blast",
+      "gfx": "Achievement_MegaBlast.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "277": {
+      "name": "Challenge31",
+      "en": "Challenge31",
+      "cond": "Afterbirth+",
+      "reward": "",
+      "gfx": "Achievement_Challenge31.png",
+      "zh_source": ""
+    },
+    "278": {
+      "name": "Challenge32",
+      "en": "Challenge32",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge32.png",
+      "zh_source": ""
+    },
+    "279": {
+      "name": "Challenge33",
+      "en": "Challenge33",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge33.png",
+      "zh_source": ""
+    },
+    "280": {
+      "name": "Challenge34",
+      "en": "Challenge34",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge34.png",
+      "zh_source": ""
+    },
+    "281": {
+      "name": "Challenge35",
+      "en": "Challenge35",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge35.png",
+      "zh_source": ""
+    },
+    "282": {
+      "name": "无限面骰",
+      "en": "D infinity",
+      "cond": "",
+      "reward": "D infinity",
+      "gfx": "Achievement_Dinf.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "283": {
+      "name": "圣餐",
+      "en": "Eucharist",
+      "cond": "",
+      "reward": "Eucharist",
+      "gfx": "Achievement_Eucharist.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "284": {
+      "name": "银币",
+      "en": "Silver Dollar",
+      "cond": "",
+      "reward": "Silver Dollar",
+      "gfx": "Achievement_SilverDollar.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "285": {
+      "name": "阴影",
+      "en": "Shade",
+      "cond": "",
+      "reward": "Shade",
+      "gfx": "Achievement_Shade.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "286": {
+      "name": "国王宝宝",
+      "en": "King Baby",
+      "cond": "",
+      "reward": "King Baby",
+      "gfx": "Achievement_KingBaby.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "287": {
+      "name": "染血王冠",
+      "en": "Bloody Crown",
+      "cond": "",
+      "reward": "Bloody Crown",
+      "gfx": "Achievement_BloodyCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "288": {
+      "name": "钝剃刀片",
+      "en": "Dull Razor",
+      "cond": "",
+      "reward": "Dull Razor",
+      "gfx": "Achievement_DullRazor.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "289": {
+      "name": "伊甸的灵魂",
+      "en": "Eden's Soul",
+      "cond": "",
+      "reward": "Eden's Soul",
+      "gfx": "Achievement_EdensSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "290": {
+      "name": "黑王子之冠",
+      "en": "Dark Prince's Crown",
+      "cond": "",
+      "reward": "Dark Prince's Crown",
+      "gfx": "Achievement_DarkPrincesCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "291": {
+      "name": "复杂性骨折",
+      "en": "Compound Fracture",
+      "cond": "",
+      "reward": "Compound Fracture",
+      "gfx": "Achievement_CompoundFracture.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "292": {
+      "name": "安乐死",
+      "en": "Euthanasia",
+      "cond": "",
+      "reward": "Euthanasia",
+      "gfx": "Achievement_Euthanasia.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "293": {
+      "name": "神圣卡",
+      "en": "Holy Card",
+      "cond": "",
+      "reward": "Holy Card",
+      "gfx": "Achievement_HolyCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "294": {
+      "name": "被掰弯的硬币",
+      "en": "Crooked Penny",
+      "cond": "",
+      "reward": "Crooked Penny",
+      "gfx": "Achievement_CrookedPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "295": {
+      "name": "虚空",
+      "en": "Void",
+      "cond": "",
+      "reward": "Void",
+      "gfx": "Achievement_Void.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "296": {
+      "name": "一面骰",
+      "en": "D1",
+      "cond": "",
+      "reward": "D1",
+      "gfx": "Achievement_D1.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "297": {
+      "name": "平衡符号",
+      "en": "Glyph of Balance",
+      "cond": "",
+      "reward": "Glyph of Balance",
+      "gfx": "Achievement_GlyphOfBalance.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "298": {
+      "name": "袋中袋",
+      "en": "Sack of Sacks",
+      "cond": "",
+      "reward": "Sack of Sacks",
+      "gfx": "Achievement_SackOfSacks.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "299": {
+      "name": "彼列之眼",
+      "en": "Eye of Belial",
+      "cond": "",
+      "reward": "Eye of Belial",
+      "gfx": "Achievement_EyeOfBelial.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "300": {
+      "name": "胎粪",
+      "en": "Meconium",
+      "cond": "",
+      "reward": "Meconium",
+      "gfx": "Achievement_Meconium.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "301": {
+      "name": "干细胞",
+      "en": "Stem Cell",
+      "cond": "",
+      "reward": "Stem Cell",
+      "gfx": "Achievement_StemCell.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "302": {
+      "name": "乌鸦的心",
+      "en": "Crow Heart",
+      "cond": "",
+      "reward": "Crow Heart",
+      "gfx": "Achievement_CrowHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "303": {
+      "name": "节拍器",
+      "en": "Metronome",
+      "cond": "",
+      "reward": "Metronome",
+      "gfx": "Achievement_Metronome.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "304": {
+      "name": "蝙蝠翅膀",
+      "en": "Bat Wing",
+      "cond": "",
+      "reward": "Bat Wing",
+      "gfx": "Achievement_BatWing.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "305": {
+      "name": "计划C",
+      "en": "Plan C",
+      "cond": "",
+      "reward": "Plan C",
+      "gfx": "Achievement_PlanC.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "306": {
+      "name": "二元性",
+      "en": "Duality",
+      "cond": "",
+      "reward": "Duality",
+      "gfx": "Achievement_Duality.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "307": {
+      "name": "爸爸丢失的硬币",
+      "en": "Dad's Lost Coin",
+      "cond": "",
+      "reward": "Dad's Lost Coin",
+      "gfx": "Achievement_DadsLostCoin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "308": {
+      "name": "贪婪的眼睛",
+      "en": "Eye of Greed",
+      "cond": "",
+      "reward": "Eye of Greed",
+      "gfx": "Achievement_EyeOfGreed.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "309": {
+      "name": "黑符文",
+      "en": "Black Rune",
+      "cond": "",
+      "reward": "Black Rune",
+      "gfx": "Achievement_BlackRune.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "310": {
+      "name": "愤怒",
+      "en": "Locust of Wrath",
+      "cond": "",
+      "reward": "Locust of Wrath",
+      "gfx": "Achievement_LocustOfWrath.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "311": {
+      "name": "瘟疫蝗虫",
+      "en": "Locust of Pestilence",
+      "cond": "",
+      "reward": "Locust of Pestilence",
+      "gfx": "Achievement_LocustOfPestilence.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "312": {
+      "name": "饥荒蝗虫",
+      "en": "Locust of Famine",
+      "cond": "",
+      "reward": "Locust of Famine",
+      "gfx": "Achievement_LocustOfFamine.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "313": {
+      "name": "死亡蝗虫",
+      "en": "Locust of Death",
+      "cond": "",
+      "reward": "Locust of Death",
+      "gfx": "Achievement_LocustOfDeath.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "314": {
+      "name": "征服蝗虫",
+      "en": "Locust of Conquest",
+      "cond": "",
+      "reward": "Locust of Conquest",
+      "gfx": "Achievement_LocustOfConquest.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "315": {
+      "name": "死寂宝宝",
+      "en": "Hushy",
+      "cond": "",
+      "reward": "Hushy",
+      "gfx": "Achievement_Hushy.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "316": {
+      "name": "棕色粪块",
+      "en": "Brown Nugget",
+      "cond": "",
+      "reward": "Brown Nugget",
+      "gfx": "Achievement_BrownNugget.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "317": {
+      "name": "宝宝",
+      "en": "Mort Baby",
+      "cond": "",
+      "reward": "Mort Baby",
+      "gfx": "Achievement_MortBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "318": {
+      "name": "熔炉",
+      "en": "Smelter",
+      "cond": "",
+      "reward": "Smelter",
+      "gfx": "Achievement_Smelter.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "319": {
+      "name": "宝宝",
+      "en": "Apollyon Baby",
+      "cond": "",
+      "reward": "Apollyon Baby",
+      "gfx": "Achievement_ApollyonBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "320": {
+      "name": "虚空",
+      "en": "The Void",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_TheVoid.png",
+      "zh_source": "语言包（成就标题译名）"
+    },
+    "321": {
+      "name": "Once more with feeling!",
+      "en": "Once more with feeling!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_PillGulp.png",
+      "zh_source": ""
+    },
+    "322": {
+      "name": "梅花A",
+      "en": "Hat trick!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_AceOfClubs.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "323": {
+      "name": "5 nights at moms",
+      "en": "5 nights at moms",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_SuperSpecialRocks.png",
+      "zh_source": ""
+    },
+    "324": {
+      "name": "Sin collector",
+      "en": "Sin collector",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_PillSunshine.png",
+      "zh_source": ""
+    },
+    "325": {
+      "name": "Dedication",
+      "en": "Dedication",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_PillHorf.png",
+      "zh_source": ""
+    },
+    "326": {
+      "name": "方片A",
+      "en": "ZIP!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_AceOfDiamonds.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "327": {
+      "name": "黑桃A",
+      "en": "It's the key",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_AceOfSpades.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "328": {
+      "name": "Mr.",
+      "en": "Mr.",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_ScaredHeart.png",
+      "zh_source": ""
+    },
+    "329": {
+      "name": "红桃A",
+      "en": "Living on the edge",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_AceOfHearts.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "330": {
+      "name": "U broke it!",
+      "en": "U broke it!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_PillVurp.png",
+      "zh_source": ""
+    },
+    "331": {
+      "name": "Laz Bleeds More!",
+      "en": "Laz Bleeds More!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_LazBleedsMore.png",
+      "zh_source": ""
+    },
+    "332": {
+      "name": "Maggy Now Holds APill",
+      "en": "Maggy Now Holds APill",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_MaggyNowHoldsAPill.png",
+      "zh_source": ""
+    },
+    "333": {
+      "name": "Charged Key",
+      "en": "Charged Key",
+      "cond": "",
+      "reward": "Charged Key",
+      "gfx": "Achievement_ChargedKey.png",
+      "zh_source": ""
+    },
+    "334": {
+      "name": "Samson feels healthy!",
+      "en": "Samson feels healthy!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_SamsonFeelsHealthy.png",
+      "zh_source": ""
+    },
+    "335": {
+      "name": "贪婪的胃袋",
+      "en": "Greed's Gullet",
+      "cond": "",
+      "reward": "Greed's Gullet",
+      "gfx": "Achievement_GreedsGullet.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "336": {
+      "name": "碎裂的王冠",
+      "en": "Cracked Crown",
+      "cond": "",
+      "reward": "Cracked Crown",
+      "gfx": "Achievement_CrackedCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "337": {
+      "name": "You unlocked RERUN!",
+      "en": "You unlocked RERUN!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Rerun.png",
+      "zh_source": ""
+    },
+    "338": {
+      "name": "精神错乱",
+      "en": "Delirious",
+      "cond": "",
+      "reward": "Delirious",
+      "gfx": "Achievement_Delirious.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "339": {
+      "name": "定！",
+      "en": "1000000% Just Stop!",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_1000000Percent.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "340": {
+      "name": "亚玻伦",
+      "en": "Apollyon",
+      "cond": "kill Mega Satan",
+      "reward": "Apollyon",
+      "gfx": "Achievement_Apollyon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "341": {
+      "name": "You just got Greedier!",
+      "en": "You just got Greedier!",
+      "cond": "500 coins in Greed Donation Machine",
+      "reward": "",
+      "gfx": "Achievement_Greedier.png",
+      "zh_source": ""
+    },
+    "342": {
+      "name": "燃烧地下室",
+      "en": "The Basement is burning!",
+      "cond": "beat Mom's Heart 11 times",
+      "reward": "",
+      "gfx": "Achievement_BurningBasement.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "343": {
+      "name": "淹水洞穴",
+      "en": "The Caves are flooded!",
+      "cond": "beat Mom's Heart 16 times",
+      "reward": "",
+      "gfx": "Achievement_FloodedCaves.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "344": {
+      "name": "阴湿深牢",
+      "en": "The Depths are dank!",
+      "cond": "beat Mom's Heart 21 times",
+      "reward": "",
+      "gfx": "Achievement_DankDepths.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "345": {
+      "name": "结痂子宫",
+      "en": "The Womb is scarred!",
+      "cond": "beat Mom's Heart 30 times",
+      "reward": "",
+      "gfx": "Achievement_ScarredWomb.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "346": {
+      "name": "Something Wicked",
+      "en": "Something Wicked",
+      "cond": "beat Chest as 3 different characters",
+      "reward": "",
+      "gfx": "Achievement_SomethingWicked.png",
+      "zh_source": ""
+    },
+    "347": {
+      "name": "Something Wicked+",
+      "en": "Something Wicked+",
+      "cond": "beat Chest as 6 different characters",
+      "reward": "",
+      "gfx": "Achievement_SomethingWicked+.png",
+      "zh_source": ""
+    },
+    "348": {
+      "name": "The gate is open!",
+      "en": "The gate is open!",
+      "cond": "kill the Lamb",
+      "reward": "",
+      "gfx": "Achievement_GateOpen.png",
+      "zh_source": ""
+    },
+    "349": {
+      "name": "黑洞",
+      "en": "Black Hole",
+      "cond": "Afterbirth+ Booster #1",
+      "reward": "Black Hole",
+      "gfx": "Achievement_BlackHole.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "350": {
+      "name": "神秘礼物",
+      "en": "Mystery Gift",
+      "cond": "",
+      "reward": "Mystery Gift",
+      "gfx": "Achievement_MysteryGift.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "351": {
+      "name": "洒水器",
+      "en": "Sprinkler",
+      "cond": "",
+      "reward": "Sprinkler",
+      "gfx": "Achievement_Sprinkler.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "352": {
+      "name": "愤怒苍蝇",
+      "en": "Angry Fly",
+      "cond": "",
+      "reward": "Angry Fly",
+      "gfx": "Achievement_AngryFly.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "353": {
+      "name": "派对帽",
+      "en": "Bozo",
+      "cond": "",
+      "reward": "Bozo",
+      "gfx": "Achievement_Bozo.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "354": {
+      "name": "损坏的调制解调器",
+      "en": "Broken Modem",
+      "cond": "",
+      "reward": "Broken Modem",
+      "gfx": "Achievement_BrokenModem.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "355": {
+      "name": "伙伴盲盒",
+      "en": "Buddy in a Box",
+      "cond": "",
+      "reward": "Buddy in a Box",
+      "gfx": "Achievement_BuddyInABox.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "356": {
+      "name": "快速炸弹",
+      "en": "Fast Bombs",
+      "cond": "",
+      "reward": "Fast Bombs",
+      "gfx": "Achievement_FastBombs.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "357": {
+      "name": "精神错乱宝宝",
+      "en": "Lil Delirium",
+      "cond": "",
+      "reward": "Lil Delirium",
+      "gfx": "Achievement_LilDelirium.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "358": {
+      "name": "发夹",
+      "en": "Hairpin",
+      "cond": "",
+      "reward": "Hairpin",
+      "gfx": "Achievement_Hairpin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "359": {
+      "name": "木十字架",
+      "en": "Wooden Cross",
+      "cond": "",
+      "reward": "Wooden Cross",
+      "gfx": "Achievement_WoodenCross.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "360": {
+      "name": "黄油！",
+      "en": "Butter",
+      "cond": "",
+      "reward": "Butter",
+      "gfx": "Achievement_Butter.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "361": {
+      "name": "变巨术",
+      "en": "Huge Growth",
+      "cond": "",
+      "reward": "Huge Growth",
+      "gfx": "Achievement_HugeGrowth.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "362": {
+      "name": "先祖召唤",
+      "en": "Ancient Recall",
+      "cond": "",
+      "reward": "Ancient Recall",
+      "gfx": "Achievement_AncientRecall.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "363": {
+      "name": "时空漫步",
+      "en": "Era Walk",
+      "cond": "",
+      "reward": "Era Walk",
+      "gfx": "Achievement_EraWalk.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "364": {
+      "name": "代金券",
+      "en": "Coupon",
+      "cond": "Afterbirth+ Booster #2",
+      "reward": "Coupon",
+      "gfx": "Achievement_Coupon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "365": {
+      "name": "念力",
+      "en": "Telekinesis",
+      "cond": "",
+      "reward": "Telekinesis",
+      "gfx": "Achievement_Telekinesis.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "366": {
+      "name": "搬家盒",
+      "en": "Moving Box",
+      "cond": "",
+      "reward": "Moving Box",
+      "gfx": "Achievement_MovingBox.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "367": {
+      "name": "跨接电缆",
+      "en": "Jumper Cables",
+      "cond": "",
+      "reward": "Jumper Cables",
+      "gfx": "Achievement_JumperCables.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "368": {
+      "name": "麻风病",
+      "en": "Leprosy",
+      "cond": "",
+      "reward": "Leprosy",
+      "gfx": "Achievement_Leprosy.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "369": {
+      "name": "科技零",
+      "en": "Technology Zero",
+      "cond": "",
+      "reward": "Technology Zero",
+      "gfx": "Achievement_TechnologyZero.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "370": {
+      "name": "银丝羽毛",
+      "en": "Filigree Feather",
+      "cond": "",
+      "reward": "Filigree Feather",
+      "gfx": "Achievement_FiligreeFeather.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "371": {
+      "name": "自我先生！",
+      "en": "Mr. Me",
+      "cond": "Afterbirth+ Booster #3",
+      "reward": "Mr. Me",
+      "gfx": "Achievement_MrMe.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "372": {
+      "name": "七印",
+      "en": "7 Seals",
+      "cond": "",
+      "reward": "7 Seals",
+      "gfx": "Achievement_7Seals.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "373": {
+      "name": "天使棱镜",
+      "en": "Angelic Prism",
+      "cond": "",
+      "reward": "Angelic Prism",
+      "gfx": "Achievement_AngelicPrism.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "374": {
+      "name": "噗！",
+      "en": "Pop!",
+      "cond": "",
+      "reward": "Pop!",
+      "gfx": "Achievement_Pop.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "375": {
+      "name": "门挡",
+      "en": "Door Stop",
+      "cond": "",
+      "reward": "Door Stop",
+      "gfx": "Achievement_DoorStop.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "376": {
+      "name": "死神名册",
+      "en": "Death's List",
+      "cond": "Afterbirth+ Booster #4",
+      "reward": "Death's List",
+      "gfx": "Achievement_DeathsList.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "377": {
+      "name": "泪血症",
+      "en": "Haemolacria",
+      "cond": "",
+      "reward": "Haemolacria",
+      "gfx": "Achievement_Haemolacria.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "378": {
+      "name": "食泪症",
+      "en": "Lachryphagy",
+      "cond": "",
+      "reward": "Lachryphagy",
+      "gfx": "Achievement_Lachryphagy.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "379": {
+      "name": "书包",
+      "en": "Schoolbag",
+      "cond": "",
+      "reward": "Schoolbag",
+      "gfx": "Achievement_Schoolbag.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "380": {
+      "name": "三圣颂",
+      "en": "Trisagion",
+      "cond": "",
+      "reward": "Trisagion",
+      "gfx": "Achievement_Trisagion.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "381": {
+      "name": "扩接电线",
+      "en": "Extension Cord",
+      "cond": "",
+      "reward": "Extension Cord",
+      "gfx": "Achievement_ExtensionCord.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "382": {
+      "name": "扁石",
+      "en": "Flat Stone",
+      "cond": "Afterbirth+ Booster #5",
+      "reward": "Flat Stone",
+      "gfx": "Achievement_FlatStone.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "383": {
+      "name": "祭坛",
+      "en": "Sacrificial Altar",
+      "cond": "",
+      "reward": "Sacrificial Altar",
+      "gfx": "Achievement_SacrificialAltar.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "384": {
+      "name": "呕吐虫宝宝",
+      "en": "Lil Spewer",
+      "cond": "",
+      "reward": "Lil Spewer",
+      "gfx": "Achievement_LilSpewer.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "385": {
+      "name": "毛毯",
+      "en": "Blanket",
+      "cond": "",
+      "reward": "Blanket",
+      "gfx": "Achievement_Blanket.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "386": {
+      "name": "弹珠袋",
+      "en": "Marbles",
+      "cond": "",
+      "reward": "Marbles",
+      "gfx": "Achievement_Marbles.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "387": {
+      "name": "神秘的卵",
+      "en": "Mystery Egg",
+      "cond": "",
+      "reward": "Mystery Egg",
+      "gfx": "Achievement_MysteryEgg.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "388": {
+      "name": "腐烂硬币",
+      "en": "Rotten Penny",
+      "cond": "",
+      "reward": "Rotten Penny",
+      "gfx": "Achievement_RottenPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "389": {
+      "name": "儿童弯勺",
+      "en": "Baby-Bender",
+      "cond": "",
+      "reward": "Baby-Bender",
+      "gfx": "Achievement_BabyBender.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "390": {
+      "name": "遗骸",
+      "en": "The Forgotten",
+      "cond": "it's a secret...",
+      "reward": "The Forgotten",
+      "gfx": "Achievement_TheForgotten.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "391": {
+      "name": "心脏",
+      "en": "Bone Heart",
+      "cond": "",
+      "reward": "Bone Heart",
+      "gfx": "Achievement_BoneHeart.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "392": {
+      "name": "骨髓",
+      "en": "Marrow",
+      "cond": "beat Mom's Heart on hard mode with The Forgotten",
+      "reward": "Marrow",
+      "gfx": "Achievement_Marrow.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "393": {
+      "name": "滑肋骨",
+      "en": "Slipped Rib",
+      "cond": "kill Isaac with The Forgotten",
+      "reward": "Slipped Rib",
+      "gfx": "Achievement_SlippedRib.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "394": {
+      "name": "尖肋骨",
+      "en": "Pointy Rib",
+      "cond": "kill Satan with The Forgotten",
+      "reward": "Pointy Rib",
+      "gfx": "Achievement_PointyRib.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "395": {
+      "name": "颌骨",
+      "en": "Jaw Bone",
+      "cond": "beat The Chest with The Forgotten",
+      "reward": "Jaw Bone",
+      "gfx": "Achievement_JawBone.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "396": {
+      "name": "脆骨症",
+      "en": "Brittle Bones",
+      "cond": "beat Dark Room with The Forgotten",
+      "reward": "Brittle Bones",
+      "gfx": "Achievement_BrittleBones.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "397": {
+      "name": "离婚协议书",
+      "en": "Divorce Papers",
+      "cond": "beat Boss Rush with The Forgotten",
+      "reward": "Divorce Papers",
+      "gfx": "Achievement_DivorcePapers.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "398": {
+      "name": "圣地大便",
+      "en": "Hallowed Ground",
+      "cond": "beat Blue Womb with The Forgotten",
+      "reward": "Hallowed Ground",
+      "gfx": "Achievement_HallowedGround.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "399": {
+      "name": "指骨",
+      "en": "Finger Bone",
+      "cond": "beat Greed Mode with The Forgotten",
+      "reward": "Finger Bone",
+      "gfx": "Achievement_FingerBone.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "400": {
+      "name": "爸爸的戒指",
+      "en": "Dad's Ring",
+      "cond": "beat Greedier Mode with The Forgotten",
+      "reward": "Dad's Ring",
+      "gfx": "Achievement_DadsRing.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "401": {
+      "name": "亡者之书",
+      "en": "Book of the Dead",
+      "cond": "beat The Void with The Forgotten",
+      "reward": "Book of the Dead",
+      "gfx": "Achievement_BookOfTheDead.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "402": {
+      "name": "宝宝",
+      "en": "Bone Baby",
+      "cond": "reach all endings with The Forgotten",
+      "reward": "Bone Baby",
+      "gfx": "Achievement_BoneBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "403": {
+      "name": "宝宝",
+      "en": "Bound Baby",
+      "cond": "beat Mega Satan with The Forgotten",
+      "reward": "Bound Baby",
+      "gfx": "Achievement_BoundBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "404": {
+      "name": "伯大尼",
+      "en": "Bethany",
+      "cond": "Repentance",
+      "reward": "Bethany",
+      "gfx": "Achievement_Bethany.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "405": {
+      "name": "以扫",
+      "en": "Jacob&Esau",
+      "cond": "",
+      "reward": "Jacob&Esau",
+      "gfx": "Achievement_JacobEsau.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "406": {
+      "name": "The stars are calling...",
+      "en": "The stars are calling...",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Planetarium.png",
+      "zh_source": ""
+    },
+    "407": {
+      "name": "退出",
+      "en": "A Secret Exit",
+      "cond": "",
+      "reward": "A Secret Exit",
+      "gfx": "Achievement_SecretExit.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "408": {
+      "name": "失落摇篮曲",
+      "en": "Forgotten Lullaby",
+      "cond": "",
+      "reward": "Forgotten Lullaby",
+      "gfx": "Achievement_ForgottenLullaby.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "409": {
+      "name": "甜甜糖梅宝",
+      "en": "Fruity Plum",
+      "cond": "",
+      "reward": "Fruity Plum",
+      "gfx": "Achievement_FruityPlum.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "410": {
+      "name": "糖梅溜溜笛",
+      "en": "Plum Flute",
+      "cond": "",
+      "reward": "Plum Flute",
+      "gfx": "Achievement_PlumFlute.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "411": {
+      "name": "心脏",
+      "en": "Rotten Heart",
+      "cond": "",
+      "reward": "Rotten Heart",
+      "gfx": "Achievement_RottenHeart.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "412": {
+      "name": "污水井",
+      "en": "Dross",
+      "cond": "",
+      "reward": "Dross",
+      "gfx": "Achievement_Dross.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "413": {
+      "name": "灰坑",
+      "en": "Ashpit",
+      "cond": "",
+      "reward": "Ashpit",
+      "gfx": "Achievement_Ashpit.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "414": {
+      "name": "炼狱",
+      "en": "Gehenna",
+      "cond": "",
+      "reward": "Gehenna",
+      "gfx": "Achievement_Gehenna.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "415": {
+      "name": "红钥匙",
+      "en": "Red Key",
+      "cond": "",
+      "reward": "Red Key",
+      "gfx": "Achievement_RedKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "416": {
+      "name": "宝宝",
+      "en": "Wisp Baby",
+      "cond": "",
+      "reward": "Wisp Baby",
+      "gfx": "Achievement_WispBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "417": {
+      "name": "美德之书",
+      "en": "Book of Virtues",
+      "cond": "",
+      "reward": "Book of Virtues",
+      "gfx": "Achievement_BookOfVirtues.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "418": {
+      "name": "灵魂之瓮",
+      "en": "Urn of Souls",
+      "cond": "",
+      "reward": "Urn of Souls",
+      "gfx": "Achievement_UrnOfSouls.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "419": {
+      "name": "神圣硬币",
+      "en": "Blessed Penny",
+      "cond": "",
+      "reward": "Blessed Penny",
+      "gfx": "Achievement_BlessedPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "420": {
+      "name": "白玉香膏盒",
+      "en": "Alabaster Box",
+      "cond": "",
+      "reward": "Alabaster Box",
+      "gfx": "Achievement_AlabasterBox.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "421": {
+      "name": "伯大尼的信仰",
+      "en": "Beth's Faith",
+      "cond": "",
+      "reward": "Beth's Faith",
+      "gfx": "Achievement_BethsFaith.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "422": {
+      "name": "灵魂吊坠",
+      "en": "Soul Locket",
+      "cond": "",
+      "reward": "Soul Locket",
+      "gfx": "Achievement_SoulLocket.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "423": {
+      "name": "神圣干预",
+      "en": "Divine Intervention",
+      "cond": "",
+      "reward": "Divine Intervention",
+      "gfx": "Achievement_DivineIntervention.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "424": {
+      "name": "驱魔护符",
+      "en": "Vade Retro",
+      "cond": "",
+      "reward": "Vade Retro",
+      "gfx": "Achievement_VadeRetro.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "425": {
+      "name": "伯列恒之星",
+      "en": "Star of Bethlehem",
+      "cond": "",
+      "reward": "Star of Bethlehem",
+      "gfx": "Achievement_StarOfBethlehem.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "426": {
+      "name": "宝宝",
+      "en": "Hope Baby",
+      "cond": "",
+      "reward": "Hope Baby",
+      "gfx": "Achievement_HopeBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "427": {
+      "name": "宝宝",
+      "en": "Glowing Baby",
+      "cond": "",
+      "reward": "Glowing Baby",
+      "gfx": "Achievement_GlowingBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "428": {
+      "name": "宝宝",
+      "en": "Double Baby",
+      "cond": "",
+      "reward": "Double Baby",
+      "gfx": "Achievement_DoubleBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "429": {
+      "name": "天堂阶梯",
+      "en": "The Stairway",
+      "cond": "",
+      "reward": "The Stairway",
+      "gfx": "Achievement_TheStairway.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "430": {
+      "name": "红豆汤",
+      "en": "Red Stew",
+      "cond": "",
+      "reward": "Red Stew",
+      "gfx": "Achievement_RedStew.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "431": {
+      "name": "长子名分",
+      "en": "Birthright",
+      "cond": "",
+      "reward": "Birthright",
+      "gfx": "Achievement_Birthright.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "432": {
+      "name": "达摩克里斯之剑",
+      "en": "Damocles",
+      "cond": "",
+      "reward": "Damocles",
+      "gfx": "Achievement_Damocles.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "433": {
+      "name": "谷底石",
+      "en": "Rock Bottom",
+      "cond": "",
+      "reward": "Rock Bottom",
+      "gfx": "Achievement_RockBottom.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "434": {
+      "name": "内在孩童",
+      "en": "Inner Child",
+      "cond": "",
+      "reward": "Inner Child",
+      "gfx": "Achievement_InnerChild.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "435": {
+      "name": "消失的胞胎",
+      "en": "Vanishing Twin",
+      "cond": "",
+      "reward": "Vanishing Twin",
+      "gfx": "Achievement_VanishingTwin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "436": {
+      "name": "创世记",
+      "en": "Genesis",
+      "cond": "",
+      "reward": "Genesis",
+      "gfx": "Achievement_Genesis.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "437": {
+      "name": "背摔！",
+      "en": "Suplex!",
+      "cond": "",
+      "reward": "Suplex!",
+      "gfx": "Achievement_Suplex.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "438": {
+      "name": "宝宝",
+      "en": "Solomon's Baby",
+      "cond": "",
+      "reward": "Solomon's Baby",
+      "gfx": "Achievement_SolomonsBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "439": {
+      "name": "宝宝",
+      "en": "Illusion Baby",
+      "cond": "",
+      "reward": "Illusion Baby",
+      "gfx": "Achievement_IllusionBaby.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "440": {
+      "name": "切肉刀",
+      "en": "Meat Cleaver",
+      "cond": "",
+      "reward": "Meat Cleaver",
+      "gfx": "Achievement_MeatCleaver.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "441": {
+      "name": "选择？",
+      "en": "Options?",
+      "cond": "",
+      "reward": "Options?",
+      "gfx": "Achievement_Options.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "442": {
+      "name": "难吃的心",
+      "en": "Yuck Heart",
+      "cond": "",
+      "reward": "Yuck Heart",
+      "gfx": "Achievement_YuckHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "443": {
+      "name": "糖心",
+      "en": "Candy Heart",
+      "cond": "",
+      "reward": "Candy Heart",
+      "gfx": "Achievement_CandyHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "444": {
+      "name": "嗝屁猫的眼睛",
+      "en": "Guppy's Eye",
+      "cond": "",
+      "reward": "Guppy's Eye",
+      "gfx": "Achievement_GuppysEye.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "445": {
+      "name": "一磅肉…",
+      "en": "A Pound of Flesh",
+      "cond": "",
+      "reward": "A Pound of Flesh",
+      "gfx": "Achievement_PoundOfFlesh.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "446": {
+      "name": "血田",
+      "en": "Akeldama",
+      "cond": "",
+      "reward": "Akeldama",
+      "gfx": "Achievement_Akeldama.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "447": {
+      "name": "赎罪",
+      "en": "Redemption",
+      "cond": "",
+      "reward": "Redemption",
+      "gfx": "Achievement_Redemption.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "448": {
+      "name": "永恒六面骰",
+      "en": "Eternal D6",
+      "cond": "",
+      "reward": "Eternal D6",
+      "gfx": "Achievement_EternalD6.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "449": {
+      "name": "水土不服症",
+      "en": "Montezuma's Revenge",
+      "cond": "",
+      "reward": "Montezuma's Revenge",
+      "gfx": "Achievement_MontezumasRevenge.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "450": {
+      "name": "鸟肥笼",
+      "en": "Bird Cage",
+      "cond": "",
+      "reward": "Bird Cage",
+      "gfx": "Achievement_BirdCage.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "451": {
+      "name": "碎裂的宝珠",
+      "en": "Cracked Orb",
+      "cond": "",
+      "reward": "Cracked Orb",
+      "gfx": "Achievement_CrackedOrb.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "452": {
+      "name": "嗜血腥风",
+      "en": "Bloody Gust",
+      "cond": "",
+      "reward": "Bloody Gust",
+      "gfx": "Achievement_BloodyGust.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "453": {
+      "name": "空虚之心",
+      "en": "Empty Heart",
+      "cond": "",
+      "reward": "Empty Heart",
+      "gfx": "Achievement_EmptyHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "454": {
+      "name": "恶魔王冠",
+      "en": "Devil's Crown",
+      "cond": "",
+      "reward": "Devil's Crown",
+      "gfx": "Achievement_DevilsCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "455": {
+      "name": "亚巴顿宝宝",
+      "en": "Lil Abaddon",
+      "cond": "",
+      "reward": "Lil Abaddon",
+      "gfx": "Achievement_LilAbaddon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "456": {
+      "name": "小畸胎瘤",
+      "en": "Tinytoma",
+      "cond": "",
+      "reward": "Tinytoma",
+      "gfx": "Achievement_Tinytoma.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "457": {
+      "name": "灵魂出窍",
+      "en": "Astral Projection",
+      "cond": "",
+      "reward": "Astral Projection",
+      "gfx": "Achievement_AstralProjection.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "458": {
+      "name": "'M",
+      "en": "'M",
+      "cond": "",
+      "reward": "'M",
+      "gfx": "Achievement_M.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "459": {
+      "name": "百宝罐",
+      "en": "Everything Jar",
+      "cond": "",
+      "reward": "Everything Jar",
+      "gfx": "Achievement_EverythingJar.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "460": {
+      "name": "迷失游魂",
+      "en": "Lost Soul",
+      "cond": "",
+      "reward": "Lost Soul",
+      "gfx": "Achievement_LostSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "461": {
+      "name": "饥饿幽魂",
+      "en": "Hungry Soul",
+      "cond": "",
+      "reward": "Hungry Soul",
+      "gfx": "Achievement_HungrySoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "462": {
+      "name": "嗜血小宠",
+      "en": "Blood Puppy",
+      "cond": "",
+      "reward": "Blood Puppy",
+      "gfx": "Achievement_BloodPuppy.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "463": {
+      "name": "剖腹产",
+      "en": "C Section",
+      "cond": "",
+      "reward": "C Section",
+      "gfx": "Achievement_CSection.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "464": {
+      "name": "店主的胯袋",
+      "en": "Keeper's Sack",
+      "cond": "",
+      "reward": "Keeper's Sack",
+      "gfx": "Achievement_KeepersSack.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "465": {
+      "name": "店主的盒子",
+      "en": "Keeper's Box",
+      "cond": "",
+      "reward": "Keeper's Box",
+      "gfx": "Achievement_KeepersBox.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "466": {
+      "name": "黑洞宝宝",
+      "en": "Lil Portal",
+      "cond": "",
+      "reward": "Lil Portal",
+      "gfx": "Achievement_LilPortal.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "467": {
+      "name": "触手朋友",
+      "en": "Worm Friend",
+      "cond": "",
+      "reward": "Worm Friend",
+      "gfx": "Achievement_WormFriend.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "468": {
+      "name": "骨刺",
+      "en": "Bone Spurs",
+      "cond": "",
+      "reward": "Bone Spurs",
+      "gfx": "Achievement_BoneSpurs.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "469": {
+      "name": "灵魂枷锁",
+      "en": "Spirit Shackles",
+      "cond": "",
+      "reward": "Spirit Shackles",
+      "gfx": "Achievement_SpiritShackles.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "470": {
+      "name": "终末天启",
+      "en": "Revelation",
+      "cond": "",
+      "reward": "Revelation",
+      "gfx": "Achievement_Revelation.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "471": {
+      "name": "魂火罐",
+      "en": "Jar of Wisps",
+      "cond": "",
+      "reward": "Jar of Wisps",
+      "gfx": "Achievement_JarOfWisps.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "472": {
+      "name": "玄奇驴皮",
+      "en": "Magic Skin",
+      "cond": "",
+      "reward": "Magic Skin",
+      "gfx": "Achievement_MagicSkin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "473": {
+      "name": "寻友护符",
+      "en": "Friend Finder",
+      "cond": "",
+      "reward": "Friend Finder",
+      "gfx": "Achievement_FriendFinder.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "474": {
+      "name": "以撒",
+      "en": "Isaac",
+      "cond": "",
+      "reward": "Isaac",
+      "gfx": "Achievement_IsaacB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "475": {
+      "name": "抹大拉",
+      "en": "Magdalene",
+      "cond": "",
+      "reward": "Magdalene",
+      "gfx": "Achievement_MagdaleneB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "476": {
+      "name": "该隐",
+      "en": "Cain",
+      "cond": "",
+      "reward": "Cain",
+      "gfx": "Achievement_CainB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "477": {
+      "name": "犹大",
+      "en": "Judas",
+      "cond": "",
+      "reward": "Judas",
+      "gfx": "Achievement_JudasB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "478": {
+      "name": "???",
+      "en": "???",
+      "cond": "",
+      "reward": "???",
+      "gfx": "Achievement_BlueBabyB.png",
+      "zh_source": ""
+    },
+    "479": {
+      "name": "夏娃",
+      "en": "Eve",
+      "cond": "",
+      "reward": "Eve",
+      "gfx": "Achievement_EveB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "480": {
+      "name": "参孙",
+      "en": "Samson",
+      "cond": "",
+      "reward": "Samson",
+      "gfx": "Achievement_SamsonB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "481": {
+      "name": "阿撒泻勒",
+      "en": "Azazel",
+      "cond": "",
+      "reward": "Azazel",
+      "gfx": "Achievement_AzazelB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "482": {
+      "name": "拉撒路",
+      "en": "Lazarus",
+      "cond": "",
+      "reward": "Lazarus",
+      "gfx": "Achievement_LazarusB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "483": {
+      "name": "伊甸",
+      "en": "Eden",
+      "cond": "",
+      "reward": "Eden",
+      "gfx": "Achievement_EdenB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "484": {
+      "name": "游魂",
+      "en": "The Lost",
+      "cond": "",
+      "reward": "The Lost",
+      "gfx": "Achievement_TheLostB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "485": {
+      "name": "莉莉丝",
+      "en": "Lilith",
+      "cond": "",
+      "reward": "Lilith",
+      "gfx": "Achievement_LilithB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "486": {
+      "name": "店主",
+      "en": "Keeper",
+      "cond": "",
+      "reward": "Keeper",
+      "gfx": "Achievement_KeeperB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "487": {
+      "name": "亚玻伦",
+      "en": "Apollyon",
+      "cond": "",
+      "reward": "Apollyon",
+      "gfx": "Achievement_ApollyonB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "488": {
+      "name": "遗骸",
+      "en": "The Forgotten",
+      "cond": "",
+      "reward": "The Forgotten",
+      "gfx": "Achievement_TheForgottenB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "489": {
+      "name": "伯大尼",
+      "en": "Bethany",
+      "cond": "",
+      "reward": "Bethany",
+      "gfx": "Achievement_BethanyB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "490": {
+      "name": "雅各",
+      "en": "Jacob",
+      "cond": "",
+      "reward": "Jacob",
+      "gfx": "Achievement_JacobB.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "491": {
+      "name": "错误王冠",
+      "en": "Glitched Crown",
+      "cond": "",
+      "reward": "Glitched Crown",
+      "gfx": "Achievement_GlitchedCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "492": {
+      "name": "肚肚软糖",
+      "en": "Belly Jelly",
+      "cond": "",
+      "reward": "Belly Jelly",
+      "gfx": "Achievement_BellyJelly.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "493": {
+      "name": "蓝钥匙",
+      "en": "Blue Key",
+      "cond": "",
+      "reward": "Blue Key",
+      "gfx": "Achievement_BlueKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "494": {
+      "name": "血色羁绊",
+      "en": "Sanguine Bond",
+      "cond": "",
+      "reward": "Sanguine Bond",
+      "gfx": "Achievement_SanguineBond.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "495": {
+      "name": "虫群",
+      "en": "The Swarm",
+      "cond": "",
+      "reward": "The Swarm",
+      "gfx": "Achievement_TheSwarm.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "496": {
+      "name": "心碎",
+      "en": "Heartbreak",
+      "cond": "",
+      "reward": "Heartbreak",
+      "gfx": "Achievement_Heartbreak.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "497": {
+      "name": "声带",
+      "en": "Larynx",
+      "cond": "",
+      "reward": "Larynx",
+      "gfx": "Achievement_Larynx.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "498": {
+      "name": "阿撒泻勒之怒",
+      "en": "Azazel's Rage",
+      "cond": "",
+      "reward": "Azazel's Rage",
+      "gfx": "Achievement_AzazelsRage.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "499": {
+      "name": "救恩",
+      "en": "Salvation",
+      "cond": "",
+      "reward": "Salvation",
+      "gfx": "Achievement_Salvation.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "500": {
+      "name": "错误技",
+      "en": "TMTRAINER",
+      "cond": "",
+      "reward": "TMTRAINER",
+      "gfx": "Achievement_TMTRAINER.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "501": {
+      "name": "十字圣球",
+      "en": "Sacred Orb",
+      "cond": "",
+      "reward": "Sacred Orb",
+      "gfx": "Achievement_SacredOrb.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "502": {
+      "name": "作孽双子",
+      "en": "Twisted Pair",
+      "cond": "",
+      "reward": "Twisted Pair",
+      "gfx": "Achievement_TwistedPair.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "503": {
+      "name": "稻草人",
+      "en": "Strawman",
+      "cond": "",
+      "reward": "Strawman",
+      "gfx": "Achievement_Strawman.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "504": {
+      "name": "回声室",
+      "en": "Echo Chamber",
+      "cond": "",
+      "reward": "Echo Chamber",
+      "gfx": "Achievement_EchoChamber.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "505": {
+      "name": "以撒的坟墓",
+      "en": "Isaac's Tomb",
+      "cond": "",
+      "reward": "Isaac's Tomb",
+      "gfx": "Achievement_IsaacsTomb.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "506": {
+      "name": "复仇之魂",
+      "en": "Vengeful Spirit",
+      "cond": "",
+      "reward": "Vengeful Spirit",
+      "gfx": "Achievement_VengefulSpirit.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "507": {
+      "name": "小以扫",
+      "en": "Esau Jr.",
+      "cond": "",
+      "reward": "Esau Jr.",
+      "gfx": "Achievement_EsauJr.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "508": {
+      "name": "Challenge37",
+      "en": "Challenge37",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge37.png",
+      "zh_source": ""
+    },
+    "509": {
+      "name": "Challenge38",
+      "en": "Challenge38",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge38.png",
+      "zh_source": ""
+    },
+    "510": {
+      "name": "Challenge39",
+      "en": "Challenge39",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge39.png",
+      "zh_source": ""
+    },
+    "511": {
+      "name": "Challenge40",
+      "en": "Challenge40",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge40.png",
+      "zh_source": ""
+    },
+    "512": {
+      "name": "Challenge41",
+      "en": "Challenge41",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge41.png",
+      "zh_source": ""
+    },
+    "513": {
+      "name": "Challenge42",
+      "en": "Challenge42",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge42.png",
+      "zh_source": ""
+    },
+    "514": {
+      "name": "Challenge43",
+      "en": "Challenge43",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge43.png",
+      "zh_source": ""
+    },
+    "515": {
+      "name": "You unlocked Challenge #44",
+      "en": "You unlocked Challenge #44",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge44.png",
+      "zh_source": ""
+    },
+    "516": {
+      "name": "You unlocked Challenge #45",
+      "en": "You unlocked Challenge #45",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_Challenge45.png",
+      "zh_source": ""
+    },
+    "517": {
+      "name": "龌龊之心",
+      "en": "Dirty Mind",
+      "cond": "",
+      "reward": "Dirty Mind",
+      "gfx": "Achievement_DirtyMind.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "518": {
+      "name": "巴风特之印",
+      "en": "Sigil of Baphomet",
+      "cond": "",
+      "reward": "Sigil of Baphomet",
+      "gfx": "Achievement_SigilOfBaphomet.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "519": {
+      "name": "炼狱恶鬼",
+      "en": "Purgatory",
+      "cond": "",
+      "reward": "Purgatory",
+      "gfx": "Achievement_Purgatory.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "520": {
+      "name": "英灵剑",
+      "en": "Spirit Sword",
+      "cond": "",
+      "reward": "Spirit Sword",
+      "gfx": "Achievement_SpiritSword.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "521": {
+      "name": "碎掉的眼镜",
+      "en": "Broken Glasses",
+      "cond": "",
+      "reward": "Broken Glasses",
+      "gfx": "Achievement_BrokenGlasses.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "522": {
+      "name": "冰块",
+      "en": "Ice Cube",
+      "cond": "",
+      "reward": "Ice Cube",
+      "gfx": "Achievement_IceCube.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "523": {
+      "name": "充能硬币",
+      "en": "for a small fee...\"",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_ChargedPenny.png",
+      "zh_source": "语言包（按成就图标名反查）"
+    },
+    "524": {
+      "name": "0-愚者",
+      "en": "The Fool",
+      "cond": "",
+      "reward": "The Fool",
+      "gfx": "Achievement_ReverseFool.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "525": {
+      "name": "I-魔术师",
+      "en": "The Magician",
+      "cond": "",
+      "reward": "The Magician",
+      "gfx": "Achievement_ReverseMagician.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "526": {
+      "name": "II-女祭司",
+      "en": "The High Priestess",
+      "cond": "",
+      "reward": "The High Priestess",
+      "gfx": "Achievement_ReverseHighPriestess.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "527": {
+      "name": "III-皇后",
+      "en": "The Empress",
+      "cond": "",
+      "reward": "The Empress",
+      "gfx": "Achievement_ReverseEmpress.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "528": {
+      "name": "IV-皇帝",
+      "en": "The Emperor",
+      "cond": "",
+      "reward": "The Emperor",
+      "gfx": "Achievement_ReverseEmperor.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "529": {
+      "name": "V-教皇",
+      "en": "The Hierophant",
+      "cond": "",
+      "reward": "The Hierophant",
+      "gfx": "Achievement_ReverseHierophant.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "530": {
+      "name": "VI-恋人",
+      "en": "The Lovers",
+      "cond": "",
+      "reward": "The Lovers",
+      "gfx": "Achievement_ReverseLovers.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "531": {
+      "name": "VII-战车",
+      "en": "The Chariot",
+      "cond": "",
+      "reward": "The Chariot",
+      "gfx": "Achievement_ReverseChariot.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "532": {
+      "name": "VIII-正义",
+      "en": "Justice",
+      "cond": "",
+      "reward": "Justice",
+      "gfx": "Achievement_ReverseJustice.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "533": {
+      "name": "IX-隐者",
+      "en": "The Hermit",
+      "cond": "",
+      "reward": "The Hermit",
+      "gfx": "Achievement_ReverseHermit.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "534": {
+      "name": "X-命运之轮",
+      "en": "Wheel of Fortune",
+      "cond": "",
+      "reward": "Wheel of Fortune",
+      "gfx": "Achievement_ReverseWheelOfFortune.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "535": {
+      "name": "XI-力量",
+      "en": "Strength",
+      "cond": "",
+      "reward": "Strength",
+      "gfx": "Achievement_ReverseStrength.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "536": {
+      "name": "XII-倒吊人",
+      "en": "The Hanged Man",
+      "cond": "",
+      "reward": "The Hanged Man",
+      "gfx": "Achievement_ReverseHangedMan.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "537": {
+      "name": "死亡骑士",
+      "en": "Death",
+      "cond": "",
+      "reward": "Death",
+      "gfx": "Achievement_ReverseDeath.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "538": {
+      "name": "XIV-节制",
+      "en": "Temperance",
+      "cond": "",
+      "reward": "Temperance",
+      "gfx": "Achievement_ReverseTemperance.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "539": {
+      "name": "XV-恶魔",
+      "en": "The Devil",
+      "cond": "",
+      "reward": "The Devil",
+      "gfx": "Achievement_ReverseDevil.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "540": {
+      "name": "XVI-塔",
+      "en": "The Tower",
+      "cond": "",
+      "reward": "The Tower",
+      "gfx": "Achievement_ReverseTower.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "541": {
+      "name": "XVII-星星",
+      "en": "The Stars",
+      "cond": "",
+      "reward": "The Stars",
+      "gfx": "Achievement_ReverseStars.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "542": {
+      "name": "XVIII-月亮",
+      "en": "The Sun & The Moon",
+      "cond": "",
+      "reward": "The Sun & The Moon",
+      "gfx": "Achievement_ReverseSunAndMoon.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "543": {
+      "name": "XX-审判",
+      "en": "Judgement",
+      "cond": "",
+      "reward": "Judgement",
+      "gfx": "Achievement_ReverseJudgement.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "544": {
+      "name": "XXI-世界",
+      "en": "The World",
+      "cond": "",
+      "reward": "The World",
+      "gfx": "Achievement_ReverseWorld.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "545": {
+      "name": "老旧电容",
+      "en": "Old Capacitor",
+      "cond": "",
+      "reward": "Old Capacitor",
+      "gfx": "Achievement_OldCapacitor.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "546": {
+      "name": "硫磺火炸弹",
+      "en": "Brimstone Bombs",
+      "cond": "",
+      "reward": "Brimstone Bombs",
+      "gfx": "Achievement_BrimstoneBombs.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "547": {
+      "name": "超级蘑菇",
+      "en": "Mega Mush",
+      "cond": "",
+      "reward": "Mega Mush",
+      "gfx": "Achievement_MegaMush.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "548": {
+      "name": "妈妈的发髻",
+      "en": "Mom's Lock",
+      "cond": "",
+      "reward": "Mom's Lock",
+      "gfx": "Achievement_MomsLock.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "549": {
+      "name": "骰子袋",
+      "en": "Dice Bag",
+      "cond": "",
+      "reward": "Dice Bag",
+      "gfx": "Achievement_DiceBag.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "550": {
+      "name": "神圣王冠",
+      "en": "Holy Crown",
+      "cond": "",
+      "reward": "Holy Crown",
+      "gfx": "Achievement_HolyCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "551": {
+      "name": "母亲的吻",
+      "en": "Mother's Kiss",
+      "cond": "",
+      "reward": "Mother's Kiss",
+      "gfx": "Achievement_MothersKiss.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "552": {
+      "name": "镀金钥匙",
+      "en": "Gilded Key",
+      "cond": "",
+      "reward": "Gilded Key",
+      "gfx": "Achievement_GildedKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "553": {
+      "name": "幸运袋",
+      "en": "Lucky Sack",
+      "cond": "",
+      "reward": "Lucky Sack",
+      "gfx": "Achievement_LuckySack.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "554": {
+      "name": "你的灵魂",
+      "en": "Your Soul",
+      "cond": "",
+      "reward": "Your Soul",
+      "gfx": "Achievement_YourSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "555": {
+      "name": "数字冰箱贴",
+      "en": "Number Magnet",
+      "cond": "",
+      "reward": "Number Magnet",
+      "gfx": "Achievement_NumberMagnet.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "556": {
+      "name": "粪蛋",
+      "en": "Dingle Berry",
+      "cond": "",
+      "reward": "Dingle Berry",
+      "gfx": "Achievement_DingleBerry.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "557": {
+      "name": "火药圈",
+      "en": "Ring Cap",
+      "cond": "",
+      "reward": "Ring Cap",
+      "gfx": "Achievement_RingCap.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "558": {
+      "name": "奇怪的钥匙",
+      "en": "Strange Key",
+      "cond": "",
+      "reward": "Strange Key",
+      "gfx": "Achievement_StrangeKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "559": {
+      "name": "小血团",
+      "en": "Lil Clot",
+      "cond": "",
+      "reward": "Lil Clot",
+      "gfx": "Achievement_LilClot.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "560": {
+      "name": "纹身贴",
+      "en": "Temporary Tattoo",
+      "cond": "",
+      "reward": "Temporary Tattoo",
+      "gfx": "Achievement_TemporaryTattoo.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "561": {
+      "name": "被吞下的M80鞭炮",
+      "en": "Swallowed M80",
+      "cond": "",
+      "reward": "Swallowed M80",
+      "gfx": "Achievement_SwallowedM80.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "562": {
+      "name": "邪恶王冠",
+      "en": "Wicked Crown",
+      "cond": "",
+      "reward": "Wicked Crown",
+      "gfx": "Achievement_WickedCrown.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "563": {
+      "name": "阿撒泻勒的残角",
+      "en": "Azazel's Stump",
+      "cond": "",
+      "reward": "Azazel's Stump",
+      "gfx": "Achievement_AzazelsStump.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "564": {
+      "name": "破损的口袋",
+      "en": "Torn Pocket",
+      "cond": "",
+      "reward": "Torn Pocket",
+      "gfx": "Achievement_TornPocket.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "565": {
+      "name": "扑克牌残片",
+      "en": "Torn Card",
+      "cond": "",
+      "reward": "Torn Card",
+      "gfx": "Achievement_TornCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "566": {
+      "name": "滚啊！",
+      "en": "Nuh Uh!",
+      "cond": "",
+      "reward": "Nuh Uh!",
+      "gfx": "Achievement_NuhUh.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "567": {
+      "name": "塑型黏土",
+      "en": "Modeling Clay",
+      "cond": "",
+      "reward": "Modeling Clay",
+      "gfx": "Achievement_ModelingClay.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "568": {
+      "name": "儿童涂鸦",
+      "en": "Kid's Drawing",
+      "cond": "",
+      "reward": "Kid's Drawing",
+      "gfx": "Achievement_KidsDrawing.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "569": {
+      "name": "水晶钥匙",
+      "en": "Crystal Key",
+      "cond": "",
+      "reward": "Crystal Key",
+      "gfx": "Achievement_CrystalKey.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "570": {
+      "name": "双胞胎",
+      "en": "The Twins",
+      "cond": "",
+      "reward": "The Twins",
+      "gfx": "Achievement_TheTwins.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "571": {
+      "name": "领养协议书",
+      "en": "Adoption Papers",
+      "cond": "",
+      "reward": "Adoption Papers",
+      "gfx": "Achievement_AdoptionPapers.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "572": {
+      "name": "店主的协议",
+      "en": "Keeper's Bargain",
+      "cond": "",
+      "reward": "Keeper's Bargain",
+      "gfx": "Achievement_KeepersBargain.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "573": {
+      "name": "诅咒硬币",
+      "en": "Cursed Penny",
+      "cond": "",
+      "reward": "Cursed Penny",
+      "gfx": "Achievement_CursedPenny.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "574": {
+      "name": "蟋蟀腿",
+      "en": "Cricket Leg",
+      "cond": "",
+      "reward": "Cricket Leg",
+      "gfx": "Achievement_CricketLeg.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "575": {
+      "name": "亚玻伦的挚友",
+      "en": "Apollyon's Best Friend",
+      "cond": "",
+      "reward": "Apollyon's Best Friend",
+      "gfx": "Achievement_ApollyonsBestFriend.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "576": {
+      "name": "抛光骨头",
+      "en": "Polished Bone",
+      "cond": "",
+      "reward": "Polished Bone",
+      "gfx": "Achievement_PolishedBone.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "577": {
+      "name": "空壳心",
+      "en": "Hollow Heart",
+      "cond": "",
+      "reward": "Hollow Heart",
+      "gfx": "Achievement_HollowHeart.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "578": {
+      "name": "扩展电路板",
+      "en": "Expansion Pack",
+      "cond": "",
+      "reward": "Expansion Pack",
+      "gfx": "Achievement_ExpansionPack.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "579": {
+      "name": "伯大尼的精华",
+      "en": "Beth's Essence",
+      "cond": "",
+      "reward": "Beth's Essence",
+      "gfx": "Achievement_BethsEssence.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "580": {
+      "name": "赛车遥控器",
+      "en": "RC Remote",
+      "cond": "",
+      "reward": "RC Remote",
+      "gfx": "Achievement_RCRemote.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "581": {
+      "name": "复得游魂",
+      "en": "Found Soul",
+      "cond": "",
+      "reward": "Found Soul",
+      "gfx": "Achievement_FoundSoul.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "582": {
+      "name": "会员卡",
+      "en": "Member Card",
+      "cond": "",
+      "reward": "Member Card",
+      "gfx": "Achievement_MemberCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "583": {
+      "name": "金剃刀片",
+      "en": "Golden Razor",
+      "cond": "",
+      "reward": "Golden Razor",
+      "gfx": "Achievement_GoldenRazor.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "584": {
+      "name": "计数二十面骰",
+      "en": "Spindown Dice",
+      "cond": "",
+      "reward": "Spindown Dice",
+      "gfx": "Achievement_SpindownDice.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "585": {
+      "name": "高凝血",
+      "en": "Hypercoagulation",
+      "cond": "",
+      "reward": "Hypercoagulation",
+      "gfx": "Achievement_Hypercoagulation.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "586": {
+      "name": "合成宝袋",
+      "en": "Bag of Crafting",
+      "cond": "",
+      "reward": "Bag of Crafting",
+      "gfx": "Achievement_BagOfCrafting.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "587": {
+      "name": "暗仪刺刀",
+      "en": "Dark Arts",
+      "cond": "",
+      "reward": "Dark Arts",
+      "gfx": "Achievement_DarkArts.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "588": {
+      "name": "大肠激躁症",
+      "en": "IBS",
+      "cond": "",
+      "reward": "IBS",
+      "gfx": "Achievement_IBS.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "589": {
+      "name": "圣血吸管",
+      "en": "Sumptorium",
+      "cond": "",
+      "reward": "Sumptorium",
+      "gfx": "Achievement_Sumptorium.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "590": {
+      "name": "狂怒！",
+      "en": "Berserk!",
+      "cond": "",
+      "reward": "Berserk!",
+      "gfx": "Achievement_Berserk.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "591": {
+      "name": "咯血症",
+      "en": "Hemoptysis",
+      "cond": "",
+      "reward": "Hemoptysis",
+      "gfx": "Achievement_Hemoptysis.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "592": {
+      "name": "生死逆转",
+      "en": "Flip",
+      "cond": "",
+      "reward": "Flip",
+      "gfx": "Achievement_Flip.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "593": {
+      "name": "Corrupted Data",
+      "en": "Corrupted Data",
+      "cond": "",
+      "reward": "Corrupted Data",
+      "gfx": "Achievement_CorruptedData.png",
+      "zh_source": ""
+    },
+    "594": {
+      "name": "幽灵炸弹",
+      "en": "Ghost Bombs",
+      "cond": "",
+      "reward": "Ghost Bombs",
+      "gfx": "Achievement_GhostBombs.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "595": {
+      "name": "格罗",
+      "en": "Gello",
+      "cond": "",
+      "reward": "Gello",
+      "gfx": "Achievement_Gello.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "596": {
+      "name": "店主的亲友",
+      "en": "Keeper's Kin",
+      "cond": "",
+      "reward": "Keeper's Kin",
+      "gfx": "Achievement_KeepersKin.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "597": {
+      "name": "无底坑",
+      "en": "Abyss",
+      "cond": "",
+      "reward": "Abyss",
+      "gfx": "Achievement_Abyss.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "598": {
+      "name": "飞头攻击",
+      "en": "Decap Attack",
+      "cond": "",
+      "reward": "Decap Attack",
+      "gfx": "Achievement_DecapAttack.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "599": {
+      "name": "所罗门魔典",
+      "en": "Lemegeton",
+      "cond": "",
+      "reward": "Lemegeton",
+      "gfx": "Achievement_Lemegeton.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "600": {
+      "name": "孤魂铁索",
+      "en": "Anima Sola",
+      "cond": "",
+      "reward": "Anima Sola",
+      "gfx": "Achievement_AnimaSola.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "601": {
+      "name": "玩具箱",
+      "en": "Mega Chest",
+      "cond": "",
+      "reward": "Mega Chest",
+      "gfx": "Achievement_MegaChest.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "602": {
+      "name": "红桃Q",
+      "en": "Queen of Hearts",
+      "cond": "",
+      "reward": "Queen of Hearts",
+      "gfx": "Achievement_QueenOfHearts.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "603": {
+      "name": "Gold Pill",
+      "en": "Gold Pill",
+      "cond": "",
+      "reward": "Gold Pill",
+      "gfx": "Achievement_GoldPill.png",
+      "zh_source": ""
+    },
+    "604": {
+      "name": "卵囊",
+      "en": "Black Sack",
+      "cond": "",
+      "reward": "Black Sack",
+      "gfx": "Achievement_BlackSack.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "605": {
+      "name": "大便",
+      "en": "Charming Poop",
+      "cond": "",
+      "reward": "Charming Poop",
+      "gfx": "Achievement_CharmingPoop.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "606": {
+      "name": "Horse Pill",
+      "en": "Horse Pill",
+      "cond": "",
+      "reward": "Horse Pill",
+      "gfx": "Achievement_HorsePill.png",
+      "zh_source": ""
+    },
+    "607": {
+      "name": "Crane Game",
+      "en": "Crane Game",
+      "cond": "",
+      "reward": "Crane Game",
+      "gfx": "Achievement_CraneGame.png",
+      "zh_source": ""
+    },
+    "608": {
+      "name": "Hell Game",
+      "en": "Hell Game",
+      "cond": "",
+      "reward": "Hell Game",
+      "gfx": "Achievement_HellGame.png",
+      "zh_source": ""
+    },
+    "609": {
+      "name": "玩具箱",
+      "en": "Wooden Chest",
+      "cond": "",
+      "reward": "Wooden Chest",
+      "gfx": "Achievement_WoodenChest.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "610": {
+      "name": "万用牌",
+      "en": "Wild Card",
+      "cond": "",
+      "reward": "Wild Card",
+      "gfx": "Achievement_WildCard.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "611": {
+      "name": "玩具箱",
+      "en": "Haunted Chest",
+      "cond": "",
+      "reward": "Haunted Chest",
+      "gfx": "Achievement_HauntedChest.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "612": {
+      "name": "Fool's Gold",
+      "en": "Fool's Gold",
+      "cond": "",
+      "reward": "Fool's Gold",
+      "gfx": "Achievement_FoolsGold.png",
+      "zh_source": ""
+    },
+    "613": {
+      "name": "Golden Penny",
+      "en": "Golden Penny",
+      "cond": "",
+      "reward": "Golden Penny",
+      "gfx": "Achievement_GoldenPenny.png",
+      "zh_source": ""
+    },
+    "614": {
+      "name": "Rotten Beggar",
+      "en": "Rotten Beggar",
+      "cond": "",
+      "reward": "Rotten Beggar",
+      "gfx": "Achievement_RottenBeggar.png",
+      "zh_source": ""
+    },
+    "615": {
+      "name": "蓄电池",
+      "en": "Golden Battery",
+      "cond": "",
+      "reward": "Golden Battery",
+      "gfx": "Achievement_GoldenBattery.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "616": {
+      "name": "Confessional",
+      "en": "Confessional",
+      "cond": "",
+      "reward": "Confessional",
+      "gfx": "Achievement_Confessional.png",
+      "zh_source": ""
+    },
+    "617": {
+      "name": "Golden Trinket",
+      "en": "Golden Trinket",
+      "cond": "",
+      "reward": "Golden Trinket",
+      "gfx": "Achievement_GoldenTrinket.png",
+      "zh_source": ""
+    },
+    "618": {
+      "name": "以撒的魂石",
+      "en": "Soul of Isaac",
+      "cond": "",
+      "reward": "Soul of Isaac",
+      "gfx": "Achievement_SoulOfIsaac.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "619": {
+      "name": "抹大拉的魂石",
+      "en": "Soul of Magdalene",
+      "cond": "",
+      "reward": "Soul of Magdalene",
+      "gfx": "Achievement_SoulOfMagdalene.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "620": {
+      "name": "该隐的魂石",
+      "en": "Soul of Cain",
+      "cond": "",
+      "reward": "Soul of Cain",
+      "gfx": "Achievement_SoulOfCain.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "621": {
+      "name": "犹大的魂石",
+      "en": "Soul of Judas",
+      "cond": "",
+      "reward": "Soul of Judas",
+      "gfx": "Achievement_SoulOfJudas.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "622": {
+      "name": "???的魂石",
+      "en": "Soul of ???",
+      "cond": "",
+      "reward": "Soul of ???",
+      "gfx": "Achievement_SoulOfBlueBaby.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "623": {
+      "name": "夏娃的魂石",
+      "en": "Soul of Eve",
+      "cond": "",
+      "reward": "Soul of Eve",
+      "gfx": "Achievement_SoulOfEve.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "624": {
+      "name": "参孙的魂石",
+      "en": "Soul of Samson",
+      "cond": "",
+      "reward": "Soul of Samson",
+      "gfx": "Achievement_SoulOfSamson.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "625": {
+      "name": "阿撒泻勒的魂石",
+      "en": "Soul of Azazel",
+      "cond": "",
+      "reward": "Soul of Azazel",
+      "gfx": "Achievement_SoulOfAzazel.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "626": {
+      "name": "拉撒路的魂石",
+      "en": "Soul of Lazarus",
+      "cond": "",
+      "reward": "Soul of Lazarus",
+      "gfx": "Achievement_SoulOfLazarus.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "627": {
+      "name": "伊甸的魂石",
+      "en": "Soul of Eden",
+      "cond": "",
+      "reward": "Soul of Eden",
+      "gfx": "Achievement_SoulOfEden.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "628": {
+      "name": "游魂的魂石",
+      "en": "Soul of the Lost",
+      "cond": "",
+      "reward": "Soul of the Lost",
+      "gfx": "Achievement_SoulOftheLost.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "629": {
+      "name": "莉莉丝的魂石",
+      "en": "Soul of Lilith",
+      "cond": "",
+      "reward": "Soul of Lilith",
+      "gfx": "Achievement_SoulOfLilith.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "630": {
+      "name": "店主的魂石",
+      "en": "Soul of the Keeper",
+      "cond": "",
+      "reward": "Soul of the Keeper",
+      "gfx": "Achievement_SoulOftheKeeper.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "631": {
+      "name": "亚玻伦的魂石",
+      "en": "Soul of Apollyon",
+      "cond": "",
+      "reward": "Soul of Apollyon",
+      "gfx": "Achievement_SoulOfApollyon.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "632": {
+      "name": "遗骸的魂石",
+      "en": "Soul of the Forgotten",
+      "cond": "",
+      "reward": "Soul of the Forgotten",
+      "gfx": "Achievement_SoulOftheForgotten.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "633": {
+      "name": "伯大尼的魂石",
+      "en": "Soul of Bethany",
+      "cond": "",
+      "reward": "Soul of Bethany",
+      "gfx": "Achievement_SoulOfBethany.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "634": {
+      "name": "雅各",
+      "en": "Soul of Jacob",
+      "cond": "",
+      "reward": "Soul of Jacob",
+      "gfx": "Achievement_SoulOfJacob.png",
+      "zh_source": "语言包（标题尾词匹配）"
+    },
+    "635": {
+      "name": "A Strange Door",
+      "en": "A Strange Door",
+      "cond": "",
+      "reward": "A Strange Door",
+      "gfx": "Achievement_StrangeDoor.png",
+      "zh_source": ""
+    },
+    "636": {
+      "name": "死亡证明",
+      "en": "Death Certificate",
+      "cond": "",
+      "reward": "Death Certificate",
+      "gfx": "Achievement_DeathCertificate.png",
+      "zh_source": "语言包（解锁内容译名）"
+    },
+    "637": {
+      "name": "Dead God",
+      "en": "Dead God",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_DeadGod.png",
+      "zh_source": ""
+    },
+    "638": {
+      "name": "Played Online",
+      "en": "Played Online",
+      "cond": "Repentance+",
+      "reward": "",
+      "gfx": "Achievement_PlayOnline.png",
+      "zh_source": ""
+    },
+    "639": {
+      "name": "Won Online",
+      "en": "Won Online",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_WinOnline.png",
+      "zh_source": ""
+    },
+    "640": {
+      "name": "Won Online Daily",
+      "en": "Won Online Daily",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_WinOnlineDaily.png",
+      "zh_source": ""
+    },
+    "641": {
+      "name": "Item Info",
+      "en": "Item Info",
+      "cond": "",
+      "reward": "",
+      "gfx": "Achievement_ItemDescriptions.png",
+      "zh_source": ""
+    }
+  }
+}
