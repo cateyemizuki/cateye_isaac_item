@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "id": "github.cateye.isaac.item",
+  "version": "0.1.4",
+  "name": "以撒道具图鉴",
+  "description": "《以撒的结合》道具图鉴查询插件：支持指令与 LLM 工具按中文名、英文名、图鉴编号、标签或效果关键词查询道具的品质、效果与协同，数据为打包在插件内的离线快照，无需联网。",
+  "author": {
+    "name": "cateye",
+    "url": "https://github.com/cateyemizuki"
+  },
+  "license": "MIT",
+  "urls": {
+    "repository": "https://github.com/cateyemizuki/cateye_isaac_item",
+    "homepage": "https://github.com/cateyemizuki/cateye_isaac_item",
+    "documentation": "https://github.com/cateyemizuki/cateye_isaac_item/blob/main/README.md",
+    "issues": "https://github.com/cateyemizuki/cateye_isaac_item/issues"
+  },
+  "host_application": {
+    "min_version": "1.0.0",
+    "max_version": "1.99.99"
+  },
+  "sdk": {
+    "min_version": "2.5.0",
+    "max_version": "2.99.99"
+  },
+  "dependencies": [],
+  "capabilities": [
+    "send.text",
+    "send.forward"
+  ],
+  "i18n": {
+    "default_locale": "zh-CN",
+    "supported_locales": [
+      "zh-CN"
+    ]
+  },
+  "plugin_type": "game",
+  "display": {
+    "icon": {
+      "type": "lucide",
+      "value": "gamepad-2",
+      "fallback": "package"
+    }
+  },
+  "changelog": "CHANGELOG.md"
+}
