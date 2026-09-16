@@ -250,6 +250,20 @@ class ItemDatabase:
     def get(self, item_id: str) -> Optional[Item]:
         return self._by_id.get(str(item_id).strip())
 
+    def item_names(self, kind: Optional[str] = None) -> Dict[str, str]:
+        """返回 ``编号 → 名称`` 映射（存档解析用它给未发现道具标中文名）。
+
+        ``kind`` 非空时只导出该分类；没有编号的条目会被跳过。
+        """
+
+        names: Dict[str, str] = {}
+        for item in self._items:
+            if kind and item.kind != kind:
+                continue
+            if item.id and item.name:
+                names[item.id] = item.name
+        return names
+
     def random_item(self, kind: Optional[str] = None) -> Optional[Item]:
         """随机取一条；``kind`` 非空时只在该分类内随机。"""
 

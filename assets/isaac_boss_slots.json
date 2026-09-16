@@ -1,0 +1,1483 @@
+{
+  "meta": {
+    "note": "存档 BOSS 段 104 个槽位 ↔ 游戏 BOSS 的对照表。槽位下标 = entities2.xml 的 bossID。",
+    "slot_count": 104,
+    "index_rule": "槽位下标 = 实体的 bossID 属性（不是实体 type，也不是 (type, variant) 升序）",
+    "entities2_from": "afterbirthp.a 条目 70",
+    "generated": "2026-09-17",
+    "generator": "tools/build_boss_table.py",
+    "names_from": "游戏本体语言包（repentance_zh.a → assets/isaac_entities_zh.json 等）",
+    "assigned": 100,
+    "named": 100,
+    "unassigned_slots": [
+      89,
+      90,
+      103
+    ],
+    "legacy_slots": [
+      0
+    ],
+    "saves_checked": 174,
+    "evidence": {
+      "save": "rep+persistentgamedata1.dat",
+      "size": 16084,
+      "unset": [
+        {
+          "slot": 62,
+          "zh": "究极贪婪",
+          "entity": "406.0",
+          "kills": 49,
+          "encounters": 77
+        },
+        {
+          "slot": 71,
+          "zh": "究极大贪婪",
+          "entity": "406.1",
+          "kills": 35,
+          "encounters": 39
+        },
+        {
+          "slot": 72,
+          "zh": "胖蛆族母",
+          "entity": "413.0",
+          "kills": 0,
+          "encounters": 13
+        },
+        {
+          "slot": 98,
+          "zh": "绷带巫妖",
+          "entity": "919.0",
+          "kills": 0,
+          "encounters": 0
+        }
+      ],
+      "never_written": [
+        {
+          "slot": 62,
+          "zh": "究极贪婪",
+          "entity": "406.0",
+          "kills": 49,
+          "encounters": 77
+        },
+        {
+          "slot": 71,
+          "zh": "究极大贪婪",
+          "entity": "406.1",
+          "kills": 35,
+          "encounters": 39
+        }
+      ],
+      "unkillable": [
+        {
+          "slot": 72,
+          "zh": "胖蛆族母",
+          "entity": "413.0",
+          "kills": 0,
+          "encounters": 13
+        }
+      ],
+      "unseen": [
+        {
+          "slot": 98,
+          "zh": "绷带巫妖",
+          "entity": "919.0",
+          "kills": 0,
+          "encounters": 0
+        }
+      ],
+      "reference_set_bits": {
+        "rep+persistentgamedata1.dat": 97
+      }
+    },
+    "notes": {
+      "unassigned": "游戏未分配的空槽位（当前 entities2.xml 里没有这个 BOSS 编号）",
+      "legacy": "旧版保留位：当前 entities2.xml 未定义 bossID＝0 的实体，无法命名",
+      "never_written": "游戏不把这一项写进存档 BOSS 段：图鉴里已击杀多次，存档位仍然是 0",
+      "unkillable": "图鉴里击杀次数恒为 0（100% 通关存档里也是 0，无法被正常击败）",
+      "unseen": "在所有核对过的存档里都从未出现（可能为未启用内容）"
+    }
+  },
+  "slots": {
+    "0": {
+      "slot": 0,
+      "boss_id": 0,
+      "status": "legacy",
+      "entity": "",
+      "en": "",
+      "zh": "",
+      "source": "",
+      "note": "旧版保留位：当前 entities2.xml 未定义 bossID＝0 的实体，无法命名"
+    },
+    "1": {
+      "slot": 1,
+      "boss_id": 1,
+      "status": "assigned",
+      "entity": "20.0",
+      "en": "#MONSTRO",
+      "zh": "萌死戳",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "20.0"
+      ]
+    },
+    "2": {
+      "slot": 2,
+      "boss_id": 2,
+      "status": "assigned",
+      "entity": "19.0",
+      "en": "#LARRY_JR",
+      "zh": "拉里子虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "19.0"
+      ]
+    },
+    "3": {
+      "slot": 3,
+      "boss_id": 3,
+      "status": "assigned",
+      "entity": "28.0",
+      "en": "#CHUB",
+      "zh": "胖蛆",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "28.0"
+      ]
+    },
+    "4": {
+      "slot": 4,
+      "boss_id": 4,
+      "status": "assigned",
+      "entity": "36.0",
+      "en": "#GURDY",
+      "zh": "肉山",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "36.0"
+      ]
+    },
+    "5": {
+      "slot": 5,
+      "boss_id": 5,
+      "status": "assigned",
+      "entity": "43.0",
+      "en": "#MONSTRO_II",
+      "zh": "萌死戳II",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "43.0"
+      ]
+    },
+    "6": {
+      "slot": 6,
+      "boss_id": 6,
+      "status": "assigned",
+      "entity": "45.0",
+      "en": "#MOM",
+      "zh": "妈妈",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "45.0",
+        "45.10"
+      ]
+    },
+    "7": {
+      "slot": 7,
+      "boss_id": 7,
+      "status": "assigned",
+      "entity": "62.1",
+      "en": "#SCOLEX",
+      "zh": "头节虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "62.1"
+      ]
+    },
+    "8": {
+      "slot": 8,
+      "boss_id": 8,
+      "status": "assigned",
+      "entity": "78.0",
+      "en": "#MOMS_HEART",
+      "zh": "妈妈的心脏",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "78.0"
+      ]
+    },
+    "9": {
+      "slot": 9,
+      "boss_id": 9,
+      "status": "assigned",
+      "entity": "63.0",
+      "en": "#FAMINE",
+      "zh": "饥荒骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "63.0"
+      ]
+    },
+    "10": {
+      "slot": 10,
+      "boss_id": 10,
+      "status": "assigned",
+      "entity": "64.0",
+      "en": "#PESTILENCE",
+      "zh": "瘟疫骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "64.0"
+      ]
+    },
+    "11": {
+      "slot": 11,
+      "boss_id": 11,
+      "status": "assigned",
+      "entity": "65.0",
+      "en": "#WAR",
+      "zh": "战争骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "65.0",
+        "65.10"
+      ]
+    },
+    "12": {
+      "slot": 12,
+      "boss_id": 12,
+      "status": "assigned",
+      "entity": "66.0",
+      "en": "#DEATH",
+      "zh": "死亡骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "66.0",
+        "66.20",
+        "66.30"
+      ]
+    },
+    "13": {
+      "slot": 13,
+      "boss_id": 13,
+      "status": "assigned",
+      "entity": "67.0",
+      "en": "#THE_DUKE_OF_FLIES",
+      "zh": "苍蝇公爵",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "67.0"
+      ]
+    },
+    "14": {
+      "slot": 14,
+      "boss_id": 14,
+      "status": "assigned",
+      "entity": "68.0",
+      "en": "#PEEP",
+      "zh": "嘘嘘怪",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "68.0"
+      ]
+    },
+    "15": {
+      "slot": 15,
+      "boss_id": 15,
+      "status": "assigned",
+      "entity": "69.0",
+      "en": "#LOKI",
+      "zh": "洛基",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "69.0"
+      ]
+    },
+    "16": {
+      "slot": 16,
+      "boss_id": 16,
+      "status": "assigned",
+      "entity": "74.0",
+      "en": "#BLASTOCYST",
+      "zh": "囊胚",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "74.0",
+        "75.0",
+        "76.0"
+      ]
+    },
+    "17": {
+      "slot": 17,
+      "boss_id": 17,
+      "status": "assigned",
+      "entity": "79.0",
+      "en": "#GEMINI",
+      "zh": "连体双子",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "79.0",
+        "79.10"
+      ]
+    },
+    "18": {
+      "slot": 18,
+      "boss_id": 18,
+      "status": "assigned",
+      "entity": "71.0",
+      "en": "#FISTULA",
+      "zh": "瘘管团",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "71.0",
+        "72.0",
+        "73.0"
+      ]
+    },
+    "19": {
+      "slot": 19,
+      "boss_id": 19,
+      "status": "assigned",
+      "entity": "43.1",
+      "en": "#GISH",
+      "zh": "吉什",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "43.1"
+      ]
+    },
+    "20": {
+      "slot": 20,
+      "boss_id": 20,
+      "status": "assigned",
+      "entity": "79.1",
+      "en": "#STEVEN",
+      "zh": "史蒂文",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "79.1",
+        "79.11"
+      ]
+    },
+    "21": {
+      "slot": 21,
+      "boss_id": 21,
+      "status": "assigned",
+      "entity": "28.1",
+      "en": "#CHAD",
+      "zh": "查德",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "28.1"
+      ]
+    },
+    "22": {
+      "slot": 22,
+      "boss_id": 22,
+      "status": "assigned",
+      "entity": "82.0",
+      "en": "#HEADLESS_HORSEMAN",
+      "zh": "无头骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "82.0",
+        "83.0"
+      ]
+    },
+    "23": {
+      "slot": 23,
+      "boss_id": 23,
+      "status": "assigned",
+      "entity": "81.0",
+      "en": "#THE_FALLEN",
+      "zh": "堕落恶魔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "81.0"
+      ]
+    },
+    "24": {
+      "slot": 24,
+      "boss_id": 24,
+      "status": "assigned",
+      "entity": "84.0",
+      "en": "#SATAN",
+      "zh": "撒但",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "84.0",
+        "84.10"
+      ]
+    },
+    "25": {
+      "slot": 25,
+      "boss_id": 25,
+      "status": "assigned",
+      "entity": "78.1",
+      "en": "#IT_LIVES",
+      "zh": "它还活着",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "78.1"
+      ]
+    },
+    "26": {
+      "slot": 26,
+      "boss_id": 26,
+      "status": "assigned",
+      "entity": "19.1",
+      "en": "#THE_HOLLOW",
+      "zh": "空心虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "19.1"
+      ]
+    },
+    "27": {
+      "slot": 27,
+      "boss_id": 27,
+      "status": "assigned",
+      "entity": "28.2",
+      "en": "#THE_CARRION_QUEEN",
+      "zh": "腐蛆女王",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "28.2"
+      ]
+    },
+    "28": {
+      "slot": 28,
+      "boss_id": 28,
+      "status": "assigned",
+      "entity": "99.0",
+      "en": "#GURDY_JR",
+      "zh": "小肉山",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "99.0"
+      ]
+    },
+    "29": {
+      "slot": 29,
+      "boss_id": 29,
+      "status": "assigned",
+      "entity": "67.1",
+      "en": "#THE_HUSK",
+      "zh": "尸壳",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "67.1"
+      ]
+    },
+    "30": {
+      "slot": 30,
+      "boss_id": 30,
+      "status": "assigned",
+      "entity": "68.1",
+      "en": "#THE_BLOAT",
+      "zh": "充血怪",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "68.1"
+      ]
+    },
+    "31": {
+      "slot": 31,
+      "boss_id": 31,
+      "status": "assigned",
+      "entity": "69.1",
+      "en": "#LOKII",
+      "zh": "分身洛基",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "69.1"
+      ]
+    },
+    "32": {
+      "slot": 32,
+      "boss_id": 32,
+      "status": "assigned",
+      "entity": "79.2",
+      "en": "#THE_BLIGHTED_OVUM",
+      "zh": "凋零双子",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "79.2",
+        "79.12"
+      ]
+    },
+    "33": {
+      "slot": 33,
+      "boss_id": 33,
+      "status": "assigned",
+      "entity": "71.1",
+      "en": "#TERATOMA",
+      "zh": "畸胎瘤",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "71.1",
+        "72.1",
+        "73.1"
+      ]
+    },
+    "34": {
+      "slot": 34,
+      "boss_id": 34,
+      "status": "assigned",
+      "entity": "100.0",
+      "en": "#WIDOW",
+      "zh": "灰寡妇蛛",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "100.0"
+      ]
+    },
+    "35": {
+      "slot": 35,
+      "boss_id": 35,
+      "status": "assigned",
+      "entity": "97.0",
+      "en": "#MASK_OF_INFAMY",
+      "zh": "耻辱假面",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "97.0",
+        "98.0"
+      ]
+    },
+    "36": {
+      "slot": 36,
+      "boss_id": 36,
+      "status": "assigned",
+      "entity": "100.1",
+      "en": "#THE_WRETCHED",
+      "zh": "伤痕寡妇蛛",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "100.1"
+      ]
+    },
+    "37": {
+      "slot": 37,
+      "boss_id": 37,
+      "status": "assigned",
+      "entity": "62.0",
+      "en": "#PIN",
+      "zh": "钉头虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "62.0"
+      ]
+    },
+    "38": {
+      "slot": 38,
+      "boss_id": 38,
+      "status": "assigned",
+      "entity": "65.1",
+      "en": "#CONQUEST",
+      "zh": "征服骑士",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "65.1"
+      ]
+    },
+    "39": {
+      "slot": 39,
+      "boss_id": 39,
+      "status": "assigned",
+      "entity": "102.0",
+      "en": "#ISAAC",
+      "zh": "以撒",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "102.0"
+      ]
+    },
+    "40": {
+      "slot": 40,
+      "boss_id": 40,
+      "status": "assigned",
+      "entity": "102.1",
+      "en": "#BLUEBABY",
+      "zh": "???",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "102.1"
+      ]
+    },
+    "41": {
+      "slot": 41,
+      "boss_id": 41,
+      "status": "assigned",
+      "entity": "101.0",
+      "en": "#DADDY_LONG_LEGS",
+      "zh": "长腿蛛父",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "101.0"
+      ]
+    },
+    "42": {
+      "slot": 42,
+      "boss_id": 42,
+      "status": "assigned",
+      "entity": "101.1",
+      "en": "#TRIACHNID",
+      "zh": "三腿蜘蛛",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "101.1"
+      ]
+    },
+    "43": {
+      "slot": 43,
+      "boss_id": 43,
+      "status": "assigned",
+      "entity": "260.0",
+      "en": "#HAUNT",
+      "zh": "大恶灵",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "260.0"
+      ]
+    },
+    "44": {
+      "slot": 44,
+      "boss_id": 44,
+      "status": "assigned",
+      "entity": "261.0",
+      "en": "#DINGLE",
+      "zh": "坨坨",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "261.0"
+      ]
+    },
+    "45": {
+      "slot": 45,
+      "boss_id": 45,
+      "status": "assigned",
+      "entity": "262.0",
+      "en": "#MEGA_MAW",
+      "zh": "超级大嘴头",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "262.0"
+      ]
+    },
+    "46": {
+      "slot": 46,
+      "boss_id": 46,
+      "status": "assigned",
+      "entity": "263.0",
+      "en": "#THE_GATE",
+      "zh": "守门骷髅",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "263.0"
+      ]
+    },
+    "47": {
+      "slot": 47,
+      "boss_id": 47,
+      "status": "assigned",
+      "entity": "264.0",
+      "en": "#MEGA_FATTY",
+      "zh": "超级肥仔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "264.0"
+      ]
+    },
+    "48": {
+      "slot": 48,
+      "boss_id": 48,
+      "status": "assigned",
+      "entity": "265.0",
+      "en": "#THE_CAGE",
+      "zh": "大肥笼",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "265.0"
+      ]
+    },
+    "49": {
+      "slot": 49,
+      "boss_id": 49,
+      "status": "assigned",
+      "entity": "266.0",
+      "en": "#MAMA_GURDY",
+      "zh": "母体肉山",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "266.0",
+        "266.1",
+        "266.2"
+      ]
+    },
+    "50": {
+      "slot": 50,
+      "boss_id": 50,
+      "status": "assigned",
+      "entity": "267.0",
+      "en": "#DARK_ONE",
+      "zh": "黑暗恶魔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "267.0"
+      ]
+    },
+    "51": {
+      "slot": 51,
+      "boss_id": 51,
+      "status": "assigned",
+      "entity": "268.0",
+      "en": "#THE_ADVERSARY",
+      "zh": "敌手",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "268.0"
+      ]
+    },
+    "52": {
+      "slot": 52,
+      "boss_id": 52,
+      "status": "assigned",
+      "entity": "269.0",
+      "en": "#POLYCEPHALUS",
+      "zh": "多头畸胎",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "269.0"
+      ]
+    },
+    "53": {
+      "slot": 53,
+      "boss_id": 53,
+      "status": "assigned",
+      "entity": "270.0",
+      "en": "#MR_FRED",
+      "zh": "大弗莱德",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "270.0"
+      ]
+    },
+    "54": {
+      "slot": 54,
+      "boss_id": 54,
+      "status": "assigned",
+      "entity": "273.0",
+      "en": "#THE_LAMB",
+      "zh": "羔羊",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "273.0",
+        "273.10"
+      ]
+    },
+    "55": {
+      "slot": 55,
+      "boss_id": 55,
+      "status": "assigned",
+      "entity": "274.0",
+      "en": "#MEGA_SATAN",
+      "zh": "超级撒但",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "274.0",
+        "274.1",
+        "274.2",
+        "275.0",
+        "275.1",
+        "275.2"
+      ]
+    },
+    "56": {
+      "slot": 56,
+      "boss_id": 56,
+      "status": "assigned",
+      "entity": "237.1",
+      "en": "#GURGLING_BOSS",
+      "zh": "肉山幼崽（头目）",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "237.1"
+      ]
+    },
+    "57": {
+      "slot": 57,
+      "boss_id": 57,
+      "status": "assigned",
+      "entity": "401.0",
+      "en": "#THE_STAIN",
+      "zh": "血痕畸胎",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "401.0"
+      ]
+    },
+    "58": {
+      "slot": 58,
+      "boss_id": 58,
+      "status": "assigned",
+      "entity": "402.0",
+      "en": "#BROWNIE",
+      "zh": "布朗尼",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "402.0"
+      ]
+    },
+    "59": {
+      "slot": 59,
+      "boss_id": 59,
+      "status": "assigned",
+      "entity": "403.0",
+      "en": "#THE_FORSAKEN",
+      "zh": "被遗弃者",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "403.0"
+      ]
+    },
+    "60": {
+      "slot": 60,
+      "boss_id": 60,
+      "status": "assigned",
+      "entity": "404.0",
+      "en": "#LITTLE_HORN",
+      "zh": "小角恶魔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "404.0"
+      ]
+    },
+    "61": {
+      "slot": 61,
+      "boss_id": 61,
+      "status": "assigned",
+      "entity": "405.0",
+      "en": "#RAG_MAN",
+      "zh": "绷带人",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "405.0"
+      ]
+    },
+    "62": {
+      "slot": 62,
+      "boss_id": 62,
+      "status": "assigned",
+      "entity": "406.0",
+      "en": "#ULTRA_GREED",
+      "zh": "究极贪婪",
+      "source": "游戏语言包",
+      "note": "游戏不把这一项写进存档 BOSS 段：图鉴里已击杀多次，存档位仍然是 0",
+      "variants": [
+        "406.0"
+      ]
+    },
+    "63": {
+      "slot": 63,
+      "boss_id": 63,
+      "status": "assigned",
+      "entity": "407.0",
+      "en": "#HUSH",
+      "zh": "死寂",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "102.2",
+        "407.0",
+        "408.0"
+      ]
+    },
+    "64": {
+      "slot": 64,
+      "boss_id": 64,
+      "status": "assigned",
+      "entity": "261.1",
+      "en": "#DANGLE",
+      "zh": "滑坨坨",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "261.1"
+      ]
+    },
+    "65": {
+      "slot": 65,
+      "boss_id": 65,
+      "status": "assigned",
+      "entity": "237.2",
+      "en": "#TURDLING",
+      "zh": "粪山幼崽",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "237.2"
+      ]
+    },
+    "66": {
+      "slot": 66,
+      "boss_id": 66,
+      "status": "assigned",
+      "entity": "62.2",
+      "en": "#THE_FRAIL",
+      "zh": "脆皮虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "62.2"
+      ]
+    },
+    "67": {
+      "slot": 67,
+      "boss_id": 67,
+      "status": "assigned",
+      "entity": "409.0",
+      "en": "#RAG_MEGA",
+      "zh": "超级绷带人",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "409.0"
+      ]
+    },
+    "68": {
+      "slot": 68,
+      "boss_id": 68,
+      "status": "assigned",
+      "entity": "410.0",
+      "en": "#SISTERS_VIS",
+      "zh": "开膛姐妹",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "410.0"
+      ]
+    },
+    "69": {
+      "slot": 69,
+      "boss_id": 69,
+      "status": "assigned",
+      "entity": "411.0",
+      "en": "#BIG_HORN",
+      "zh": "巨角恶魔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "411.0"
+      ]
+    },
+    "70": {
+      "slot": 70,
+      "boss_id": 70,
+      "status": "assigned",
+      "entity": "412.0",
+      "en": "#DELIRIUM",
+      "zh": "精神错乱",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "412.0"
+      ]
+    },
+    "71": {
+      "slot": 71,
+      "boss_id": 71,
+      "status": "assigned",
+      "entity": "406.1",
+      "en": "#ULTRA_GREEDIER",
+      "zh": "究极大贪婪",
+      "source": "游戏语言包",
+      "note": "游戏不把这一项写进存档 BOSS 段：图鉴里已击杀多次，存档位仍然是 0",
+      "variants": [
+        "406.1"
+      ]
+    },
+    "72": {
+      "slot": 72,
+      "boss_id": 72,
+      "status": "assigned",
+      "entity": "413.0",
+      "en": "#THE_MATRIARCH",
+      "zh": "胖蛆族母",
+      "source": "游戏语言包",
+      "note": "图鉴里击杀次数恒为 0（100% 通关存档里也是 0，无法被正常击败）",
+      "variants": [
+        "413.0"
+      ]
+    },
+    "73": {
+      "slot": 73,
+      "boss_id": 73,
+      "status": "assigned",
+      "entity": "269.1",
+      "en": "#THE_PILE",
+      "zh": "骨堆畸胎",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "269.1"
+      ]
+    },
+    "74": {
+      "slot": 74,
+      "boss_id": 74,
+      "status": "assigned",
+      "entity": "900.0",
+      "en": "#REAP_CREEP",
+      "zh": "裂面爬墙蛛",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "900.0"
+      ]
+    },
+    "75": {
+      "slot": 75,
+      "boss_id": 75,
+      "status": "assigned",
+      "entity": "901.0",
+      "en": "#LIL_BLUB",
+      "zh": "小水泡",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "901.0"
+      ]
+    },
+    "76": {
+      "slot": 76,
+      "boss_id": 76,
+      "status": "assigned",
+      "entity": "62.3",
+      "en": "#WORMWOOD",
+      "zh": "茵陈",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "62.3"
+      ]
+    },
+    "77": {
+      "slot": 77,
+      "boss_id": 77,
+      "status": "assigned",
+      "entity": "902.0",
+      "en": "#RAINMAKER",
+      "zh": "造雨人",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "902.0"
+      ]
+    },
+    "78": {
+      "slot": 78,
+      "boss_id": 78,
+      "status": "assigned",
+      "entity": "903.0",
+      "en": "#THE_VISAGE",
+      "zh": "锁链假面",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "903.0",
+        "903.1"
+      ]
+    },
+    "79": {
+      "slot": 79,
+      "boss_id": 79,
+      "status": "assigned",
+      "entity": "904.0",
+      "en": "#SIREN",
+      "zh": "塞壬",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "904.0"
+      ]
+    },
+    "80": {
+      "slot": 80,
+      "boss_id": 80,
+      "status": "assigned",
+      "entity": "19.2",
+      "en": "#TUFF_TWIN",
+      "zh": "灰岩子虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "19.2"
+      ]
+    },
+    "81": {
+      "slot": 81,
+      "boss_id": 81,
+      "status": "assigned",
+      "entity": "905.0",
+      "en": "#THE_HERETIC",
+      "zh": "大异端",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "905.0"
+      ]
+    },
+    "82": {
+      "slot": 82,
+      "boss_id": 82,
+      "status": "assigned",
+      "entity": "906.0",
+      "en": "#HORNFEL",
+      "zh": "岩角恶魔",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "906.0",
+        "906.1"
+      ]
+    },
+    "83": {
+      "slot": 83,
+      "boss_id": 83,
+      "status": "assigned",
+      "entity": "907.0",
+      "en": "#GREAT_GIDEON",
+      "zh": "大基甸",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "907.0"
+      ]
+    },
+    "84": {
+      "slot": 84,
+      "boss_id": 84,
+      "status": "assigned",
+      "entity": "908.0",
+      "en": "#BABY_PLUM",
+      "zh": "糖梅宝宝",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "908.0"
+      ]
+    },
+    "85": {
+      "slot": 85,
+      "boss_id": 85,
+      "status": "assigned",
+      "entity": "909.0",
+      "en": "#THE_SCOURGE",
+      "zh": "鞭刃怪",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "909.0",
+        "909.10"
+      ]
+    },
+    "86": {
+      "slot": 86,
+      "boss_id": 86,
+      "status": "assigned",
+      "entity": "910.0",
+      "en": "#CHIMERA",
+      "zh": "嵌体怪",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "910.0",
+        "910.1",
+        "910.2"
+      ]
+    },
+    "87": {
+      "slot": 87,
+      "boss_id": 87,
+      "status": "assigned",
+      "entity": "911.0",
+      "en": "#ROTGUT",
+      "zh": "腐脏巨面",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "911.0",
+        "911.1",
+        "911.2"
+      ]
+    },
+    "88": {
+      "slot": 88,
+      "boss_id": 88,
+      "status": "assigned",
+      "entity": "912.0",
+      "en": "#MOTHER",
+      "zh": "母亲",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "912.0",
+        "912.10",
+        "912.100",
+        "912.100",
+        "912.100"
+      ]
+    },
+    "89": {
+      "slot": 89,
+      "boss_id": 89,
+      "status": "unassigned",
+      "entity": "",
+      "en": "",
+      "zh": "",
+      "source": "",
+      "note": "游戏未分配的空槽位（当前 entities2.xml 里没有这个 BOSS 编号）"
+    },
+    "90": {
+      "slot": 90,
+      "boss_id": 90,
+      "status": "unassigned",
+      "entity": "",
+      "en": "",
+      "zh": "",
+      "source": "",
+      "note": "游戏未分配的空槽位（当前 entities2.xml 里没有这个 BOSS 编号）"
+    },
+    "91": {
+      "slot": 91,
+      "boss_id": 91,
+      "status": "assigned",
+      "entity": "913.0",
+      "en": "#MIN_MIN",
+      "zh": "冥明火灵",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "913.0"
+      ]
+    },
+    "92": {
+      "slot": 92,
+      "boss_id": 92,
+      "status": "assigned",
+      "entity": "914.0",
+      "en": "#CLOG",
+      "zh": "拦路屎",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "914.0"
+      ]
+    },
+    "93": {
+      "slot": 93,
+      "boss_id": 93,
+      "status": "assigned",
+      "entity": "915.0",
+      "en": "#SINGE",
+      "zh": "焦皮小子",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "915.0"
+      ]
+    },
+    "94": {
+      "slot": 94,
+      "boss_id": 94,
+      "status": "assigned",
+      "entity": "916.0",
+      "en": "#BUMBINO",
+      "zh": "大乞丐宝",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "916.0"
+      ]
+    },
+    "95": {
+      "slot": 95,
+      "boss_id": 95,
+      "status": "assigned",
+      "entity": "917.0",
+      "en": "#COLOSTOMIA",
+      "zh": "结肠造口袋",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "917.0"
+      ]
+    },
+    "96": {
+      "slot": 96,
+      "boss_id": 96,
+      "status": "assigned",
+      "entity": "19.3",
+      "en": "#THE_SHELL",
+      "zh": "枯壳虫",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "19.3"
+      ]
+    },
+    "97": {
+      "slot": 97,
+      "boss_id": 97,
+      "status": "assigned",
+      "entity": "918.0",
+      "en": "#TURDLET",
+      "zh": "虫形大便",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "918.0"
+      ]
+    },
+    "98": {
+      "slot": 98,
+      "boss_id": 98,
+      "status": "assigned",
+      "entity": "919.0",
+      "en": "#RAGLICH",
+      "zh": "绷带巫妖",
+      "source": "游戏语言包",
+      "note": "在所有核对过的存档里都从未出现（可能为未启用内容）",
+      "variants": [
+        "919.0",
+        "919.1"
+      ]
+    },
+    "99": {
+      "slot": 99,
+      "boss_id": 99,
+      "status": "assigned",
+      "entity": "950.0",
+      "en": "#DOGMA",
+      "zh": "教条",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "950.0",
+        "950.1",
+        "950.2",
+        "950.10"
+      ]
+    },
+    "100": {
+      "slot": 100,
+      "boss_id": 100,
+      "status": "assigned",
+      "entity": "951.0",
+      "en": "#THE_BEAST",
+      "zh": "祸兽",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "951.0"
+      ]
+    },
+    "101": {
+      "slot": 101,
+      "boss_id": 101,
+      "status": "assigned",
+      "entity": "920.0",
+      "en": "#HORNY_BOYS",
+      "zh": "魔角兄弟",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "920.0"
+      ]
+    },
+    "102": {
+      "slot": 102,
+      "boss_id": 102,
+      "status": "assigned",
+      "entity": "921.0",
+      "en": "#CLUTCH",
+      "zh": "附身邪鬼",
+      "source": "游戏语言包",
+      "note": "",
+      "variants": [
+        "921.0"
+      ]
+    },
+    "103": {
+      "slot": 103,
+      "boss_id": 103,
+      "status": "unassigned",
+      "entity": "",
+      "en": "",
+      "zh": "",
+      "source": "",
+      "note": "游戏未分配的空槽位（当前 entities2.xml 里没有这个 BOSS 编号）"
+    }
+  }
+}

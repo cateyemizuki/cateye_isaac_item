@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "source": "游戏本体 resources/packed/repentance_zh.a",
+    "category": "Minibosses",
+    "note": "从玩家自装游戏的语言包提取，非第三方整理；中文为游戏官方简体译文。",
+    "count": 16
+  },
+  "entries": {
+    "SLOTH_NAME": "懒惰",
+    "LUST_NAME": "色欲",
+    "WRATH_NAME": "愤怒",
+    "GLUTTONY_NAME": "暴食",
+    "GREED_NAME": "贪婪",
+    "ENVY_NAME": "嫉妒",
+    "PRIDE_NAME": "傲慢",
+    "SUPER_SLOTH_NAME": "超级懒惰",
+    "SUPER_LUST_NAME": "超级色欲",
+    "SUPER_WRATH_NAME": "超级愤怒",
+    "SUPER_GLUTTONY_NAME": "超级暴食",
+    "SUPER_GREED_NAME": "超级贪婪",
+    "SUPER_ENVY_NAME": "超级嫉妒",
+    "SUPER_PRIDE_NAME": "超级傲慢",
+    "ULTRA_PRIDE_NAME": "究极傲慢",
+    "KRAMPUS_NAME": "坎卜斯"
+  }
+}

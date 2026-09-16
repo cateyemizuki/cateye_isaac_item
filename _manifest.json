@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "id": "github.cateye.isaac.item",
-  "version": "0.1.4",
+  "version": "0.2.3",
   "name": "以撒道具图鉴",
-  "description": "《以撒的结合》道具图鉴查询插件：支持指令与 LLM 工具按中文名、英文名、图鉴编号、标签或效果关键词查询道具的品质、效果与协同，数据为打包在插件内的离线快照，无需联网。",
+  "description": "《以撒的结合》道具图鉴与存档解析插件：既能按中文名、英文名、编号、标签或效果关键词查询道具的品质、效果与协同（数据为打包在插件内的离线快照），也能让用户把游戏存档 .dat 传到群文件后由插件按 QQ 号缓存并解析出进度解析图、成就 / 图鉴 / 挑战完成度与全局统计（全程只读，不修改存档）。",
   "author": {
     "name": "cateye",
     "url": "https://github.com/cateyemizuki"
@@ -26,7 +26,9 @@
   "dependencies": [],
   "capabilities": [
     "send.text",
-    "send.forward"
+    "send.image",
+    "send.forward",
+    "api.call"
   ],
   "i18n": {
     "default_locale": "zh-CN",

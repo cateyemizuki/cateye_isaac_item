@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "source": "游戏本体 resources/packed/repentance_zh.a",
+    "category": "Curses",
+    "note": "从玩家自装游戏的语言包提取，非第三方整理；中文为游戏官方简体译文。",
+    "count": 8
+  },
+  "entries": {
+    "CURSE_OF_DARKNESS_NAME": "黑暗诅咒！",
+    "CURSE_OF_THE_LABYRINTH_NAME": "迷宫诅咒！",
+    "CURSE_OF_THE_LOST_NAME": "迷途诅咒！",
+    "CURSE_OF_THE_UNKNOWN_NAME": "未知诅咒！",
+    "CURSE_OF_THE_CURSED_NAME": "诅咒诅咒！",
+    "CURSE_OF_THE_MAZE_NAME": "混乱诅咒！",
+    "CURSE_OF_THE_BLIND_NAME": "致盲诅咒！",
+    "CURSE_OF_THE_GIANT_NAME": "大房间诅咒！"
+  }
+}

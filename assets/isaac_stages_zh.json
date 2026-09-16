@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "source": "游戏本体 resources/packed/repentance_zh.a",
+    "category": "Stages",
+    "note": "从玩家自装游戏的语言包提取，非第三方整理；中文为游戏官方简体译文。",
+    "count": 29
+  },
+  "entries": {
+    "BASEMENT_NAME": "地下室",
+    "CELLAR_NAME": "地窖",
+    "BURNING_BASEMENT_NAME": "燃烧地下室",
+    "CAVES_NAME": "洞穴",
+    "CATACOMBS_NAME": "墓穴",
+    "FLOODED_CAVES_NAME": "淹水洞穴",
+    "DEPTHS_NAME": "深牢",
+    "NECROPOLIS_NAME": "坟场",
+    "DANK_DEPTHS_NAME": "阴湿深牢",
+    "WOMB_NAME": "子宫",
+    "UTERO_NAME": "血宫",
+    "SCARRED_WOMB_NAME": "结痂子宫",
+    "BLUE_WOMB_NAME": "???",
+    "SHEOL_NAME": "阴间",
+    "CATHEDRAL_NAME": "教堂",
+    "DARK_ROOM_NAME": "暗室",
+    "CHEST_NAME": "玩具箱",
+    "THE_SHOP_NAME": "商店",
+    "ULTRA_GREED_NAME": "究极贪婪",
+    "THE_VOID_NAME": "虚空",
+    "DOWNPOUR_NAME": "下水道",
+    "DROSS_NAME": "污水井",
+    "MINES_NAME": "矿洞",
+    "ASHPIT_NAME": "灰坑",
+    "MAUSOLEUM_NAME": "陵墓",
+    "GEHENNA_NAME": "炼狱",
+    "CORPSE_NAME": "尸宫",
+    "HOME_NAME": "家",
+    "BACKWARDS_NAME": "?"
+  }
+}
