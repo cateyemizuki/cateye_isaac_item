@@ -1,12 +1,33 @@
 # Changelog
 
+## [0.2.5] - 按 CC 许可引入中文成就表（代码仍 MIT）+ 许可审计随之更新
+
+- **中文成就条件回来了，但没有动代码许可**：恢复 `assets/isaac_achievements_zh.json`
+  （第三方中文整理，641 条）。它不是「GPL-3.0 数据」——上游仓库自己的 `THIRD_PARTY_NOTICES.md` 说明
+  其**数据**来自 [英文 wiki](https://bindingofisaacrebirth.wiki.gg/wiki/Achievement)（**CC BY-SA 4.0**）与
+  [以撒中文维基](https://isaac.huijiwiki.com/wiki/成就)（**CC BY-NC-SA 3.0**），上游的 GPL-3.0 只覆盖其代码。
+  因此本插件按 **CC 许可**引入这份数据文件：需署名、**不可商用**、改编需相同方式共享；
+  它与代码的 **MIT** 许可分开、属同一仓库内的聚合分发（mere aggregation），互不改变对方。
+- **两张表叠加、字段级覆盖**：`assets/isaac_achievements.json`（游戏本体 `achievements.xml` + 官方语言包）
+  提供编号、英文标题、图标名与**游戏内英文条件**；中文表只覆盖**中文名与中文条件**，
+  缺项自动退回游戏本体表。新增配置 `save.use_wiki_zh_names`（默认开）——
+  关掉后成就名 84% 官方中文、条件为游戏内英文原文，且不再带非商业限制。
+- **新增配置 `[save] use_wiki_zh_names`**；`achievement_table_file` 的语义改为「同时接受多张表叠加」。
+- **许可审计随之更新**（`tools/check_licenses.py`）：仍要求 `LICENSE` 与 `manifest.license` 都是 MIT、
+  禁止 GPL 等传染性许可标记（中文表的 meta 里对「上游 GPL-3.0 只覆盖其代码」的澄清属于允许的说明）、
+  逐文件登记来源，并**主动点名 4 个带非商业限制的数据文件**与「关掉中文表」的开关。
+- README「致谢 / 许可说明」重写：明确「为什么不是把插件整体改成 GPL-3.0」——
+  CC BY-NC-SA 的 NonCommercial 与 GPL-3.0 不兼容，改协议既救不了这份中文数据、还会让代码被传染。
+- 版本号与 `config_version` 同步升至 `0.2.5`；自检 133 条断言（新增：中文表按 CC 引入、
+  默认合并生效、一键关掉后退回英文条件、审计点名非商业数据）。
+
 ## [0.2.4] - 长回复一律走合并转发（帮助不再刷屏）+ 去掉 GPL-3.0 依赖、许可全面清理
 
 ### 许可：确认可整包按 MIT 开源，不再有 GPL-3.0 传染
 
 - **移除唯一的 GPL-3.0 内容**：`assets/isaac_achievements_zh.json` 原先整表取自第三方 GPL-3.0 仓库
   （aprisyourlie/IsaacAchievementGuide）。GPL-3.0 具传染性，随 MIT 插件分发会让整个发行包背上 GPL 义务，
-  **该文件已删除**，并由新的 `tools/build_achievement_table.py` 改为**从游戏本体生成**：
+  该文件在 0.2.4 一度移除、0.2.5 起**按 CC 许可重新引入**（见 0.2.5 条目），同时新增 `tools/build_achievement_table.py` **从游戏本体生成**成就基线表：
   解出 `afterbirthp.a` 里的 `achievements.xml`（641 条，含编号、游戏内弹窗文案、解锁条件注释），
   中文名用官方简体语言包（`repentance_zh.a` 全 14 分类的英→中对照）反查。
 - **新产物 `assets/isaac_achievements.json`**：641 条 —— 539 条（84%）拿到**官方中文名**，

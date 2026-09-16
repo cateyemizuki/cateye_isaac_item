@@ -337,39 +337,57 @@ class AchievementDetail:
     kind: str = ""
 
 
-def load_achievement_details(path: Optional[Path | str]) -> Dict[int, AchievementDetail]:
-    """读取成就详情表（可选）；文件缺失或格式异常时返回空表。"""
+def load_achievement_details(paths: Optional[Sequence[Path | str]] = None) -> Dict[int, AchievementDetail]:
+    """读取一张或多张成就详情表；后面的表按字段覆盖前面的（文件缺失/异常时跳过）。
 
-    if not path:
-        return {}
-    file_path = Path(path)
-    if not file_path.is_file():
-        return {}
-    try:
-        with file_path.open("r", encoding="utf-8") as handle:
-            raw = json.load(handle)
-    except (OSError, json.JSONDecodeError):
-        return {}
-    entries = raw.get("entries") if isinstance(raw, dict) else None
-    if not isinstance(entries, dict):
-        return {}
-    details: Dict[int, AchievementDetail] = {}
-    for key, value in entries.items():
-        if not isinstance(value, dict):
+    默认两张：游戏本体生成的 ``isaac_achievements.json``（英文条件）与第三方中文表
+    ``isaac_achievements_zh.json``（wiki 来源，CC BY-SA 4.0 / CC BY-NC-SA 3.0）。
+    覆盖按**字段**进行：中文表有中文名与中文条件就用它，缺失字段保留游戏本体表的值。
+    """
+
+    merged: Dict[int, AchievementDetail] = {}
+    for item in paths or ():
+        if not item:
+            continue
+        file_path = Path(item)
+        if not file_path.is_file():
             continue
         try:
-            index = int(str(key).strip())
-        except (TypeError, ValueError):
+            with file_path.open("r", encoding="utf-8") as handle:
+                raw = json.load(handle)
+        except (OSError, json.JSONDecodeError):
             continue
-        details[index] = AchievementDetail(
-            index=index,
-            name=str(value.get("name") or "").strip(),
-            en=str(value.get("en") or "").strip(),
-            condition=str(value.get("cond") or "").strip(),
-            reward=str(value.get("reward") or "").strip(),
-            kind=str(value.get("type") or "").strip(),
-        )
-    return details
+        entries = raw.get("entries") if isinstance(raw, dict) else None
+        if not isinstance(entries, dict):
+            continue
+        for key, value in entries.items():
+            if not isinstance(value, dict):
+                continue
+            try:
+                index = int(str(key).strip())
+            except (TypeError, ValueError):
+                continue
+            incoming = AchievementDetail(
+                index=index,
+                name=str(value.get("name") or "").strip(),
+                en=str(value.get("en") or "").strip(),
+                condition=str(value.get("cond") or "").strip(),
+                reward=str(value.get("reward") or "").strip(),
+                kind=str(value.get("type") or "").strip(),
+            )
+            previous = merged.get(index)
+            if previous is None:
+                merged[index] = incoming
+                continue
+            merged[index] = AchievementDetail(
+                index=index,
+                name=incoming.name or previous.name,
+                en=incoming.en or previous.en,
+                condition=incoming.condition or previous.condition,
+                reward=incoming.reward or previous.reward,
+                kind=incoming.kind or previous.kind,
+            )
+    return merged
 
 
 @dataclass(frozen=True)
@@ -422,10 +440,15 @@ class NameTables:
         path: Optional[Path | str],
         *,
         achievement_path: Optional[Path | str] = None,
+        achievement_paths: Optional[Sequence[Path | str]] = None,
     ) -> "NameTables":
-        """读取名称表；文件不存在或格式异常时返回空表（功能降级，不报错）。"""
+        """读取名称表；文件不存在或格式异常时返回空表（功能降级，不报错）。
 
-        details = load_achievement_details(achievement_path)
+        ``achievement_paths`` 为空时退回单个 ``achievement_path``（向后兼容）。
+        """
+
+        sources = list(achievement_paths) if achievement_paths else ([achievement_path] if achievement_path else [])
+        details = load_achievement_details(sources)
         if not path:
             return cls(achievement_details=details)
         file_path = Path(path)

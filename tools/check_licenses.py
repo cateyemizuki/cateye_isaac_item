@@ -41,23 +41,34 @@ COPYLEFT_PATTERNS: Tuple[Tuple[str, str], ...] = (
     (r"\bcopyleft\b", "copyleft"),
 )
 
-#: 允许出现「GPL」字样的文件（这些文件是在**说明历史**：GPL 来源已移除，
-#: 或记录「只参考格式事实、未复制代码」）。产物数据文件一律不允许出现。
+#: 允许出现「GPL」字样的文件（这些文件是在**说明历史**：GPL 来源已移除或只被当作参考，
+#: 或记录「只参考格式事实、未复制代码」）。产物数据文件一律不允许出现，
+#: 唯一例外是第三方中文成就表的 meta——它需要说明「上游仓库的 GPL-3.0 只覆盖其代码，
+#: 数据实际来自 wiki（CC 许可）」，属于必要的许可澄清。
 ALLOWED_GPL_MENTIONS = {
     "CHANGELOG.md",
     "ISSUE_SUBMISSION.md",
     "README.md",
     "存档分析-可行性评估.md",
+    "assets/isaac_achievements_zh.json",
     "tools/build_achievement_table.py",
     "tools/build_name_tables.py",
     "tools/check_licenses.py",
     "tools/archive_reader.py",
 }
 
+#: 带「非商业」限制的数据文件（CC BY-NC-SA 系）——存在这些文件时整包不可商用
+NONCOMMERCIAL_FILES = (
+    "isaac_items.json",             # 灰机 wiki 道具图鉴
+    "isaac_extra.json",             # 灰机 wiki 表格类补录
+    "isaac_challenges_zh.json",      # 灰机 wiki 挑战名
+    "isaac_achievements_zh.json",    # wiki（英文 wiki CC BY-SA 4.0 + 灰机 wiki CC BY-NC-SA 3.0）
+)
+
 #: 每个数据文件的来源 → 许可类别（人工维护，改数据时同步改这里）
 SOURCE_LICENSE_MAP: Tuple[Tuple[str, str, str], ...] = (
-    ("isaac_items.json", "ChenDekang617/isaac-item-recommender（内容源自灰机 wiki）", "CC BY-NC-SA 系（数据，非代码）"),
-    ("isaac_extra.json", "灰机 wiki 页面原文人工补录", "CC BY-NC-SA 系（数据）"),
+    ("isaac_items.json", "ChenDekang617/isaac-item-recommender（内容源自灰机 wiki）", "CC BY-NC-SA 系（数据，非商业）"),
+    ("isaac_extra.json", "灰机 wiki 页面原文人工补录", "CC BY-NC-SA 系（数据，非商业）"),
     ("isaac_items_zh_names.json", "游戏本体语言包 repentance_zh.a", "玩家自装游戏数据（MIT 兼容）"),
     ("isaac_entities_zh.json", "游戏本体语言包 repentance_zh.a", "玩家自装游戏数据（MIT 兼容）"),
     ("isaac_minibosses_zh.json", "游戏本体语言包 repentance_zh.a", "玩家自装游戏数据（MIT 兼容）"),
@@ -65,16 +76,17 @@ SOURCE_LICENSE_MAP: Tuple[Tuple[str, str, str], ...] = (
     ("isaac_stages_zh.json", "游戏本体语言包 repentance_zh.a", "玩家自装游戏数据（MIT 兼容）"),
     ("isaac_curses_zh.json", "游戏本体语言包 repentance_zh.a", "玩家自装游戏数据（MIT 兼容）"),
     ("isaac_achievements.json", "游戏本体 achievements.xml + 官方语言包", "玩家自装游戏数据（MIT 兼容）"),
+    ("isaac_achievements_zh.json", "aprisyourlie/IsaacAchievementGuide（数据源自 wiki.gg 与灰机 wiki）", "CC BY-SA 4.0 + CC BY-NC-SA 3.0（数据，非商业）"),
     ("isaac_boss_slots.json", "游戏本体 entities2.xml（bossID）+ 官方语言包", "玩家自装游戏数据（MIT 兼容）"),
-    ("isaac_challenges_zh.json", "灰机 wiki「挑战」页面", "CC BY-NC-SA 系（数据）"),
+    ("isaac_challenges_zh.json", "灰机 wiki「挑战」页面", "CC BY-NC-SA 系（数据，非商业）"),
     ("isaac_save_names.json", "汇总表：成就 / BOSS / 小 BOSS 来自游戏本体，挑战 / 道具来自 wiki", "混合（代码仍 MIT）"),
     ("fonts/NotoSansSC-Regular.ttf", "Noto Sans SC 子集", "SIL OFL 1.1（MIT 兼容）"),
     ("fonts/NotoSansSC-Bold.ttf", "Noto Sans SC 子集", "SIL OFL 1.1（MIT 兼容）"),
     ("fonts/OFL.txt", "Noto 字体许可全文", "SIL OFL 1.1"),
 )
 
-#: 明确禁止再次出现的文件（历史 GPL 数据）
-FORBIDDEN_FILES = ("isaac_achievements_zh.json",)
+#: 明确禁止再次出现的文件（历史 GPL 数据；如要引入必须走 CC 许可说明）
+FORBIDDEN_FILES = ()
 
 
 def scan_text_files(root: Path) -> List[Path]:
@@ -156,14 +168,22 @@ def main(argv: List[str] | None = None) -> int:
             problems.append(f"{path.name} 缺少 meta.source")
 
     print("\n=== 结论 ===")
+    noncommercial = [name for name in NONCOMMERCIAL_FILES if (root / "assets" / name).is_file()]
     if problems:
         print(f"❌ 发现 {len(problems)} 个问题：")
         for item in problems:
             print(f"   - {item}")
         return 1
     print("✅ 未发现传染性许可内容；LICENSE 与 manifest 均为 MIT；所有数据文件来源已登记。")
-    print("   说明：灰机 wiki 数据（CC BY-NC-SA 系）是**数据**，不影响代码的 MIT 许可，")
-    print("   但商用前需自行确认授权——README「许可说明」已如实标注。")
+    if noncommercial:
+        print(f"   ⚠️ 包内含 {len(noncommercial)} 个带「非商业」限制的数据文件（CC BY-NC-SA 系）：")
+        for name in noncommercial:
+            print(f"      · assets/{name}")
+        print("      → 这些是**数据**、与代码的 MIT 许可分开（聚合分发），但**整包不可商用**。")
+        print("      → 成就中文表可用 `save.use_wiki_zh_names = false` 关掉，")
+        print("        此时成就部分只剩游戏本体数据（MIT 兼容）；道具图鉴 / 挑战名来自 wiki，无法在不删数据的前提下商用。")
+    else:
+        print("   全部数据文件均为游戏本体数据或 MIT 兼容许可，可商用。")
     return 0
 
 

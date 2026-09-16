@@ -97,12 +97,14 @@ except ImportError:  # pragma: no cover
         def using_bundled_font() -> bool:  # type: ignore[misc]
             return False
 
-SUPPORTED_CONFIG_VERSION = "0.2.4"
+SUPPORTED_CONFIG_VERSION = "0.2.5"
 
 _PLUGIN_DIR = Path(__file__).resolve().parent
 _DEFAULT_DATA_FILE = _PLUGIN_DIR / "assets" / "isaac_items.json"
 _DEFAULT_SAVE_NAMES_FILE = _PLUGIN_DIR / "assets" / "isaac_save_names.json"
 _DEFAULT_ACHIEVEMENT_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements.json"
+#: 第三方中文成就表（wiki 来源，CC BY-SA 4.0 / CC BY-NC-SA 3.0，非商业）；可被 save.use_wiki_zh_names 关闭
+_DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements_zh.json"
 _FORWARD_NICKNAME = "以撒图鉴"
 _SAVE_FORWARD_NICKNAME = "以撒存档解析"
 
@@ -288,9 +290,17 @@ class SaveSectionConfig(PluginConfigBase):
     achievement_table_file: str = Field(
         default="",
         description=(
-            "成就详情表路径（含解锁条件；留空使用内置 assets/isaac_achievements.json，"
-            "内容由游戏本体的 achievements.xml + 官方语言包生成）。"
-            "如果你想换成自备的中文成就表，把路径指过去即可（该文件的许可由你自行确认）"
+            "成就详情表路径（含解锁条件；留空使用内置表：游戏本体生成的 assets/isaac_achievements.json"
+            " + 第三方中文表 assets/isaac_achievements_zh.json，后者优先）。"
+            "填了路径则只用该文件（该文件的许可由你自行确认）"
+        ),
+    )
+    use_wiki_zh_names: bool = Field(
+        default=True,
+        description=(
+            "成就名与解锁条件是否优先使用内置的第三方中文表（wiki 来源，CC BY-SA 4.0 / CC BY-NC-SA 3.0，"
+            "需署名且不可商用；只影响这一份数据文件，插件代码仍是 MIT）。"
+            "关掉后只用游戏本体生成的表——中文名 84%、条件为游戏内英文原文，但没有非商业限制"
         ),
     )
 
@@ -479,24 +489,34 @@ class IsaacItemPlugin(MaiBotPlugin):
             return Path(raw).expanduser()
         return _DEFAULT_SAVE_NAMES_FILE
 
-    def _resolve_achievement_table_path(self) -> Path:
+    def _resolve_achievement_table_paths(self) -> List[Path]:
+        """成就详情表路径（按优先级从低到高；后者覆盖前者的同名字段）。
+
+        默认：游戏本体生成的表 **+** 第三方中文表（wiki 来源，CC 许可，可用
+        ``save.use_wiki_zh_names`` 关掉）。配置里显式指定路径时只用那一个文件。
+        """
+
         raw = str(getattr(self.config.save, "achievement_table_file", "") or "").strip()
         if raw:
-            return Path(raw).expanduser()
-        return _DEFAULT_ACHIEVEMENT_TABLE_FILE
+            return [Path(raw).expanduser()]
+        paths: List[Path] = [_DEFAULT_ACHIEVEMENT_TABLE_FILE]
+        if bool(getattr(self.config.save, "use_wiki_zh_names", True)) and _DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE.is_file():
+            paths.append(_DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE)
+        return paths
 
     def _load_name_tables(self) -> None:
         """读取（可选）成就 / BOSS / 挑战中文名称表与成就解锁条件；没有就只输出编号。"""
 
         path = self._resolve_name_table_path()
-        achievement_path = self._resolve_achievement_table_path()
+        achievement_paths = self._resolve_achievement_table_paths()
         self._name_table_path = str(path)
-        tables = NameTables.load(path, achievement_path=achievement_path)
+        tables = NameTables.load(path, achievement_paths=achievement_paths)
         self._name_tables = tables
         if tables.is_empty:
             self.ctx.logger.info("未加载名称表（%s 不存在或为空），成就 / BOSS / 挑战只输出编号", path)
         else:
-            self.ctx.logger.info("名称表已加载：%s（%s）", path, tables.counts_line())
+            used = "、".join(item.name for item in achievement_paths)
+            self.ctx.logger.info("名称表已加载：%s（%s）；成就详情表：%s", path, tables.counts_line(), used)
 
     def _item_name_map(self) -> Dict[str, str]:
         """内置道具数据的「编号 → 中文名」，用于未发现道具清单。"""

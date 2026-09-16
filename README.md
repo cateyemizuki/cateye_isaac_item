@@ -141,8 +141,11 @@ WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节：
   `allow_private_url`（是否允许从内网 / 回环地址下载，默认关闭）、
   `lookup_group_files`（消息里没有直链时是否去群文件列表里找，默认开启）、
   `name_table_file`（成就 / BOSS / 挑战中文名称表路径，留空用内置 `assets/isaac_save_names.json`）、
-  `achievement_table_file`（成就详情表路径，含解锁条件，留空用内置 `assets/isaac_achievements.json`；
-  该文件由**游戏本体**的 `achievements.xml` + 官方语言包生成，不含第三方数据——想换成自备的中文成就表时把路径指过去即可）。
+  `achievement_table_file`（成就详情表路径，含解锁条件；留空用内置两张表叠加：
+  `assets/isaac_achievements.json`（游戏本体生成）**+** `assets/isaac_achievements_zh.json`（第三方中文表，
+  wiki 来源、CC 许可、非商业，后者优先）、
+  `use_wiki_zh_names`（是否使用那张第三方中文表，默认开；关掉后成就名 84% 官方中文、条件是游戏内英文原文，
+  且成就部分不再带非商业限制））。
 
 > 解析图**不需要**宿主开启浏览器渲染（`[plugin_runtime.render]`）：插件自己用 Pillow 画，
 > 字体也从 `assets/fonts/` 里取，因此在没有中文字体、也没有浏览器的环境（例如精简的 Linux 容器）里照样出图。
@@ -187,8 +190,11 @@ python tools/build_name_tables.py --src <第三方数据目录>
 > **成就与挑战没有中文的官方版本**：游戏本体只提供英文（`achievements.xml` 的弹窗文案与条件注释、
 > `challenges.xml` 的英文挑战名）。因此成就中文名只在语言包里能查到相同译名时才给出
 > （641 条里 539 条，84%），其余**退回游戏英文标题**；解锁条件是**游戏内的英文原文**，
-> 插件会注明这一点。想要中文解锁条件的话，用 `save.achievement_table_file` 指向自备的成就表即可
-> （该文件的来源与许可由你自行确认）。
+> **中文解锁条件默认是有的**：插件内置了一份第三方中文成就表
+> （`assets/isaac_achievements_zh.json`，数据来自 wiki：英文 wiki CC BY-SA 4.0 + 灰机 wiki CC BY-NC-SA 3.0），
+> 它只覆盖中文名与中文条件，英文标题与游戏内条件仍取自游戏本体那份表。
+> 这份中文表**需署名、不可商用**，与代码的 MIT 许可分开（聚合分发，互不改变）；
+> 不需要它时把 `save.use_wiki_zh_names` 关掉即可，那时成就部分只剩游戏本体数据。
 > **BOSS 名表已填充**：存档里 104 个 BOSS 槽位用的下标就是游戏 `entities2.xml` 的 `bossID` 属性，
 > 由 `tools/build_boss_table.py` 生成（见「已知限制」8 与可行性评估附录 B）。
 
@@ -229,7 +235,7 @@ python tools/build_name_tables.py --src <第三方数据目录>
 
    | 分组 | 状态 | 编号范围 | 说明 |
    |---|---|---|---|
-   | `achievements` | ✅ 641 条 | 1–641 | 由游戏本体的 `achievements.xml` + 官方语言包生成（另存 `isaac_achievements.json`，84% 有官方中文名，其余退回游戏英文标题，解锁条件是游戏内英文原文） |
+   | `achievements` | ✅ 641 条 | 1–641 | 两张表叠加：游戏本体 `achievements.xml` + 官方语言包生成基线（`isaac_achievements.json`，84% 官方中文名），再叠加第三方中文表（`isaac_achievements_zh.json`，wiki 来源 / CC 许可 / 非商业）提供中文名与**中文解锁条件**；`save.use_wiki_zh_names=false` 可关掉后者 |
    | `challenges` | ✅ 44 条 | 1–44 | 第 45 号在游戏内本就无名称，留空 |
    | `minibosses` | ✅ 7 条 | **0–6** | 该段固定 7 项 = 七宗罪，**第 0 位就是懒惰**（官方格式说明 + 实测），名称取自游戏语言包 |
    | `bosses` | ✅ 100 条具名 + 4 条说明 | **0–103** | 下标 = 游戏 `entities2.xml` 的 `bossID` 属性；名称取自游戏本体语言包。用 `python tools/build_boss_table.py` 重新生成（会自行核对本机全部历史存档，验证不过就拒绝写入） |
@@ -346,17 +352,32 @@ python -c "from isaac_save import *; raw=open('rep+persistentgamedata1.dat','rb'
   （Google / Noto 项目，**SIL Open Font License 1.1**）：插件内置的是按实际字符集裁剪的子集
   （GB2312 一级常用字 + 插件数据用到的全部汉字 + ASCII 与常用标点），
   由 [tools/build_fonts.py](tools/build_fonts.py) 生成，许可全文见 `assets/fonts/OFL.txt`。
-- **成就名与解锁条件（1–641）** —— **游戏本体**：`afterbirthp.a` 里的 `achievements.xml`
-  （编号、弹窗文案、条件注释）由 [tools/build_achievement_table.py](tools/build_achievement_table.py)
-  生成，中文名取自游戏官方简体语言包（能查到同名译名才用）。
+- **成就名与解锁条件（1–641）的两份来源** ——
+  ① **游戏本体**：`afterbirthp.a` 里的 `achievements.xml`（编号、弹窗文案、英文条件注释）由
+  [tools/build_achievement_table.py](tools/build_achievement_table.py) 生成，中文名取自官方简体语言包
+  （能查到同名译名才用，539/641）；② **第三方中文表**：`assets/isaac_achievements_zh.json`
+  （aprisyourlie/IsaacAchievementGuide 整理，其数据源自
+  [英文 wiki](https://bindingofisaacrebirth.wiki.gg/wiki/Achievement)（CC BY-SA 4.0）与
+  [以撒中文维基](https://isaac.huijiwiki.com/wiki/成就)（CC BY-NC-SA 3.0）），
+  只提供中文名与中文条件，默认叠加在①之上、可用 `save.use_wiki_zh_names` 关闭。
 - **挑战中文名（1–45）** —— 以撒的结合中文 Wiki（灰机 wiki）的「挑战」页面。
 
 ### 许可说明
 
-- 本插件的**代码与全部数据文件都以 [MIT](LICENSE) 发布**，产物中**不含任何 GPL 内容**。
-  早期版本曾内置一份 GPL-3.0 的第三方中文成就表（aprisyourlie/IsaacAchievementGuide），
-  **已彻底移除**并改为从游戏本体生成；`tools/check_licenses.py` 会在产物里扫描
-  传染性许可标记，自检里也有对应的防回归断言。
+- 本插件的**代码以 [MIT](LICENSE) 发布**；产物中**不含任何 GPL 内容**
+  （`tools/check_licenses.py` 会扫描传染性许可标记，自检里也有防回归断言）。
+  **数据文件按各自来源的许可使用**，与代码许可是分开的（聚合分发）：
+  - 游戏本体数据（语言包、`achievements.xml`、`entities2.xml` 里提取的译名与对照表）：玩家自装游戏数据，MIT 兼容。
+  - **wiki 数据（需署名、不可商用）**：道具图鉴 `isaac_items.json`、13 条表格补录 `isaac_extra.json`、
+    挑战名 `isaac_challenges_zh.json`（灰机 wiki，CC BY-NC-SA 系）与
+    **成就中文表 `isaac_achievements_zh.json`**（英文 wiki CC BY-SA 4.0 + 灰机 wiki CC BY-NC-SA 3.0）。
+    因此**整包只能非商业使用**；想要一个不含非商业数据的成就体验，把 `save.use_wiki_zh_names` 关掉即可
+    （道具图鉴 / 挑战名仍来自 wiki）。
+  - 字体：Noto Sans SC 子集（SIL OFL 1.1），许可全文见 `assets/fonts/OFL.txt`。
+- **为什么不是把插件整体改成 GPL-3.0**：上游那份中文表的**数据**其实来自 wiki（CC BY-SA 4.0 / CC BY-NC-SA），
+  其仓库的 GPL-3.0 只覆盖自己的代码；而 CC BY-NC-SA 的 **NonCommercial** 与 GPL-3.0「不得附加进一步限制」
+  冲突，所以改 GPL-3.0 **并不能**让这份中文数据变得合规，只会让代码也被传染。按 CC 引入、代码保持 MIT
+  才是既拿到中文、又不动代码许可的做法。
 - 数据来源分三类，逐文件清单见 `tools/check_licenses.py` 的 `SOURCE_LICENSE_MAP`：
   - **玩家自装游戏数据**（`isaac_*_zh.json`、`isaac_achievements.json`、`isaac_boss_slots.json`）：
     官方简体语言包、`achievements.xml`、`entities2.xml` —— 提取的是玩家自己已购买游戏内的数据。
