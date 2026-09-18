@@ -1,4 +1,4 @@
-# cateye_isaac_item — 以撒道具图鉴 / 存档解析
+# 以撒道具图鉴 / 存档解析
 
 《以撒的结合》道具图鉴查询插件（MaiBot Manifest v2）。
 
@@ -8,6 +8,58 @@
 另外提供**存档解析**：用户把游戏存档 `.dat` 传到群文件，引用它发送 `/以撒存档绑定`，
 插件下载校验后按 QQ 号缓存在 bot 本地，之后 `/以撒存档` 就能拿到一张**进度解析图** +
 一条合并转发的详细统计（成就 / 图鉴 / 挑战完成度、全局计数器、还没拿到的道具清单）。
+
+## 许可（请先阅读）
+
+**本仓库整体按 [CC BY-NC-SA 4.0](LICENSE)（署名—非商业性—相同方式共享 4.0 国际）发布**，
+`LICENSE` 文件即该协议全文。整包**仅供非商业用途**：使用 / 修改 / 再分发需**署名**（本仓库与下方数据来源）、
+**不得用于商业目的**，改编产物需以**相同许可**共享。MaiBot 插件市场展示的许可即 CC BY-NC-SA 4.0。
+
+其中各部分受控情况：
+
+- **受 CC BY-NC-SA 控制的数据**（wiki 社区内容，需署名、非商业、相同方式共享）：
+
+  | 文件 | 内容与来源 |
+  |---|---|
+  | `assets/isaac_items.json` | 道具 / 饰品 / 卡牌 / 药丸图鉴，灰机 wiki（经上游 isaac-item-recommender 整理） |
+  | `assets/isaac_extra.json` | 13 条表格类效果的人工补录，转写自灰机 wiki 页面原文 |
+  | `assets/isaac_challenges_zh.json` | 挑战中文名，灰机 wiki「挑战」页面 |
+  | `assets/isaac_achievements_zh.json` | 成就中文表，混合来源（英文 wiki CC BY-SA 4.0 + 灰机 wiki CC BY-NC-SA 3.0），对外按更严格的 CC BY-NC-SA 对待 |
+
+- **不受 CC 控制的内容，以 MIT 许可开源**（许可全文附下）：全部代码（含 `tools/` 下的脚本）、
+  `assets/` 里上表之外的数据文件（游戏本体语言包提取的官方译名、`isaac_achievements.json` 成就基线表、
+  `isaac_boss_slots.json` BOSS 对照表等）、以及本文档之外的自查文档。
+- **字体**：Noto Sans SC 子集，SIL Open Font License 1.1（全文见 `assets/fonts/OFL.txt`），与两者都兼容。
+
+MIT 许可全文（适用于上条所列代码与数据）：
+
+```text
+MIT License
+
+Copyright (c) 2026 cateye
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+> 一句话版：**整包是「非商业 + 署名 + 相同方式共享」的 CC BY-NC-SA 4.0**；只想复用代码的人，
+> 取上表之外的 `.py` 与数据文件即可，那部分按 MIT 随便用（含商用）。逐文件来源清单见
+> 「致谢 → 许可说明」与 `tools/check_licenses.py` 的 `SOURCE_LICENSE_MAP`。
 
 ## 功能
 
@@ -82,7 +134,8 @@
 - **校验**：魔数、长度、文件名、数据块边界全部校验；`gamestate`（中途退出的单局）会被明确拒绝并说明原因；
   超过大小上限、非 http(s)、指向内网 / 回环地址的链接都会被拒绝（SSRF 防护，可用 `allow_private_url` 放开）。
 - **缓存**：`ctx.paths.data_dir/saves/<QQ号>/slotN.dat` + `.meta.json`，按 QQ 号隔离，
-  同一存档位重复上传即覆盖；`cache_ttl_days` 可设置自动过期（默认永久，直到用户 `/以撒存档清除`）。
+  同一存档位重复上传即覆盖；缓存默认 **30 天后自动过期**（`cache_ttl_days` 可调，`0` = 永久保留），
+  也可随时 `/以撒存档清除` 手动删除。
 - **解析**：`isaac_save.py` 纯逻辑模块，只读字节流，不写任何存档文件。
 - **输出**：一条解析图 + 一条合并转发的详情（避免刷屏）。
 
@@ -112,39 +165,41 @@
 
 ## 配置
 
-WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节：
+WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节。
+括号里是 **WebUI 上显示的中文标签**（`config.toml` 里的键名仍是英文，WebUI 通过字段的 `json_schema_extra.label/hint` 做本地化）：
 
-- `[plugin]`：`enabled`（是否启用）、`config_version`（与插件版本同步，隐藏项）。
-- `[search]`：`max_results`（列表模式返回条数，默认 5）、`fuzzy_threshold`（模糊匹配阈值，默认 0.55，填 0 关闭）、
-  `search_by_tag`、`search_by_effect`、`search_by_synergy`（名称匹配不到时依次退到标签、效果正文、协同正文）、`max_query_length`。
-- `[display]`：`show_english`、`show_quality`、`show_tags`、`show_synergies`、
-  `max_synergies`（**内联**展示的协同条数上限，默认 5；超过则全部协同改用合并转发发送，`0` = 全部内联展示）、
-  `max_synergies_in_tool`（LLM 工具返回时最多列出的协同条数，默认 20；工具发不了转发，只能截断并注明条数）、
-  `max_effect_chars`（效果正文截断字数，0 = 不截断）、
-  `show_wiki_link`（效果疑似被表格截断且本地未补录时，是否附上灰机 wiki 页面链接，默认开启）、
-  `forward_threshold`（回复超过多少**字**改用合并转发，默认 400，0 = 不按字数判断）、
-  `forward_max_lines`（回复超过多少**行**也改用合并转发，默认 12，0 = 不按行数判断；
+- `[plugin]`：`enabled`（启用插件）、`config_version`（配置版本，隐藏项）。
+- `[search]`：`max_results`（结果条数上限，默认 5）、`fuzzy_threshold`（模糊匹配阈值，默认 0.55，填 0 关闭）、
+  `search_by_tag`（按标签检索）、`search_by_effect`（按效果检索）、`search_by_synergy`（按协同检索）
+  ——名称匹配不到时依次退到标签、效果正文、协同正文，`max_query_length`（关键词长度上限）。
+- `[display]`：`show_english`（显示英文名）、`show_quality`（显示品质）、`show_tags`（显示标签）、`show_synergies`（显示协同）、
+  `max_synergies`（内联协同上限，默认 5；超过则全部协同改用合并转发发送，`0` = 全部内联展示）、
+  `max_synergies_in_tool`（工具协同上限，默认 20；工具发不了转发，只能截断并注明条数）、
+  `max_effect_chars`（效果字数上限，0 = 不截断）、
+  `show_wiki_link`（附 wiki 链接：效果疑似被表格截断且本地未补录时是否附上灰机 wiki 页面链接，默认开启）、
+  `forward_threshold`（转发字数阈值：回复超过多少**字**改用合并转发，默认 400，0 = 不按字数判断）、
+  `forward_max_lines`（转发行数阈值：回复超过多少**行**也改用合并转发，默认 12，0 = 不按行数判断；
   两者都为 0 时始终用普通文本。行数阈值专治「字数不多但行数很多」的帮助 / 长效果内容）。
-- `[data]`：`data_file`（自定义数据文件路径，留空用内置数据）、`show_source_in_help`。
+- `[data]`：`data_file`（数据文件路径，留空用内置数据）、`show_source_in_help`（帮助里显示来源）。
 - `[save]`：存档解析相关——
-  `enabled`（是否启用 `/以撒存档` 系列）、`auto_analyze_after_bind`（绑定后是否立刻返回解析结果，默认开启）、
-  `send_image`（是否发送解析图，默认开启）、
-  `image_width`（**卡片宽度**，600~1000 CSS 像素，默认 **700**：调小则排版收窄、统计卡自动减列，
+  `enabled`（启用存档解析）、`auto_analyze_after_bind`（绑定后自动解析，默认开启）、
+  `send_image`（发送解析图，默认开启）、
+  `image_width`（解析图宽度，600~1000 CSS 像素，默认 **700**：调小则排版收窄、统计卡自动减列，
   长宽比变瘦高；这是控制「太宽」的主要开关）、
-  `image_scale`（输出倍率 1~3，默认 **1.4**：最终像素 = 卡片尺寸 × 该倍率，控制整体清晰度/大小），
-  `max_image_chips`（解析图里最多列几个未发现道具，默认 24）、
-  `max_image_track_chips`（解析图里最多列几个未解锁成就 / 挑战的名称，默认 12，0 = 不在图里列）、
-  `detail_max_items`（合并转发里最多逐个列出几个未发现道具，默认 60，其余只列编号）、
-  `detail_max_named`（合并转发里最多逐个列出几个未解锁成就 / 挑战，默认 40，成就带解锁条件）、
-  `max_file_mb`（存档大小上限，默认 4 MB）、`cache_ttl_days`（缓存有效期，默认 0 = 永久）、
+  `image_scale`（解析图倍率 1~3，默认 **1.4**：最终像素 = 卡片尺寸 × 该倍率，控制整体清晰度/大小）、
+  `max_image_chips`（图内未发现道具数，默认 24）、
+  `max_image_track_chips`（图内未解锁条目数，默认 12，0 = 不在图里列）、
+  `detail_max_items`（详情未发现道具数，默认 60，其余只列编号）、
+  `detail_max_named`（详情未解锁条目数，默认 40，成就带解锁条件）、
+  `max_file_mb`（文件大小上限，默认 4 MB）、`cache_ttl_days`（缓存有效期，默认 30 天自动过期，0 = 永久）、
   `download_timeout_sec`（下载超时，默认 30 秒）、
-  `allow_private_url`（是否允许从内网 / 回环地址下载，默认关闭）、
-  `lookup_group_files`（消息里没有直链时是否去群文件列表里找，默认开启）、
-  `name_table_file`（成就 / BOSS / 挑战中文名称表路径，留空用内置 `assets/isaac_save_names.json`）、
+  `allow_private_url`（允许内网地址，默认关闭）、
+  `lookup_group_files`（按文件名查群文件：消息里没有直链时是否去群文件列表里找，默认开启）、
+  `name_table_file`（名称表路径：成就 / BOSS / 挑战中文名称表，留空用内置 `assets/isaac_save_names.json`）、
   `achievement_table_file`（成就详情表路径，含解锁条件；留空用内置两张表叠加：
   `assets/isaac_achievements.json`（游戏本体生成）**+** `assets/isaac_achievements_zh.json`（第三方中文表，
   wiki 来源、CC 许可、非商业，后者优先）、
-  `use_wiki_zh_names`（是否使用那张第三方中文表，默认开；关掉后成就名 84% 官方中文、条件是游戏内英文原文，
+  `use_wiki_zh_names`（用中文成就表，默认开；关掉后成就名 84% 官方中文、条件是游戏内英文原文，
   且成就部分不再带非商业限制））。
 
 > 解析图**不需要**宿主开启浏览器渲染（`[plugin_runtime.render]`）：插件自己用 Pillow 画，
@@ -300,7 +355,8 @@ python tools/build_name_tables.py --src <第三方数据目录>
 | `tools/build_achievement_table.py` | 从游戏本体 `achievements.xml` + 语言包生成成就表（无第三方数据） |
 | `tools/archive_reader.py` | **读取游戏 `.a` 资源归档**（只读）：解出 `entities2.xml`、`achievements.xml` 等原始资源 |
 | `tools/build_boss_table.py` | 由 `entities2.xml` 的 `bossID` 生成 BOSS 段 104 槽位的名表（自带验证，不过不写） |
-| `tools/check_licenses.py` | **许可合规审计**：扫描 GPL 等传染性许可标记、核对自称 MIT 的一致性、登记每个数据文件来源 |
+| `tools/check_licenses.py` | **许可合规审计**：扫描 GPL 等传染性许可标记、核对整包 CC BY-NC-SA 4.0 与代码 MIT 声明的一致性、登记每个数据文件来源 |
+| `tools/check_config_i18n.py` | **配置汉化自检**：静态扫描（+ 有 `maibot_sdk` 时用真实 Schema 复核）每个配置节与字段是否都有中文 `label` / `hint` |
 | `tools/diff_saves.py` | **对比两份存档**（只读）：确认计数器口径、反推 BOSS 编号 |
 | `tools/build_fonts.py` | 生成内置渲染字体（Noto Sans SC 子集，SIL OFL 1.1） |
 
@@ -364,20 +420,22 @@ python -c "from isaac_save import *; raw=open('rep+persistentgamedata1.dat','rb'
 
 ### 许可说明
 
-- 本插件的**代码以 [MIT](LICENSE) 发布**；产物中**不含任何 GPL 内容**
+- **整包以 [CC BY-NC-SA 4.0](LICENSE) 发布**（仓库 `LICENSE` 即该协议全文）；
+  **代码与非 CC 数据以 MIT 开源**，两部分各自的受控范围见 README 开头的「许可」一节。产物中**不含任何 GPL 内容**
   （`tools/check_licenses.py` 会扫描传染性许可标记，自检里也有防回归断言）。
-  **数据文件按各自来源的许可使用**，与代码许可是分开的（聚合分发）：
-  - 游戏本体数据（语言包、`achievements.xml`、`entities2.xml` 里提取的译名与对照表）：玩家自装游戏数据，MIT 兼容。
+  **wiki 数据文件按各自来源的许可使用**：
+  - 游戏本体数据（语言包、`achievements.xml`、`entities2.xml` 里提取的译名与对照表）：玩家自装游戏数据，随 MIT 部分提供。
   - **wiki 数据（需署名、不可商用）**：道具图鉴 `isaac_items.json`、13 条表格补录 `isaac_extra.json`、
     挑战名 `isaac_challenges_zh.json`（灰机 wiki，CC BY-NC-SA 系）与
     **成就中文表 `isaac_achievements_zh.json`**（英文 wiki CC BY-SA 4.0 + 灰机 wiki CC BY-NC-SA 3.0）。
-    因此**整包只能非商业使用**；想要一个不含非商业数据的成就体验，把 `save.use_wiki_zh_names` 关掉即可
+    正因这四个文件存在，**整包按 CC BY-NC-SA 4.0 发布、只能非商业使用**；
+    想要一个不含非商业数据的成就体验，把 `save.use_wiki_zh_names` 关掉即可
     （道具图鉴 / 挑战名仍来自 wiki）。
   - 字体：Noto Sans SC 子集（SIL OFL 1.1），许可全文见 `assets/fonts/OFL.txt`。
 - **为什么不是把插件整体改成 GPL-3.0**：上游那份中文表的**数据**其实来自 wiki（CC BY-SA 4.0 / CC BY-NC-SA），
   其仓库的 GPL-3.0 只覆盖自己的代码；而 CC BY-NC-SA 的 **NonCommercial** 与 GPL-3.0「不得附加进一步限制」
-  冲突，所以改 GPL-3.0 **并不能**让这份中文数据变得合规，只会让代码也被传染。按 CC 引入、代码保持 MIT
-  才是既拿到中文、又不动代码许可的做法。
+  冲突，所以改 GPL-3.0 **并不能**让这份中文数据变得合规，只会让代码也被传染。
+  现在的仓库结构正是这样落地的：**wiki 数据按 CC 引入 → 整包 CC BY-NC-SA 4.0；代码与非 CC 数据单独以 MIT 开放**。
 - 数据来源分三类，逐文件清单见 `tools/check_licenses.py` 的 `SOURCE_LICENSE_MAP`：
   - **玩家自装游戏数据**（`isaac_*_zh.json`、`isaac_achievements.json`、`isaac_boss_slots.json`）：
     官方简体语言包、`achievements.xml`、`entities2.xml` —— 提取的是玩家自己已购买游戏内的数据。

@@ -97,7 +97,7 @@ except ImportError:  # pragma: no cover
         def using_bundled_font() -> bool:  # type: ignore[misc]
             return False
 
-SUPPORTED_CONFIG_VERSION = "0.2.5"
+SUPPORTED_CONFIG_VERSION = "0.2.7"
 
 _PLUGIN_DIR = Path(__file__).resolve().parent
 _DEFAULT_DATA_FILE = _PLUGIN_DIR / "assets" / "isaac_items.json"
@@ -149,74 +149,135 @@ class ReplyPayload:
 
 
 class PluginSectionConfig(PluginConfigBase):
-    """插件基础配置。"""
+    """插件总开关与配置版本。"""
 
     __ui_label__ = "插件"
     __ui_icon__ = "package"
     __ui_order__ = 0
 
-    enabled: bool = Field(default=True, description="是否启用插件")
+    enabled: bool = Field(
+        default=True,
+        description="是否启用插件",
+        json_schema_extra={"label": "启用插件", "hint": "插件总开关"},
+    )
     config_version: str = Field(
         default=SUPPORTED_CONFIG_VERSION,
         description="配置版本（与插件版本同步）",
-        json_schema_extra={"hidden": True, "disabled": True},
+        json_schema_extra={"hidden": True, "disabled": True, "label": "配置版本", "hint": "配置版本，勿改"},
     )
 
 
 class SearchSectionConfig(PluginConfigBase):
-    """检索行为配置。"""
+    """检索行为：名称匹配不到时，依次尝试标签、效果正文、协同条目。"""
 
     __ui_label__ = "检索"
     __ui_icon__ = "search"
     __ui_order__ = 1
 
-    max_results: int = Field(default=5, description="列表模式最多返回多少条结果（1~20）")
+    max_results: int = Field(
+        default=5,
+        description="列表模式最多返回多少条结果（1~20）",
+        json_schema_extra={"label": "结果条数上限", "hint": "列表最多返回几条"},
+    )
     fuzzy_threshold: float = Field(
         default=0.55,
         description="模糊匹配相似度阈值（0~1）：名字记不全或打错字时的兜底，越低越宽松；填 0 关闭模糊匹配",
+        json_schema_extra={
+            "label": "模糊匹配阈值",
+            "hint": "0~1，填 0 即关闭",
+        },
     )
     search_by_tag: bool = Field(
         default=True,
         description="名称匹配不到时，按标签检索（例如「射速」「攻击性」）",
+        json_schema_extra={"label": "按标签检索", "hint": "按标签找（射速/攻击性）"},
     )
     search_by_effect: bool = Field(
         default=True,
         description="名称与标签都匹配不到时，在效果正文里找关键词（例如「飞行」「中毒」）",
+        json_schema_extra={
+            "label": "按效果检索",
+            "hint": "按效果正文关键词找",
+        },
     )
     search_by_synergy: bool = Field(
         default=True,
         description="以上都匹配不到时，在协同条目里找关键词（例如搜「虚空」能搜到与虚空有协同的道具）",
+        json_schema_extra={
+            "label": "按协同检索",
+            "hint": "按协同条目关键词找",
+        },
     )
-    max_query_length: int = Field(default=32, description="单次查询关键词的最大长度，超出部分截断")
+    max_query_length: int = Field(
+        default=32,
+        description="单次查询关键词的最大长度，超出部分截断",
+        json_schema_extra={"label": "关键词长度上限", "hint": "超出部分截断"},
+    )
 
 
 class DisplaySectionConfig(PluginConfigBase):
-    """回复展示配置。"""
+    """回复展示：详情里显示哪些字段，以及超长内容什么时候改用合并转发。"""
 
     __ui_label__ = "展示"
     __ui_icon__ = "visibility"
     __ui_order__ = 2
 
-    show_english: bool = Field(default=True, description="是否显示英文名（部分条目该字段为英文风味文本）")
-    show_quality: bool = Field(default=True, description="是否显示品质等级（0~4）")
-    show_tags: bool = Field(default=True, description="是否显示标签")
-    show_synergies: bool = Field(default=True, description="详情里是否显示协同条目")
+    show_english: bool = Field(
+        default=True,
+        description="是否显示英文名（部分条目该字段为英文风味文本）",
+        json_schema_extra={"label": "显示英文名", "hint": "显示条目英文名"},
+    )
+    show_quality: bool = Field(
+        default=True,
+        description="是否显示品质等级（0~4）",
+        json_schema_extra={"label": "显示品质", "hint": "显示品质等级 0~4"},
+    )
+    show_tags: bool = Field(
+        default=True,
+        description="是否显示标签",
+        json_schema_extra={"label": "显示标签", "hint": "显示道具标签"},
+    )
+    show_synergies: bool = Field(
+        default=True,
+        description="详情里是否显示协同条目",
+        json_schema_extra={"label": "显示协同", "hint": "详情里显示协同"},
+    )
     max_synergies: int = Field(
         default=5,
         description="详情里内联展示的协同条数上限：超过该条数时不再折叠，全部协同改用合并转发发送（0 表示全部内联显示）",
+        json_schema_extra={
+            "label": "内联协同上限",
+            "hint": "超过则改合并转发",
+        },
     )
     max_synergies_in_tool: int = Field(
         default=20,
         description="LLM 工具返回时最多列出的协同条数（工具无法发合并转发，只能截断；0 表示全部列出）",
+        json_schema_extra={
+            "label": "工具协同上限",
+            "hint": "工具只能截断不转发",
+        },
     )
-    max_effect_chars: int = Field(default=0, description="效果文本最大字数，0 表示不截断")
+    max_effect_chars: int = Field(
+        default=0,
+        description="效果文本最大字数，0 表示不截断",
+        json_schema_extra={"label": "效果字数上限", "hint": "0 表示不截断"},
+    )
     show_wiki_link: bool = Field(
         default=True,
         description="效果疑似被表格截断（且本地没有补录）时，是否附上灰机 wiki 页面链接",
+        json_schema_extra={
+            "label": "附 wiki 链接",
+            "hint": "效果被截断时附链接",
+        },
     )
     forward_threshold: int = Field(
         default=400,
         description="整条回复超过该字数时改用合并转发发送，避免刷屏；0 表示不按字数判断",
+        json_schema_extra={
+            "label": "转发字数阈值",
+            "hint": "超过改用合并转发",
+        },
     )
     forward_max_lines: int = Field(
         default=12,
@@ -224,11 +285,15 @@ class DisplaySectionConfig(PluginConfigBase):
             "整条回复超过这么多行时也改用合并转发发送（帮助、长效果这类内容字数不多但行数很多）；"
             "0 表示不按行数判断。字数为 0 且行数为 0 时始终用普通文本"
         ),
+        json_schema_extra={
+            "label": "转发行数阈值",
+            "hint": "超过也改合并转发",
+        },
     )
 
 
 class DataSectionConfig(PluginConfigBase):
-    """数据来源配置。"""
+    """数据来源：道具图鉴快照的位置，以及帮助信息里要不要写明出处。"""
 
     __ui_label__ = "数据"
     __ui_icon__ = "database"
@@ -237,55 +302,113 @@ class DataSectionConfig(PluginConfigBase):
     data_file: str = Field(
         default="",
         description="自定义数据文件路径（留空使用插件内置的 assets/isaac_items.json）",
+        json_schema_extra={"label": "数据文件路径", "hint": "留空用内置图鉴"},
     )
-    show_source_in_help: bool = Field(default=True, description="帮助信息里是否附带数据来源与统计")
+    show_source_in_help: bool = Field(
+        default=True,
+        description="帮助信息里是否附带数据来源与统计",
+        json_schema_extra={"label": "帮助里显示来源", "hint": "帮助里附数据来源"},
+    )
 
 
 class SaveSectionConfig(PluginConfigBase):
-    """存档解析配置（/以撒存档）。"""
+    """存档解析（/以撒存档）：解析图、详情清单、下载与缓存策略，全程只读。"""
 
     __ui_label__ = "存档"
     __ui_icon__ = "save"
     __ui_order__ = 4
 
-    enabled: bool = Field(default=True, description="是否启用存档解析（/以撒存档 系列指令）")
+    enabled: bool = Field(
+        default=True,
+        description="是否启用存档解析（/以撒存档 系列指令）",
+        json_schema_extra={"label": "启用存档解析", "hint": "关闭后指令不响应"},
+    )
     auto_analyze_after_bind: bool = Field(
         default=True,
         description="用户绑定存档后，是否立即返回解析图与详情（关闭则只回复绑定结果）",
+        json_schema_extra={"label": "绑定后自动解析", "hint": "关闭只回绑定结果"},
     )
-    send_image: bool = Field(default=True, description="是否发送解析图（渲染不可用时自动回退为纯文字）")
+    send_image: bool = Field(
+        default=True,
+        description="是否发送解析图（渲染不可用时自动回退为纯文字）",
+        json_schema_extra={"label": "发送解析图", "hint": "渲染失败自动降级"},
+    )
     image_width: int = Field(
         default=700,
         description="解析图卡片宽度（600~1000 CSS 像素）：调小则排版收窄、长宽比变瘦高（推荐 700~800）",
+        json_schema_extra={
+            "label": "解析图宽度",
+            "hint": "600~1000 像素",
+        },
     )
     image_scale: float = Field(
         default=1.4,
         description="解析图输出倍率（1~3）：最终像素 = 卡片尺寸 × 该倍率，觉得整体太大就调小",
+        json_schema_extra={"label": "解析图倍率", "hint": "1~3，越大越清晰"},
     )
-    max_image_chips: int = Field(default=24, description="解析图里最多列出多少个未发现道具")
+    max_image_chips: int = Field(
+        default=24,
+        description="解析图里最多列出多少个未发现道具",
+        json_schema_extra={"label": "图内未发现道具数", "hint": "图里最多列几个"},
+    )
     max_image_track_chips: int = Field(
         default=12,
         description="解析图里最多列出多少个未解锁成就 / 挑战的名称（0 表示不在图里列出）",
+        json_schema_extra={
+            "label": "图内未解锁条目数",
+            "hint": "0 表示不在图里列",
+        },
     )
-    detail_max_items: int = Field(default=60, description="合并转发详情里最多逐个列出多少个未发现道具")
+    detail_max_items: int = Field(
+        default=60,
+        description="合并转发详情里最多逐个列出多少个未发现道具",
+        json_schema_extra={"label": "详情未发现道具数", "hint": "其余只列编号"},
+    )
     detail_max_named: int = Field(
         default=40,
         description="合并转发详情里最多逐个列出多少个未解锁成就 / 挑战（带中文名与解锁条件）",
+        json_schema_extra={
+            "label": "详情未解锁条目数",
+            "hint": "详情最多列几个（含条件）",
+        },
     )
-    max_file_mb: float = Field(default=4.0, description="允许解析的存档文件大小上限（MB）")
-    cache_ttl_days: int = Field(default=0, description="本地存档缓存有效期（天），0 表示永久保留直到用户清除")
-    download_timeout_sec: int = Field(default=30, description="下载存档文件的超时时间（秒）")
+    max_file_mb: float = Field(
+        default=4.0,
+        description="允许解析的存档文件大小上限（MB）",
+        json_schema_extra={"label": "文件大小上限", "hint": "单位 MB，默认 4"},
+    )
+    cache_ttl_days: int = Field(
+        default=30,
+        description=(
+            "本地存档缓存有效期（天），到期自动清理；设为 0 表示永久保留，直到用户 /以撒存档清除"
+        ),
+        json_schema_extra={"label": "缓存有效期", "hint": "默认 30 天，0 为永久"},
+    )
+    download_timeout_sec: int = Field(
+        default=30,
+        description="下载存档文件的超时时间（秒）",
+        json_schema_extra={"label": "下载超时", "hint": "单位秒，默认 30"},
+    )
     allow_private_url: bool = Field(
         default=False,
         description="是否允许从内网 / 回环地址下载存档（默认关闭：引用消息可被伪造，开启后可能被指向内网服务）",
+        json_schema_extra={
+            "label": "允许内网地址",
+            "hint": "默认关闭，有 SSRF 风险",
+        },
     )
     lookup_group_files: bool = Field(
         default=True,
         description="消息里没有下载链接时，是否按文件名去群文件列表里查找并取下载链接",
+        json_schema_extra={
+            "label": "按文件名查群文件",
+            "hint": "没直链时去群文件找",
+        },
     )
     name_table_file: str = Field(
         default="",
         description="成就 / BOSS / 挑战中文名称表路径（留空使用内置 assets/isaac_save_names.json）",
+        json_schema_extra={"label": "名称表路径", "hint": "留空用内置名称表"},
     )
     achievement_table_file: str = Field(
         default="",
@@ -294,6 +417,10 @@ class SaveSectionConfig(PluginConfigBase):
             " + 第三方中文表 assets/isaac_achievements_zh.json，后者优先）。"
             "填了路径则只用该文件（该文件的许可由你自行确认）"
         ),
+        json_schema_extra={
+            "label": "成就详情表路径",
+            "hint": "留空用内置两张表",
+        },
     )
     use_wiki_zh_names: bool = Field(
         default=True,
@@ -302,6 +429,10 @@ class SaveSectionConfig(PluginConfigBase):
             "需署名且不可商用；只影响这一份数据文件，插件代码仍是 MIT）。"
             "关掉后只用游戏本体生成的表——中文名 84%、条件为游戏内英文原文，但没有非商业限制"
         ),
+        json_schema_extra={
+            "label": "用中文成就表",
+            "hint": "关闭后条件为英文",
+        },
     )
 
 
@@ -852,6 +983,8 @@ class IsaacItemPlugin(MaiBotPlugin):
 
         store = self._save_store_or_none()
         cache_note = "未启用（插件数据目录不可用）" if store is None else "已就绪"
+        ttl_days = int(self.config.save.cache_ttl_days)
+        ttl_note = "永久保留" if ttl_days <= 0 else f"{ttl_days} 天后自动过期"
         lines = [
             "",
             "存档解析（只读）：",
@@ -861,7 +994,7 @@ class IsaacItemPlugin(MaiBotPlugin):
             f"{_SAVE_COMMAND}列表     查看已缓存的存档",
             f"{_SAVE_COMMAND}清除     删除 bot 本地缓存的存档",
             f"{_SAVE_COMMAND}帮助     找不到存档文件时看这里",
-            f"本地缓存：{cache_note}",
+            f"本地缓存：{cache_note}（{ttl_note}，{_SAVE_COMMAND}清除 可随时删除）",
         ]
         if not self._name_tables.is_empty:
             source = str(self._name_tables.meta.get("source") or "").strip()
@@ -1265,9 +1398,12 @@ class IsaacItemPlugin(MaiBotPlugin):
             entry.version_label,
         )
 
+        ttl_days = int(self.config.save.cache_ttl_days)
+        ttl_note = "缓存永久保留" if ttl_days <= 0 else f"缓存 {ttl_days} 天后自动过期"
         notice = (
             f"存档已收好：{entry.file_name}（{entry.size_text}，{entry.version_label}）\n"
-            f"已按你的 QQ 号缓存在 bot 本地，存档位 {entry.slot}；解析是只读的，不会改动原文件。"
+            f"已按你的 QQ 号缓存在 bot 本地，存档位 {entry.slot}；{ttl_note}，"
+            f"{_SAVE_COMMAND}清除 可随时删除。解析是只读的，不会改动原文件。"
         )
         if not bool(self.config.save.auto_analyze_after_bind):
             await self.ctx.send.text(notice + f"\n发送 {_SAVE_COMMAND} 查看解析结果。", stream_id)

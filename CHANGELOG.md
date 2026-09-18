@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.2.7] - 许可结构重组：整包 CC BY-NC-SA 4.0（代码与非 CC 数据另以 MIT 开源）+ 存档缓存默认 30 天
+
+- **修掉「标 MIT、实际整包非商业」的许可误导**：0.2.6 及之前 `LICENSE` 与 `manifest.license` 写的是 MIT，
+  但 `assets/` 里 4 个 wiki 来源数据文件（`isaac_items.json`、`isaac_extra.json`、`isaac_challenges_zh.json`、
+  `isaac_achievements_zh.json`）带 CC BY-NC-SA 的「需署名 / 不可商用 / 相同方式共享」限制，
+  README 又声明整包仅非商业使用——插件市场按 manifest 展示许可会误导用户。本轮按「整包 CC、代码 MIT」重组：
+  - `LICENSE` 替换为 **CC BY-NC-SA 4.0 官方全文**；`manifest.license` 同步改为 `CC BY-NC-SA 4.0`，
+    `description` 开头加「【非商业插件】」显著标注（市场列表截断也看得见）；
+  - README **开头**新增「许可（请先阅读）」一节：逐文件列出受 CC BY-NC-SA 控制的 4 个 wiki 数据文件及来源、
+    声明**不受 CC 控制的内容（全部 `*.py` 代码、游戏本体数据、`tools/` 脚本等）以 MIT 开源并附 MIT 全文**、
+    字体 SIL OFL 1.1；底部「致谢 → 许可说明」同步改成同一口径；
+  - 生成工具（`build_achievement_table.py` / `build_boss_table.py`）写入数据 `meta.license` 的字样
+    从「随本插件按 MIT 发布」改为「随仓库以 MIT 提供（整包 CC BY-NC-SA 4.0）」，两份现有 JSON 同步更新；
+  - `tools/check_licenses.py` 的许可证一致性断言从「`LICENSE` 与 `manifest.license` 均为 MIT」
+    改为「均为 CC BY-NC-SA 4.0」，结论输出同步说明两部分受控范围。
+  这也是 0.2.5「为什么不是把插件整体改成 GPL-3.0」的自然落点：wiki 数据按 CC 引入 → 整包 CC BY-NC-SA 4.0；
+  代码与非 CC 数据单独以 MIT 开放，两边互不传染、也互不改变。
+- **存档缓存默认 30 天**：`save.cache_ttl_days` 默认值从 `0`（永久）改为 **`30`**，到期自动清理
+  （`0` 仍表示永久保留）。绑定成功的提示与 `/以撒帮助` 的存档段都会显示当前有效期
+  （「缓存 30 天后自动过期，/以撒存档清除 可随时删除」），不再默认把用户存档长期留在 bot 本地；
+  存量配置里已显式设置过该字段的用户值不受影响。
+- 版本号与 `config_version` 同步升至 `0.2.7`（配置字段无增删，仅默认值变化）。
+
+## [0.2.6] - 配置项汉化（WebUI 不再显示英文字段名）
+
+- **修掉一处汉化漏项**：配置模型此前只写了 `Field(description=…)`，而 WebUI 渲染字段标题用的是
+  `json_schema_extra["label"]`、副标题用 `json_schema_extra["hint"]`（`maibot_sdk/config.py::_build_field_schema`，
+  `description` 只进 Schema、前端不读），`label` 缺失时**兜底成英文字段名**——
+  于是「检索」「存档」等配置节的标题是中文，里面每个字段却显示成 `max_results`、`fuzzy_threshold` 这种英文键名。
+- 为 **5 个配置节、37 个字段**逐一补上 `label`（短标题）+ `hint`（悬停提示）；隐藏项 `config_version` 也补了（保持隐藏）。
+  `hint` 沿用 cateye 系列插件的既有约定**压到 ≤15 字**（最长 14 字），只留一句关键约束
+  （默认值 / `0` 的含义 / 取值范围）；完整解释仍在 `Field(description=…)` 与 README 里，没有丢信息。
+- 顺带把 5 个配置节类的 docstring 写具体（它才是 WebUI 上那一行**节描述**，原先是「检索行为配置。」这类占位）。
+- **未改任何字段名、类型、默认值与校验逻辑**；`config.toml` 里仍是英文字段名，只是 WebUI 上换成中文。
+  版本号与 `config_version` 同步升至 `0.2.6`（配置字段未增删，迁移只是按默认值骨架重建，用户值保留）。
+- README「配置」一节同步改成「`max_results`（结果条数上限）」这种键名 + 中文标签的对照写法，便于对着 UI 找项。
+- **新增自检脚本 `tools/check_config_i18n.py`**：静态 AST 扫描（不依赖 `maibot_sdk`，可用任意 Python 跑），
+  若解释器装了 `maibot_sdk` 再用真实 Schema 遍历 `get_webui_config_schema()["sections"]` 复核；
+  断言每节 `title` / `description` 与每个字段 `label` / `hint` 都非空、含中文、且 `hint` ≤15 字
+  （`--max-hint` 可调）——5 节 37 字段全过；另跑冒烟测试确认加载、组件注册、查询与「普通聊天不误伤」均正常。
+
 ## [0.2.5] - 按 CC 许可引入中文成就表（代码仍 MIT）+ 许可审计随之更新
 
 - **中文成就条件回来了，但没有动代码许可**：恢复 `assets/isaac_achievements_zh.json`

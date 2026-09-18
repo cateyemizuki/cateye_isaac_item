@@ -2,7 +2,7 @@
   "meta": {
     "note": "成就编号 → 「中文名 / 英文标题 / 游戏内解锁条件」对照表，全部由玩家自装游戏的 achievements.xml 与官方简体语言包生成（无第三方数据）。游戏本体只提供英文条件，中文名仅在语言包里能查到对应译名时给出，查不到时退回英文标题、绝不编造。",
     "source": "游戏本体 resources/packed/afterbirthp.a → achievements.xml（玩家自装游戏，非第三方整理）",
-    "license": "随本插件按 MIT 发布（生成物不含第三方数据）",
+    "license": "生成物不含第三方数据，随仓库以 MIT 提供（整包 CC BY-NC-SA 4.0，见 README「许可」）",
     "names_from": "游戏本体 resources/packed/repentance_zh.a 官方简体语言包（能查到译名才用）",
     "count": 641,
     "with_cond": 284,

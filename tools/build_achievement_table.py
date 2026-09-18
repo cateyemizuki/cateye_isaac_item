@@ -259,7 +259,7 @@ def build(game_dir: Path) -> Tuple[Dict[str, Any], Dict[str, int]]:
     meta = {
         "note": NOTE,
         "source": f"游戏本体 resources/packed/{archive_name} → achievements.xml（玩家自装游戏，非第三方整理）",
-        "license": "随本插件按 MIT 发布（生成物不含第三方数据）",
+        "license": "生成物不含第三方数据，随仓库以 MIT 提供（整包 CC BY-NC-SA 4.0，见 README「许可」）",
         "names_from": f"游戏本体 resources/packed/{ZH_PACK} 官方简体语言包（能查到译名才用）",
         "count": len(entries),
         "with_cond": stats["with_cond"],

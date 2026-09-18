@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 """许可合规审计：确认插件产物里没有 GPL 等传染性许可内容，并打印来源清单。
 
-背景：本插件以 **MIT** 发布。MIT 与 GPL-3.0 不兼容——哪怕只是把一份 GPL 数据文件
-随包分发，整个发行包也会带上 GPL 义务（对插件市场与下游用户都是麻烦）。
-``assets/isaac_achievements_zh.json`` 曾是唯一的 GPL-3.0 内容（整表取自
-aprisyourlie/IsaacAchievementGuide），已删除并改为 ``tools/build_achievement_table.py``
-从游戏本体 ``achievements.xml`` + 官方语言包生成。本脚本用来**防止它再回来**。
+背景：本仓库**整体以 CC BY-NC-SA 4.0 发布**（``LICENSE`` 即该协议全文）——因为 ``assets/``
+里有 4 个 wiki 来源、带「需署名 / 非商业 / 相同方式共享」限制的数据文件（见
+``NONCOMMERCIAL_FILES``）；**代码与不受 CC 控制的数据另以 MIT 开源**（README 开头的
+「许可」一节附 MIT 全文并列出两部分的受控范围）。``assets/isaac_achievements_zh.json``
+曾是唯一的 GPL-3.0 内容（整表取自 aprisyourlie/IsaacAchievementGuide），已删除并改为
+``tools/build_achievement_table.py`` 从游戏本体 ``achievements.xml`` + 官方语言包生成。
+本脚本用来**防止它再回来**。
 
 检查项
 ------
 1. 产物（``assets/`` ``*.py`` ``*.md``）中不出现 GPL / 传染性许可标记（白名单：说明"已移除 GPL"这类
    历史说明文本可出现在 CHANGELOG、可行性评估与工具文档里，见 ``ALLOWED_GPL_MENTIONS``）；
-2. ``LICENSE`` 是 MIT，且 ``_manifest.json`` 的 ``license`` 与之致；
+2. ``LICENSE`` 是 CC BY-NC-SA 4.0，且 ``_manifest.json`` 的 ``license`` 与之一致；
 3. 每个 ``assets/*.json`` 都声明了 ``meta.source``（来源可追溯）；
-4. 逐文件打印「来源 → 许可类别 → 是否 MIT 兼容」清单。
+4. 逐文件打印「来源 → 许可类别 → 受 CC / MIT 哪部分覆盖」清单。
 
 用法::
 
@@ -121,17 +123,18 @@ def main(argv: List[str] | None = None) -> int:
 
     print("\n=== 2. 许可证一致性 ===")
     license_text = (root / "LICENSE").read_text(encoding="utf-8", errors="replace") if (root / "LICENSE").is_file() else ""
-    is_mit = license_text.strip().startswith("MIT License")
-    print(f"  {'✓' if is_mit else '✗'} LICENSE：{'MIT' if is_mit else '不是 MIT'}")
-    if not is_mit:
-        problems.append("LICENSE 不是 MIT")
+    is_cc = license_text.lstrip().startswith("Attribution-NonCommercial-ShareAlike 4.0 International")
+    print(f"  {'✓' if is_cc else '✗'} LICENSE：{'CC BY-NC-SA 4.0' if is_cc else '不是 CC BY-NC-SA 4.0'}")
+    if not is_cc:
+        problems.append("LICENSE 不是 CC BY-NC-SA 4.0（整包含 CC BY-NC-SA 数据，仓库协议必须与其一致）")
 
     manifest_path = root / "_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
     manifest_license = str(manifest.get("license") or "")
-    print(f"  {'✓' if manifest_license == 'MIT' else '✗'} manifest.license：{manifest_license or '（缺失）'}")
-    if manifest_license != "MIT":
-        problems.append(f"manifest.license 应为 MIT，实际 {manifest_license!r}")
+    expected_license = "CC BY-NC-SA 4.0"
+    print(f"  {'✓' if manifest_license == expected_license else '✗'} manifest.license：{manifest_license or '（缺失）'}")
+    if manifest_license != expected_license:
+        problems.append(f"manifest.license 应为 {expected_license}，实际 {manifest_license!r}")
 
     print("\n=== 3. 禁用文件 ===")
     for name in FORBIDDEN_FILES:
@@ -174,14 +177,15 @@ def main(argv: List[str] | None = None) -> int:
         for item in problems:
             print(f"   - {item}")
         return 1
-    print("✅ 未发现传染性许可内容；LICENSE 与 manifest 均为 MIT；所有数据文件来源已登记。")
+    print("✅ 未发现传染性许可内容；LICENSE 与 manifest 均为 CC BY-NC-SA 4.0；所有数据文件来源已登记。")
     if noncommercial:
-        print(f"   ⚠️ 包内含 {len(noncommercial)} 个带「非商业」限制的数据文件（CC BY-NC-SA 系）：")
+        print(f"   ℹ️ 包内含 {len(noncommercial)} 个 wiki 来源、带「非商业」限制的数据文件（CC BY-NC-SA 系）：")
         for name in noncommercial:
             print(f"      · assets/{name}")
-        print("      → 这些是**数据**、与代码的 MIT 许可分开（聚合分发），但**整包不可商用**。")
-        print("      → 成就中文表可用 `save.use_wiki_zh_names = false` 关掉，")
-        print("        此时成就部分只剩游戏本体数据（MIT 兼容）；道具图鉴 / 挑战名来自 wiki，无法在不删数据的前提下商用。")
+        print("      → 因此仓库整体以 CC BY-NC-SA 4.0 发布、整包不可商用；")
+        print("        代码与不受 CC 控制的数据以 MIT 开源（README 开头的「许可」一节列出受控范围）。")
+        print("        成就中文表可用 `save.use_wiki_zh_names = false` 关掉，")
+        print("        此时成就部分只剩游戏本体数据；道具图鉴 / 挑战名来自 wiki，无法在不删数据的前提下商用。")
     else:
         print("   全部数据文件均为游戏本体数据或 MIT 兼容许可，可商用。")
     return 0
