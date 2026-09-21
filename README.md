@@ -180,7 +180,7 @@ WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节。
   `forward_threshold`（转发字数阈值：回复超过多少**字**改用合并转发，默认 400，0 = 不按字数判断）、
   `forward_max_lines`（转发行数阈值：回复超过多少**行**也改用合并转发，默认 12，0 = 不按行数判断；
   两者都为 0 时始终用普通文本。行数阈值专治「字数不多但行数很多」的帮助 / 长效果内容）。
-- `[data]`：`data_file`（数据文件路径，留空用内置数据）、`show_source_in_help`（帮助里显示来源）。
+- `[data]`：`data_file`（数据文件路径，留空用内置数据；**路径规则见下方引用块**）、`show_source_in_help`（帮助里显示来源）。
 - `[save]`：存档解析相关——
   `enabled`（启用存档解析）、`auto_analyze_after_bind`（绑定后自动解析，默认开启）、
   `send_image`（发送解析图，默认开启）、
@@ -201,6 +201,12 @@ WebUI / `plugins/cateye_isaac_item/config.toml` 下共五节。
   wiki 来源、CC 许可、非商业，后者优先）、
   `use_wiki_zh_names`（用中文成就表，默认开；关掉后成就名 84% 官方中文、条件是游戏内英文原文，
   且成就部分不再带非商业限制））。
+
+> **路径规则**（`data.data_file` / `save.name_table_file` / `save.achievement_table_file` 三个配置项通用）：
+> 留空 = 用插件内置文件；**相对路径按插件目录解析**（不跟随宿主进程的工作目录），并且**不允许越出插件目录**
+> ——`../x.json` 这类穿越会被拒绝；绝对路径可以指向你自己用 `tools/` 生成的表，但必须是**存在的常规文件**
+> （目录 / 设备 / 管道 / 不存在的路径一律拒绝）。被拒绝时**回退内置默认文件**并在日志里写明原因，
+> 绝不会去读一个不该读的位置，也不会因为路径写错把插件加载弄崩。
 
 > 解析图**不需要**宿主开启浏览器渲染（`[plugin_runtime.render]`）：插件自己用 Pillow 画，
 > 字体也从 `assets/fonts/` 里取，因此在没有中文字体、也没有浏览器的环境（例如精简的 Linux 容器）里照样出图。

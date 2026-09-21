@@ -97,7 +97,7 @@ except ImportError:  # pragma: no cover
         def using_bundled_font() -> bool:  # type: ignore[misc]
             return False
 
-SUPPORTED_CONFIG_VERSION = "0.2.7"
+SUPPORTED_CONFIG_VERSION = "0.2.8"
 
 _PLUGIN_DIR = Path(__file__).resolve().parent
 _DEFAULT_DATA_FILE = _PLUGIN_DIR / "assets" / "isaac_items.json"
@@ -105,6 +105,41 @@ _DEFAULT_SAVE_NAMES_FILE = _PLUGIN_DIR / "assets" / "isaac_save_names.json"
 _DEFAULT_ACHIEVEMENT_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements.json"
 #: 第三方中文成就表（wiki 来源，CC BY-SA 4.0 / CC BY-NC-SA 3.0，非商业）；可被 save.use_wiki_zh_names 关闭
 _DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements_zh.json"
+
+
+def resolve_conf_file_path(raw: Any, *, default: Path, label: str) -> Tuple[Path, str]:
+    """把配置里的"文件路径"解析为**可安全读取的常规文件**路径（三个路径配置项共用）。
+
+    防护点（「数据目录不绕出 / 只读常规文件」口径）：
+
+    1. 留空（或全空白）→ 直接用内置默认文件；
+    2. **相对路径一律相对插件目录**解析——不跟随宿主进程的工作目录（CWD 不可预期，
+       可能是 MaiBot 根目录甚至别处），并且**不允许越出插件目录**（`..` 穿越直接拒绝）；
+    3. 绝对路径允许（主人显式指向自己生成的表），但必须是**常规文件**：目录、设备、
+       管道、不存在的路径一律拒绝；
+    4. 被拒绝时一律**回退内置默认文件**，并把原因（第二个返回值）交给调用方写日志——
+       宁可退回内置数据，也不去读一个不该读的位置。
+    """
+
+    text = str(raw or "").strip()
+    if not text:
+        return default, ""
+    try:
+        candidate = Path(text).expanduser()
+        if candidate.is_absolute():
+            candidate = candidate.resolve()
+        else:
+            candidate = (_PLUGIN_DIR / candidate).resolve()
+            try:
+                candidate.relative_to(_PLUGIN_DIR)
+            except ValueError:
+                return default, f"{label} 的相对路径越出插件目录（{text}），已回退内置文件"
+    except (OSError, ValueError) as exc:  # 非法路径：超长、含非法字符、盘符异常…
+        return default, f"{label} 路径无法解析（{exc}），已回退内置文件"
+    if not candidate.is_file():
+        return default, f"{label} 指向的不是常规文件（{candidate}），已回退内置文件"
+    return candidate, ""
+
 _FORWARD_NICKNAME = "以撒图鉴"
 _SAVE_FORWARD_NICKNAME = "以撒存档解析"
 
@@ -527,10 +562,14 @@ class IsaacItemPlugin(MaiBotPlugin):
     # ------------------------------------------------------------------
 
     def _resolve_data_path(self) -> Path:
-        raw = str(getattr(self.config.data, "data_file", "") or "").strip()
-        if raw:
-            return Path(raw).expanduser()
-        return _DEFAULT_DATA_FILE
+        path, reason = resolve_conf_file_path(
+            getattr(self.config.data, "data_file", ""),
+            default=_DEFAULT_DATA_FILE,
+            label="数据文件（data.data_file）",
+        )
+        if reason:
+            self.ctx.logger.warning("%s", reason)
+        return path
 
     async def _load_database(self) -> None:
         path = self._resolve_data_path()
@@ -615,21 +654,33 @@ class IsaacItemPlugin(MaiBotPlugin):
         self._load_name_tables()
 
     def _resolve_name_table_path(self) -> Path:
-        raw = str(getattr(self.config.save, "name_table_file", "") or "").strip()
-        if raw:
-            return Path(raw).expanduser()
-        return _DEFAULT_SAVE_NAMES_FILE
+        path, reason = resolve_conf_file_path(
+            getattr(self.config.save, "name_table_file", ""),
+            default=_DEFAULT_SAVE_NAMES_FILE,
+            label="名称表（save.name_table_file）",
+        )
+        if reason:
+            self.ctx.logger.warning("%s", reason)
+        return path
 
     def _resolve_achievement_table_paths(self) -> List[Path]:
         """成就详情表路径（按优先级从低到高；后者覆盖前者的同名字段）。
 
         默认：游戏本体生成的表 **+** 第三方中文表（wiki 来源，CC 许可，可用
-        ``save.use_wiki_zh_names`` 关掉）。配置里显式指定路径时只用那一个文件。
+        ``save.use_wiki_zh_names`` 关掉）。配置里显式指定路径时只用那一个文件；
+        该路径被路径防护拒绝（越出插件目录的相对路径 / 非常规文件）时回退到默认两张表。
         """
 
         raw = str(getattr(self.config.save, "achievement_table_file", "") or "").strip()
         if raw:
-            return [Path(raw).expanduser()]
+            path, reason = resolve_conf_file_path(
+                raw,
+                default=_DEFAULT_ACHIEVEMENT_TABLE_FILE,
+                label="成就详情表（save.achievement_table_file）",
+            )
+            if not reason:
+                return [path]
+            self.ctx.logger.warning("%s", reason)
         paths: List[Path] = [_DEFAULT_ACHIEVEMENT_TABLE_FILE]
         if bool(getattr(self.config.save, "use_wiki_zh_names", True)) and _DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE.is_file():
             paths.append(_DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE)
