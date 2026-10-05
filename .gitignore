@@ -1,8 +1,13 @@
 # 运行时配置（Runner 生成，勿提交）
 /config.toml
+/config_back/
 
 # 宿主分配的数据目录（运行时产生）
 /data/
+
+# 运行时日志
+*.log
+/logs/
 
 # Python
 __pycache__/
@@ -15,8 +20,26 @@ tests/
 test_*.py
 *_test.py
 
-# 插件中心 Issue 提交文档（本地使用，不随插件上传）
+# 流程 / 指导文档（本地使用，不随插件上传）
+/UPLOAD_AGENT.md
 /ISSUE_SUBMISSION.md
 
-# 运行时日志
-/logs/
+# ---- 追加自 MaiBot插件开发文档v1.3.0/.gitignore 模板（sync 2026-10-05）----
+.maibot-release.json
+.update_backups/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+smoke_test*.py
+/tests/
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp

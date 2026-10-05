@@ -16,9 +16,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
-import ipaddress
 import json
-import socket
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
@@ -83,6 +81,11 @@ except ImportError:  # 插件目录被直接加入 sys.path 时走绝对导入
         parse_save_bytes,
     )
 
+try:  # 统一 SSRF 护栏（cateye_common 参考实现，随插件复制分发，仅标准库）
+    from .url_guard import ForbiddenAddressError, UrlGuardError, check_url
+except ImportError:  # 插件目录被直接加入 sys.path 时走绝对导入
+    from url_guard import ForbiddenAddressError, UrlGuardError, check_url  # type: ignore[no-redef]
+
 try:  # 渲染模块可选：只用标准库也能跑（此时解析图自动降级为纯文字）
     from .isaac_save_render import build_card_png, canvas_available, using_bundled_font
 except ImportError:  # pragma: no cover
@@ -97,7 +100,20 @@ except ImportError:  # pragma: no cover
         def using_bundled_font() -> bool:  # type: ignore[misc]
             return False
 
-SUPPORTED_CONFIG_VERSION = "0.2.8"
+SUPPORTED_CONFIG_VERSION = "0.2.10"
+
+
+def _ui_i18n(en_label: str, en_hint: str = "") -> Dict[str, Dict[str, str]]:
+    """字段级英文翻译（并入 ``json_schema_extra``；WebUI 按 ``i18n[locale]['label'/'hint']`` 取用）。
+
+    MaiBot 1.3.0 / SDK 2.8.2 起 WebUI 元数据规范要求每个配置字段自带
+    ``i18n``（至少 ``en``）翻译，缺省时界面在非中文语言下会回落到英文字段名。
+    """
+
+    entry: Dict[str, str] = {"label": en_label}
+    if en_hint:
+        entry["hint"] = en_hint
+    return {"i18n": {"en": entry}}
 
 _PLUGIN_DIR = Path(__file__).resolve().parent
 _DEFAULT_DATA_FILE = _PLUGIN_DIR / "assets" / "isaac_items.json"
@@ -107,35 +123,42 @@ _DEFAULT_ACHIEVEMENT_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements.j
 _DEFAULT_ACHIEVEMENT_ZH_TABLE_FILE = _PLUGIN_DIR / "assets" / "isaac_achievements_zh.json"
 
 
-def resolve_conf_file_path(raw: Any, *, default: Path, label: str) -> Tuple[Path, str]:
+def resolve_conf_file_path(
+    raw: Any,
+    *,
+    default: Path,
+    label: str,
+    allowed_roots: Sequence[Path] = (),
+) -> Tuple[Path, str]:
     """把配置里的"文件路径"解析为**可安全读取的常规文件**路径（三个路径配置项共用）。
 
-    防护点（「数据目录不绕出 / 只读常规文件」口径）：
+    防护点（「只读允许目录内的常规文件」口径）：
 
     1. 留空（或全空白）→ 直接用内置默认文件；
     2. **相对路径一律相对插件目录**解析——不跟随宿主进程的工作目录（CWD 不可预期，
-       可能是 MaiBot 根目录甚至别处），并且**不允许越出插件目录**（`..` 穿越直接拒绝）；
-    3. 绝对路径允许（主人显式指向自己生成的表），但必须是**常规文件**：目录、设备、
-       管道、不存在的路径一律拒绝；
-    4. 被拒绝时一律**回退内置默认文件**，并把原因（第二个返回值）交给调用方写日志——
+       可能是 MaiBot 根目录甚至别处）；
+    3. **解析结果必须落在允许的根目录之内**（插件目录 / 插件数据目录，
+       ``is_relative_to`` 校验，`..` 穿越与指向机器上任意位置的绝对路径一律拒绝）——
+       路径配置项的文件内容会进入聊天回显，不能允许指向任意常规文件去探测；
+    4. 必须是**常规文件**：目录、设备、管道、不存在的路径一律拒绝；
+    5. 被拒绝时一律**回退内置默认文件**，并把原因（第二个返回值）交给调用方写日志——
        宁可退回内置数据，也不去读一个不该读的位置。
     """
 
     text = str(raw or "").strip()
     if not text:
         return default, ""
+    roots = tuple(Path(root).resolve() for root in allowed_roots if str(root).strip()) or (_PLUGIN_DIR,)
     try:
         candidate = Path(text).expanduser()
         if candidate.is_absolute():
             candidate = candidate.resolve()
         else:
             candidate = (_PLUGIN_DIR / candidate).resolve()
-            try:
-                candidate.relative_to(_PLUGIN_DIR)
-            except ValueError:
-                return default, f"{label} 的相对路径越出插件目录（{text}），已回退内置文件"
     except (OSError, ValueError) as exc:  # 非法路径：超长、含非法字符、盘符异常…
         return default, f"{label} 路径无法解析（{exc}），已回退内置文件"
+    if not any(candidate.is_relative_to(root) for root in roots):
+        return default, f"{label} 只允许指向插件目录或插件数据目录之内的文件（{text}），已回退内置文件"
     if not candidate.is_file():
         return default, f"{label} 指向的不是常规文件（{candidate}），已回退内置文件"
     return candidate, ""
@@ -165,9 +188,6 @@ _DOWNLOAD_HEADERS = {
     "Accept": "*/*",
 }
 
-#: 不允许下载的内网网段判定（SSRF 防护）
-_BLOCKED_IP_FLAGS = ("is_private", "is_loopback", "is_link_local", "is_reserved", "is_multicast", "is_unspecified")
-
 #: 群文件相关 Action（Napcat 适配器透传 API）
 _GROUP_ROOT_FILES_API = "adapter.napcat.file.get_group_root_files"
 _GROUP_FILE_URL_API = "adapter.napcat.file.get_group_file_url"
@@ -187,18 +207,31 @@ class PluginSectionConfig(PluginConfigBase):
     """插件总开关与配置版本。"""
 
     __ui_label__ = "插件"
+    __ui_i18n__: ClassVar[Dict[str, Dict[str, str]]] = {
+        "en": {"title": "Plugin", "description": "Master switch and config version."}
+    }
     __ui_icon__ = "package"
     __ui_order__ = 0
 
     enabled: bool = Field(
         default=True,
         description="是否启用插件",
-        json_schema_extra={"label": "启用插件", "hint": "插件总开关"},
+        json_schema_extra={
+            "label": "启用插件",
+            "hint": "插件总开关",
+            **_ui_i18n("Enable plugin", "Master switch"),
+        },
     )
     config_version: str = Field(
         default=SUPPORTED_CONFIG_VERSION,
         description="配置版本（与插件版本同步）",
-        json_schema_extra={"hidden": True, "disabled": True, "label": "配置版本", "hint": "配置版本，勿改"},
+        json_schema_extra={
+            "hidden": True,
+            "disabled": True,
+            "label": "配置版本",
+            "hint": "配置版本，勿改",
+            **_ui_i18n("Config version", "Managed by the plugin"),
+        },
     )
 
 
@@ -206,13 +239,20 @@ class SearchSectionConfig(PluginConfigBase):
     """检索行为：名称匹配不到时，依次尝试标签、效果正文、协同条目。"""
 
     __ui_label__ = "检索"
+    __ui_i18n__: ClassVar[Dict[str, Dict[str, str]]] = {
+        "en": {"title": "Search", "description": "Fallback search stages when the name does not match."}
+    }
     __ui_icon__ = "search"
     __ui_order__ = 1
 
     max_results: int = Field(
         default=5,
         description="列表模式最多返回多少条结果（1~20）",
-        json_schema_extra={"label": "结果条数上限", "hint": "列表最多返回几条"},
+        json_schema_extra={
+            "label": "结果条数上限",
+            "hint": "列表最多返回几条",
+            **_ui_i18n("Max results", "1-20 entries per list"),
+        },
     )
     fuzzy_threshold: float = Field(
         default=0.55,
@@ -220,12 +260,17 @@ class SearchSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "模糊匹配阈值",
             "hint": "0~1，填 0 即关闭",
+            **_ui_i18n("Fuzzy threshold", "0-1; 0 disables fuzzy match"),
         },
     )
     search_by_tag: bool = Field(
         default=True,
         description="名称匹配不到时，按标签检索（例如「射速」「攻击性」）",
-        json_schema_extra={"label": "按标签检索", "hint": "按标签找（射速/攻击性）"},
+        json_schema_extra={
+            "label": "按标签检索",
+            "hint": "按标签找（射速/攻击性）",
+            **_ui_i18n("Search by tag", "Fallback when name misses"),
+        },
     )
     search_by_effect: bool = Field(
         default=True,
@@ -233,6 +278,7 @@ class SearchSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "按效果检索",
             "hint": "按效果正文关键词找",
+            **_ui_i18n("Search by effect", "Keyword in effect text"),
         },
     )
     search_by_synergy: bool = Field(
@@ -241,12 +287,17 @@ class SearchSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "按协同检索",
             "hint": "按协同条目关键词找",
+            **_ui_i18n("Search by synergies", "Keyword in synergy entries"),
         },
     )
     max_query_length: int = Field(
         default=32,
         description="单次查询关键词的最大长度，超出部分截断",
-        json_schema_extra={"label": "关键词长度上限", "hint": "超出部分截断"},
+        json_schema_extra={
+            "label": "关键词长度上限",
+            "hint": "超出部分截断",
+            **_ui_i18n("Max query length", "Longer input is truncated"),
+        },
     )
 
 
@@ -254,28 +305,47 @@ class DisplaySectionConfig(PluginConfigBase):
     """回复展示：详情里显示哪些字段，以及超长内容什么时候改用合并转发。"""
 
     __ui_label__ = "展示"
+    __ui_i18n__: ClassVar[Dict[str, Dict[str, str]]] = {
+        "en": {"title": "Display", "description": "Shown fields and when long replies use forward."}
+    }
     __ui_icon__ = "visibility"
     __ui_order__ = 2
 
     show_english: bool = Field(
         default=True,
         description="是否显示英文名（部分条目该字段为英文风味文本）",
-        json_schema_extra={"label": "显示英文名", "hint": "显示条目英文名"},
+        json_schema_extra={
+            "label": "显示英文名",
+            "hint": "显示条目英文名",
+            **_ui_i18n("Show English name", "Show the item's English name"),
+        },
     )
     show_quality: bool = Field(
         default=True,
         description="是否显示品质等级（0~4）",
-        json_schema_extra={"label": "显示品质", "hint": "显示品质等级 0~4"},
+        json_schema_extra={
+            "label": "显示品质",
+            "hint": "显示品质等级 0~4",
+            **_ui_i18n("Show quality", "Quality level 0-4"),
+        },
     )
     show_tags: bool = Field(
         default=True,
         description="是否显示标签",
-        json_schema_extra={"label": "显示标签", "hint": "显示道具标签"},
+        json_schema_extra={
+            "label": "显示标签",
+            "hint": "显示道具标签",
+            **_ui_i18n("Show tags", "Show item tags"),
+        },
     )
     show_synergies: bool = Field(
         default=True,
         description="详情里是否显示协同条目",
-        json_schema_extra={"label": "显示协同", "hint": "详情里显示协同"},
+        json_schema_extra={
+            "label": "显示协同",
+            "hint": "详情里显示协同",
+            **_ui_i18n("Show synergies", "Synergy entries in detail"),
+        },
     )
     max_synergies: int = Field(
         default=5,
@@ -283,6 +353,7 @@ class DisplaySectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "内联协同上限",
             "hint": "超过则改合并转发",
+            **_ui_i18n("Inline synergy cap", "Excess goes to forward; 0 = all inline"),
         },
     )
     max_synergies_in_tool: int = Field(
@@ -291,12 +362,17 @@ class DisplaySectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "工具协同上限",
             "hint": "工具只能截断不转发",
+            **_ui_i18n("Tool synergy cap", "Tool truncates; cannot forward"),
         },
     )
     max_effect_chars: int = Field(
         default=0,
         description="效果文本最大字数，0 表示不截断",
-        json_schema_extra={"label": "效果字数上限", "hint": "0 表示不截断"},
+        json_schema_extra={
+            "label": "效果字数上限",
+            "hint": "0 表示不截断",
+            **_ui_i18n("Effect text limit", "0 = no truncation"),
+        },
     )
     show_wiki_link: bool = Field(
         default=True,
@@ -304,6 +380,7 @@ class DisplaySectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "附 wiki 链接",
             "hint": "效果被截断时附链接",
+            **_ui_i18n("Append wiki link", "When effect looks cut off"),
         },
     )
     forward_threshold: int = Field(
@@ -312,6 +389,7 @@ class DisplaySectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "转发字数阈值",
             "hint": "超过改用合并转发",
+            **_ui_i18n("Forward char threshold", "Longer replies use forward"),
         },
     )
     forward_max_lines: int = Field(
@@ -323,6 +401,7 @@ class DisplaySectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "转发行数阈值",
             "hint": "超过也改合并转发",
+            **_ui_i18n("Forward line threshold", "0 = ignore line count"),
         },
     )
 
@@ -331,18 +410,29 @@ class DataSectionConfig(PluginConfigBase):
     """数据来源：道具图鉴快照的位置，以及帮助信息里要不要写明出处。"""
 
     __ui_label__ = "数据"
+    __ui_i18n__: ClassVar[Dict[str, Dict[str, str]]] = {
+        "en": {"title": "Data", "description": "Where the item database snapshot lives."}
+    }
     __ui_icon__ = "database"
     __ui_order__ = 3
 
     data_file: str = Field(
         default="",
         description="自定义数据文件路径（留空使用插件内置的 assets/isaac_items.json）",
-        json_schema_extra={"label": "数据文件路径", "hint": "留空用内置图鉴"},
+        json_schema_extra={
+            "label": "数据文件路径",
+            "hint": "留空用内置图鉴",
+            **_ui_i18n("Data file path", "Empty = built-in snapshot"),
+        },
     )
     show_source_in_help: bool = Field(
         default=True,
         description="帮助信息里是否附带数据来源与统计",
-        json_schema_extra={"label": "帮助里显示来源", "hint": "帮助里附数据来源"},
+        json_schema_extra={
+            "label": "帮助里显示来源",
+            "hint": "帮助里附数据来源",
+            **_ui_i18n("Show source in help", "Data source in help text"),
+        },
     )
 
 
@@ -350,23 +440,38 @@ class SaveSectionConfig(PluginConfigBase):
     """存档解析（/以撒存档）：解析图、详情清单、下载与缓存策略，全程只读。"""
 
     __ui_label__ = "存档"
+    __ui_i18n__: ClassVar[Dict[str, Dict[str, str]]] = {
+        "en": {"title": "Save parsing", "description": "Save upload parsing, rendering, download and cache."}
+    }
     __ui_icon__ = "save"
     __ui_order__ = 4
 
     enabled: bool = Field(
         default=True,
         description="是否启用存档解析（/以撒存档 系列指令）",
-        json_schema_extra={"label": "启用存档解析", "hint": "关闭后指令不响应"},
+        json_schema_extra={
+            "label": "启用存档解析",
+            "hint": "关闭后指令不响应",
+            **_ui_i18n("Enable save parsing", "Commands off when disabled"),
+        },
     )
     auto_analyze_after_bind: bool = Field(
         default=True,
         description="用户绑定存档后，是否立即返回解析图与详情（关闭则只回复绑定结果）",
-        json_schema_extra={"label": "绑定后自动解析", "hint": "关闭只回绑定结果"},
+        json_schema_extra={
+            "label": "绑定后自动解析",
+            "hint": "关闭只回绑定结果",
+            **_ui_i18n("Analyze after bind", "Off: bind notice only"),
+        },
     )
     send_image: bool = Field(
         default=True,
         description="是否发送解析图（渲染不可用时自动回退为纯文字）",
-        json_schema_extra={"label": "发送解析图", "hint": "渲染失败自动降级"},
+        json_schema_extra={
+            "label": "发送解析图",
+            "hint": "渲染失败自动降级",
+            **_ui_i18n("Send render image", "Falls back to plain text"),
+        },
     )
     image_width: int = Field(
         default=700,
@@ -374,17 +479,26 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "解析图宽度",
             "hint": "600~1000 像素",
+            **_ui_i18n("Card width (px)", "600-1000 CSS px"),
         },
     )
     image_scale: float = Field(
         default=1.4,
         description="解析图输出倍率（1~3）：最终像素 = 卡片尺寸 × 该倍率，觉得整体太大就调小",
-        json_schema_extra={"label": "解析图倍率", "hint": "1~3，越大越清晰"},
+        json_schema_extra={
+            "label": "解析图倍率",
+            "hint": "1~3，越大越清晰",
+            **_ui_i18n("Render scale", "1-3; higher = sharper"),
+        },
     )
     max_image_chips: int = Field(
         default=24,
         description="解析图里最多列出多少个未发现道具",
-        json_schema_extra={"label": "图内未发现道具数", "hint": "图里最多列几个"},
+        json_schema_extra={
+            "label": "图内未发现道具数",
+            "hint": "图里最多列几个",
+            **_ui_i18n("Image undiscovered cap", "Undiscovered items in image"),
+        },
     )
     max_image_track_chips: int = Field(
         default=12,
@@ -392,12 +506,17 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "图内未解锁条目数",
             "hint": "0 表示不在图里列",
+            **_ui_i18n("Image unlocked-miss cap", "0 = hide from image"),
         },
     )
     detail_max_items: int = Field(
         default=60,
         description="合并转发详情里最多逐个列出多少个未发现道具",
-        json_schema_extra={"label": "详情未发现道具数", "hint": "其余只列编号"},
+        json_schema_extra={
+            "label": "详情未发现道具数",
+            "hint": "其余只列编号",
+            **_ui_i18n("Detail undiscovered cap", "Rest shown as IDs"),
+        },
     )
     detail_max_named: int = Field(
         default=40,
@@ -405,24 +524,38 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "详情未解锁条目数",
             "hint": "详情最多列几个（含条件）",
+            **_ui_i18n("Detail named cap", "Named entries with conditions"),
         },
     )
     max_file_mb: float = Field(
         default=4.0,
         description="允许解析的存档文件大小上限（MB）",
-        json_schema_extra={"label": "文件大小上限", "hint": "单位 MB，默认 4"},
+        json_schema_extra={
+            "label": "文件大小上限",
+            "hint": "单位 MB，默认 4",
+            **_ui_i18n("File size cap (MB)", "Default 4 MB"),
+        },
     )
     cache_ttl_days: int = Field(
         default=30,
         description=(
             "本地存档缓存有效期（天），到期自动清理；设为 0 表示永久保留，直到用户 /以撒存档清除"
+            "（注意：0 会把群友的存档长期留在 bot 本地，请谨慎设置）"
         ),
-        json_schema_extra={"label": "缓存有效期", "hint": "默认 30 天，0 为永久"},
+        json_schema_extra={
+            "label": "缓存有效期",
+            "hint": "默认 30 天，0 为永久",
+            **_ui_i18n("Cache retention (days)", "0 = keep until cleared"),
+        },
     )
     download_timeout_sec: int = Field(
         default=30,
         description="下载存档文件的超时时间（秒）",
-        json_schema_extra={"label": "下载超时", "hint": "单位秒，默认 30"},
+        json_schema_extra={
+            "label": "下载超时",
+            "hint": "单位秒，默认 30",
+            **_ui_i18n("Download timeout (s)", "Default 30 s"),
+        },
     )
     allow_private_url: bool = Field(
         default=False,
@@ -430,6 +563,7 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "允许内网地址",
             "hint": "默认关闭，有 SSRF 风险",
+            **_ui_i18n("Allow private URLs", "SSRF risk; keep off"),
         },
     )
     lookup_group_files: bool = Field(
@@ -438,12 +572,17 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "按文件名查群文件",
             "hint": "没直链时去群文件找",
+            **_ui_i18n("Look up group files", "By filename when no link"),
         },
     )
     name_table_file: str = Field(
         default="",
         description="成就 / BOSS / 挑战中文名称表路径（留空使用内置 assets/isaac_save_names.json）",
-        json_schema_extra={"label": "名称表路径", "hint": "留空用内置名称表"},
+        json_schema_extra={
+            "label": "名称表路径",
+            "hint": "留空用内置名称表",
+            **_ui_i18n("Name table path", "Empty = built-in table"),
+        },
     )
     achievement_table_file: str = Field(
         default="",
@@ -455,6 +594,7 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "成就详情表路径",
             "hint": "留空用内置两张表",
+            **_ui_i18n("Achievement table path", "Empty = built-in tables"),
         },
     )
     use_wiki_zh_names: bool = Field(
@@ -467,6 +607,7 @@ class SaveSectionConfig(PluginConfigBase):
         json_schema_extra={
             "label": "用中文成就表",
             "hint": "关闭后条件为英文",
+            **_ui_i18n("Use Chinese achievement table", "Off: English conditions"),
         },
     )
 
@@ -561,11 +702,22 @@ class IsaacItemPlugin(MaiBotPlugin):
     # 数据与配置
     # ------------------------------------------------------------------
 
+    def _allowed_path_roots(self) -> List[Path]:
+        """路径配置项允许的根目录：插件目录 + 插件数据目录（拿不到数据目录时只允许插件目录）。"""
+
+        roots: List[Path] = [_PLUGIN_DIR]
+        try:
+            roots.append(Path(self.ctx.paths.data_dir).resolve())
+        except Exception:  # noqa: BLE001 - 拿不到数据目录时退化为只允许插件目录
+            pass
+        return roots
+
     def _resolve_data_path(self) -> Path:
         path, reason = resolve_conf_file_path(
             getattr(self.config.data, "data_file", ""),
             default=_DEFAULT_DATA_FILE,
             label="数据文件（data.data_file）",
+            allowed_roots=self._allowed_path_roots(),
         )
         if reason:
             self.ctx.logger.warning("%s", reason)
@@ -658,6 +810,7 @@ class IsaacItemPlugin(MaiBotPlugin):
             getattr(self.config.save, "name_table_file", ""),
             default=_DEFAULT_SAVE_NAMES_FILE,
             label="名称表（save.name_table_file）",
+            allowed_roots=self._allowed_path_roots(),
         )
         if reason:
             self.ctx.logger.warning("%s", reason)
@@ -668,7 +821,7 @@ class IsaacItemPlugin(MaiBotPlugin):
 
         默认：游戏本体生成的表 **+** 第三方中文表（wiki 来源，CC 许可，可用
         ``save.use_wiki_zh_names`` 关掉）。配置里显式指定路径时只用那一个文件；
-        该路径被路径防护拒绝（越出插件目录的相对路径 / 非常规文件）时回退到默认两张表。
+        该路径被路径防护拒绝（越出允许目录 / 非常规文件）时回退到默认两张表。
         """
 
         raw = str(getattr(self.config.save, "achievement_table_file", "") or "").strip()
@@ -677,6 +830,7 @@ class IsaacItemPlugin(MaiBotPlugin):
                 raw,
                 default=_DEFAULT_ACHIEVEMENT_TABLE_FILE,
                 label="成就详情表（save.achievement_table_file）",
+                allowed_roots=self._allowed_path_roots(),
             )
             if not reason:
                 return [path]
@@ -833,33 +987,40 @@ class IsaacItemPlugin(MaiBotPlugin):
     def _validate_download_target(self, url: str) -> None:
         """校验下载目标（协议 + 主机解析结果），必要时抛 :class:`SaveFormatError`。
 
-        除了首次请求，重定向的每一跳也会走这里（见 :class:`_SafeRedirectHandler`），
-        避免用 302 绕回内网。
+        校验统一走随插件复制的 :mod:`url_guard`（cateye_common 参考实现）：scheme 白名单、
+        内网 / 保留段黑名单（含 CGNAT、v4-mapped IPv6，fail-closed），域名解析在线程池内
+        执行，不阻塞事件循环。除了首次请求，重定向的每一跳也会走这里
+        （见 :class:`_SafeRedirectHandler`），避免用 302 绕回内网。
+
+        已知残留窗口（DNS rebinding，另见 README「已知限制」9）：url_guard 校验时解析一次
+        域名，随后 urllib 建立连接时会再次解析——两次解析之间 DNS 记录可变，理论上可用
+        rebinding 把连接指回内网；urllib 无法把连接钉在已校验的 IP 上（需换底层 HTTP 栈
+        做连后校验），本插件按「默认拒绝内网 + 仅下载用户自己提供的 QQ 群文件直链」的
+        场景接受该低风险残余口子。
         """
 
         parsed = urllib.parse.urlsplit(str(url or ""))
         if parsed.scheme not in ("http", "https"):
             raise SaveFormatError("存档链接不是 http/https，无法下载。")
-        host = parsed.hostname or ""
-        if not host:
+        if not (parsed.hostname or ""):
             raise SaveFormatError("存档链接里没有主机名，无法下载。")
         if bool(self.config.save.allow_private_url):
             return
         try:
-            infos = socket.getaddrinfo(host, parsed.port or (443 if parsed.scheme == "https" else 80))
+            # check_url 是 async 的；本方法只在 to_thread 的工作线程里执行
+            #（_download_bytes 与重定向回调），线程内没有事件循环，asyncio.run 安全，
+            # 域名解析也就被隔离在事件循环之外。
+            asyncio.run(check_url(url, allowed_schemes=("http", "https"), check_dns=True))
+        except ForbiddenAddressError as exc:
+            raise SaveFormatError(
+                "存档链接指向内网 / 本机地址，出于安全考虑已拒绝下载。"
+                "（确实需要时可以打开「存档」配置里的 allow_private_url）"
+            ) from exc
+        except UrlGuardError as exc:
+            # url_guard 的异常文案本就面向用户（不含 URL / IP / 状态码），直接沿用
+            raise SaveFormatError(str(exc)) from exc
         except OSError as exc:
-            raise SaveFormatError(f"无法解析存档链接的主机名：{exc}") from exc
-        for info in infos:
-            address = str(info[4][0])
-            try:
-                ip = ipaddress.ip_address(address.split("%", 1)[0])
-            except ValueError:
-                continue
-            if any(getattr(ip, flag) for flag in _BLOCKED_IP_FLAGS):
-                raise SaveFormatError(
-                    "存档链接指向内网 / 本机地址，出于安全考虑已拒绝下载。"
-                    "（确实需要时可以打开「存档」配置里的 allow_private_url）"
-                )
+            raise SaveFormatError("无法解析存档链接的主机名，无法下载。") from exc
 
     def _download_bytes(self, url: str) -> bytes:
         """同步下载（由 ``asyncio.to_thread`` 调用），带 SSRF 校验与大小上限。"""
@@ -885,8 +1046,9 @@ class IsaacItemPlugin(MaiBotPlugin):
                     chunks.append(chunk)
         except SaveFormatError:
             raise
-        except Exception as exc:  # noqa: BLE001 - 网络错误统一转成用户可读文案
-            raise SaveFormatError(f"下载存档失败：{exc}") from exc
+        except Exception as exc:  # noqa: BLE001 - 网络错误统一转成简短文案，原始细节只进日志
+            self.ctx.logger.warning("下载存档失败（url=%r）：%r", url, exc)
+            raise SaveFormatError("下载存档失败，请确认链接有效后稍后重试。") from exc
         return b"".join(chunks)
 
     async def _fetch_save_bytes(self, ref: SaveFileRef, group_id: str) -> Tuple[bytes, str]:
@@ -1315,7 +1477,9 @@ class IsaacItemPlugin(MaiBotPlugin):
         "isaac_item_query",
         description="查询《以撒的结合》道具图鉴（名称/编号/效果/协同）",
         pattern=(
-            r"(?<!\S)/?(?:以撒|isaac)(?:图鉴|道具)?\s*"
+            # 只认「整条消息」形态：允许前导空白 + 可选 / 前缀，正文必须以 以撒/isaac 开头。
+            # 旧写法 (?<!\S) 会把「哈哈 以撒」这类闲聊也命中，现收紧（详见审查第三节 #3）。
+            r"^\s*/?(?:以撒|isaac)(?:图鉴|道具)?\s*"
             r"(?!存档|进度|save)(?P<query>[\s\S]*?)\s*$"
         ),
     )
@@ -1403,7 +1567,8 @@ class IsaacItemPlugin(MaiBotPlugin):
             await self.ctx.send.text(str(exc), stream_id)
         except Exception as exc:  # noqa: BLE001 - 兜底，避免指令异常冒泡成宿主报错
             self.ctx.logger.error("处理存档指令失败：%s", exc, exc_info=True)
-            await self.ctx.send.text(f"解析存档时出错了：{exc}", stream_id)
+            # 对外文案不携带原始异常（可能含路径 / URL / 状态码），细节看日志
+            await self.ctx.send.text("解析存档时出错了，请稍后重试；若反复失败请联系管理员查看日志。", stream_id)
         return True, "存档指令已处理", True
 
     async def _send_save_guide(self, stream_id: str, *, intro: str = "") -> None:
@@ -1499,7 +1664,8 @@ class IsaacItemPlugin(MaiBotPlugin):
         try:
             raw = await asyncio.to_thread(entry.load_bytes)
         except OSError as exc:
-            await self.ctx.send.text(f"读取本地缓存的存档失败：{exc}\n可以重新发送 {_SAVE_COMMAND}绑定。", stream_id)
+            self.ctx.logger.warning("读取本地缓存存档失败：user=%s slot=%s %r", user_id, entry.slot, exc)
+            await self.ctx.send.text(f"读取本地缓存的存档失败，可以重新发送 {_SAVE_COMMAND}绑定。", stream_id)
             return
         report = self._save_report(raw, entry.file_name)
         await self._send_save_result(

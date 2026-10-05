@@ -16,7 +16,10 @@
 3. 上述文案都含非 ASCII 字符（即真的写了中文，而不是把英文字段名抄一遍）；
 4. ``hint`` 不超过 ``MAX_HINT_CHARS`` 字（默认 15，沿用 cateye 系列插件的既有约定：
    悬停提示只留一句关键约束，完整解释留在 ``Field(description=…)`` 与 README）；
-5. 装了 ``maibot_sdk`` 时再用**真实 Schema** 复核一遍
+5. **1.3.0 WebUI 元数据规范**：每个字段带 ``i18n``（至少 ``en`` 的 ``label``/``hint``，
+   本插件经 ``**_ui_i18n(...)`` 并入 ``json_schema_extra``）、每个分组带
+   ``__ui_i18n__``（至少 ``en`` 的 ``title``）；
+6. 装了 ``maibot_sdk`` 时再用**真实 Schema** 复核一遍
    （``plugin.get_webui_config_schema()["sections"]``，是 dict 不是 list）。
 
 用法::
@@ -76,6 +79,27 @@ def _json_extra(call: ast.Call) -> dict[str, str]:
             out[str(key)] = str(value)
         return out
     return {}
+
+
+def _extra_has_i18n(call: ast.Call) -> bool:
+    """判断 ``json_schema_extra`` 里是否带了 ``i18n`` 翻译（1.3.0 规范要求，至少 ``en``）。
+
+    两种写法都算：字面量里直接写 ``"i18n": {...}``，或经 ``**_ui_i18n(...)`` 展开
+    （``ast.Dict`` 里 ``**`` 展开表现为 key 为 ``None`` 的项）。
+    """
+
+    for kw in call.keywords:
+        if kw.arg != "json_schema_extra" or not isinstance(kw.value, ast.Dict):
+            continue
+        for key_node in kw.value.keys:
+            if key_node is None:  # **_ui_i18n(...) 这类展开
+                return True
+            try:
+                if str(ast.literal_eval(key_node)) == "i18n":
+                    return True
+            except (ValueError, SyntaxError):
+                continue
+    return False
 
 
 def _is_config_class(node: ast.ClassDef) -> bool:
@@ -156,16 +180,39 @@ def check_static(plugin_py: Path) -> tuple[list[str], int, int]:
         section_count += 1
 
         ui_label = ""
+        ui_i18n_en_title = ""
         for stmt in node.body:
-            if isinstance(stmt, ast.Assign) and any(
-                getattr(t, "id", "") == "__ui_label__" for t in stmt.targets
-            ):
+            # 兼容两种写法：普通赋值 ``__ui_label__ = "x"``（ast.Assign）
+            # 与带类型注解赋值 ``__ui_label__: ClassVar[str] = "x"``（ast.AnnAssign）——
+            # 1.3.0 WebUI 元数据规范推荐后者，漏掉会把合规代码误报成缺失。
+            targets: list[ast.expr] = []
+            if isinstance(stmt, ast.Assign):
+                targets = list(stmt.targets)
+            elif isinstance(stmt, ast.AnnAssign) and stmt.value is not None:
+                targets = [stmt.target]
+            else:
+                continue
+            names = {getattr(t, "id", "") for t in targets}
+            if "__ui_label__" in names:
                 try:
                     ui_label = str(ast.literal_eval(stmt.value))
                 except (ValueError, SyntaxError):
                     ui_label = ""
+            elif "__ui_i18n__" in names:
+                try:
+                    data = ast.literal_eval(stmt.value)
+                except (ValueError, SyntaxError):
+                    data = {}
+                if isinstance(data, dict):
+                    en = data.get("en")
+                    if isinstance(en, dict):
+                        ui_i18n_en_title = str(en.get("title") or "")
         if not is_localized(ui_label):
             problems.append(f"[节 {node.name}] __ui_label__ 缺失或未汉化：{ui_label!r}")
+        if not ui_i18n_en_title:
+            problems.append(
+                f"[节 {node.name}] __ui_i18n__ 缺失或没有 en.title（1.3.0 WebUI 元数据要求）"
+            )
         doc = (ast.get_docstring(node) or "").strip()
         if not is_localized(doc):
             problems.append(f"[节 {node.name}] docstring（= WebUI 节描述）缺失或未汉化：{doc!r}")
@@ -184,6 +231,11 @@ def check_static(plugin_py: Path) -> tuple[list[str], int, int]:
                     problems.append(
                         f"[节 {node.name}] 字段 {name} 的 {key} 缺失或未汉化：{extra.get(key, '')!r}"
                     )
+            if not _extra_has_i18n(call):
+                problems.append(
+                    f"[节 {node.name}] 字段 {name} 的 json_schema_extra 缺 i18n（至少 en 的 label/hint，"
+                    f"1.3.0 WebUI 元数据要求）"
+                )
             hint = extra.get("hint", "")
             if len(hint) > MAX_HINT_CHARS:
                 problems.append(
@@ -279,7 +331,7 @@ def main() -> int:
     mode = "静态 + 真实 Schema" if used_real_schema else "仅静态"
     print(
         f"\n✅ 通过（{mode}）：所有配置节与字段都有中文 label / hint / title / description，"
-        f"且 hint ≤ {MAX_HINT_CHARS} 字"
+        f"分组与字段都带 en i18n，且中文 hint ≤ {MAX_HINT_CHARS} 字"
     )
     return 0
 

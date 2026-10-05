@@ -30,6 +30,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
+from urllib.parse import urlsplit
 
 # ----------------------------------------------------------------------
 # 常量
@@ -735,10 +736,24 @@ def _file_name_from_text(text: str) -> str:
 
 
 def _looks_like_qq_file_url(url: str) -> bool:
-    lowered = url.lower()
+    """URL 是否长得像 QQ 文件直链（只决定"是否值得尝试下载"，安全边界在下载前校验）。
+
+    按解析出的主机名做精确 / 后缀域匹配，不再对整个 URL 做子串匹配——
+    避免聊天里任意含 `qq.com` 子串的链接都触发一次下载尝试。
+    """
+
+    lowered = str(url or "").lower()
     if ".dat" in lowered:
         return True
-    return any(host in lowered for host in ("qfile", "groupfile", "ftn", "multimedia.nt.qq.com", "qq.com"))
+    try:
+        host = (urlsplit(url).hostname or "").lower().rstrip(".")
+    except ValueError:
+        return False
+    if not host:
+        return False
+    if host == "qq.com" or host.endswith(".qq.com"):  # 含 multimedia.nt.qq.com 等 CDN 域
+        return True
+    return any(token in host for token in ("qfile", "groupfile", "ftn"))
 
 
 def parse_save_bytes(raw: bytes, *, file_name: str = "") -> SaveAnalysis:
@@ -1201,7 +1216,11 @@ class SaveStore:
         analysis = parse_save_bytes(raw, file_name=file_name)
         slot = analysis.slot or 1
         if slot > max_slot:
-            slot = slot % max(max_slot, 1) or 1
+            # 不再静默取模归位（旧逻辑会把 4 号存档悄悄覆盖到 1 号），明确告知有效范围
+            raise SaveFormatError(
+                f"存档位 {slot} 超出支持范围（本插件只支持存档位 1~{max_slot}），"
+                "请确认上传的是正确存档位的 .dat 文件。"
+            )
         directory = self.user_dir(user_id)
         directory.mkdir(parents=True, exist_ok=True)
         data_path = self.data_path(user_id, slot)
